@@ -1,0 +1,32 @@
+.main-header {
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    background-color: rgb(21, 19, 19);
+    width: 75vw;
+    height: 55px;
+    align-items: center;
+    justify-content: space-evenly;
+    position: fixed;
+    top:0px;
+    z-index: 999;
+}
+.nav-link {
+    padding: 5px;
+    font-weight: 600;
+    font-size: large;
+    font-family: sans-serif;
+    color:rgb(234, 129, 8);
+    text-decoration: none;
+}
+.nav-link:hover {
+    color:grey;
+}
+.nav-link-active{
+    padding: 5px;
+    font-weight: 600;
+    font-size: large;
+    font-family: sans-serif;
+    color:rgb(255, 255, 255);
+    text-decoration: underline;
+}
