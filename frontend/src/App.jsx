@@ -5,6 +5,7 @@ import RegisterPage from './pages/main-pages/RegisterPage';
 import LoginPage from './pages/main-pages/LoginPage';
 import HomePage from './pages/main-pages/HomePage';
 import BlackboardPage from './pages/main-pages/BlackboardPage';
+import ToolsPage from './pages/main-pages/ToolsPage';
 // pillar pages
 import UnderstandingAI from './pages/pillar-pages/UnderstandingAI';
 import CriticalThinking from './pages/pillar-pages/CriticakThinking';
@@ -36,10 +37,10 @@ function App() {
                       element={<Ethics/>} />
             <Route path='/blackboard'
                    element={<BlackboardPage/>} />
-            {/*}<Route path='/blackboard'
-                   element={<BlackboardPage/>} />
             <Route  path='/tools'
                       element={<ToolsPage/>} />
+            {/*}
+            
             <Route  path='/about-us'
                       element={<AboutUsPage/>} />
             <Route path='/contact'

@@ -1,0 +1,23 @@
+.tools-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.tools-intro-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 85px;
+    margin-bottom: 75px;
+}
+.tools-spacer {
+    width: 75%;
+    border-top: 1px solid #ffffff;
+    align-self: center;
+}
+.tools-intro {
+    margin-top: 35px;
+    width: 50%;
+    font-size: large;
+    line-height: 1.5;
+}
