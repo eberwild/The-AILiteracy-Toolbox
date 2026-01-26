@@ -1,0 +1,30 @@
+.register-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.register-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    row-gap: 25px;
+    border: 1px solid white;
+    margin-top: 120px;
+    padding: 50px;
+    border: 1px solid black;
+    border-radius: 8px;
+    width: 30%;
+}
+.register-section input {
+    padding: 10px;
+    border-radius: 8px;
+    width: 50%;
+}
+.register-section button {
+    padding: 15px;
+    border: 1px solid black;
+    border-radius: 8px;
+    width: 120px;
+}

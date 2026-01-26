@@ -1,0 +1,16 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.definition {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.home-spacer {
+    width: 100%;
+}
+.definition {
+    margin-top: 75px;
+}
