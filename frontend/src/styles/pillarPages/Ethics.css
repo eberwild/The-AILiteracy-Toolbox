@@ -1,0 +1,22 @@
+.ethics-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ethic-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 85px;
+}
+.ethic-spacer {
+    width: 75%;
+    border-top: 1px solid #ffffff;
+    align-self: center;
+}
+.ethic-text {
+    margin-top: 35px;
+    width: 50%;
+    font-size: large;
+    line-height: 1.5;
+}

@@ -21,6 +21,10 @@
     font-size: large;
     line-height: 1.5;
 }
+.pillar-text {
+    font-size: large;
+    line-height: 1.5;
+}
 .pillar-section {
     margin-top: 45px;
     width: 75%;
@@ -34,8 +38,8 @@
     height: 600px;
 }
 img{
-    width: 75%;
-    height: 75%;
+    width: 50%;
+    height: 50%;
     object-fit: cover;
     border-radius: 9px;
     flex: 0 0 48%;

@@ -1,9 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import MainHeader from "../components/MainHeader";
 import '../styles/pages/HomePage.css';
 import UnderstandingPicture from '../assets/UnderstandingAI.png';
 import CriticalThinking from '../assets/CriticalThinking.png';
 import PracticalSkills from '../assets/PracticalSkills.png';
+import Ethic from '../assets/Ethics.png';
 function HomePage(){
+
+    const homeNavigate = useNavigate();
 
     return (
 
@@ -32,17 +36,31 @@ function HomePage(){
 
             <h2>The 4 Pillars of AI Literacy</h2>
             <div className="home-spacer"></div>
-            <p>Click on the picture of the pillar you want to learn more about.</p>
+            <p className='pillar-text'>
+                Click on the picture of the pillar you want to learn more about.
+            </p>
 
             <div className="pillar-section">
                 
-                    <img src={UnderstandingPicture} alt="Pillar-UnderstandingAI-logo" />
+                    <img src={UnderstandingPicture} alt="Pillar-UnderstandingAI-logo"
+                        onClick={() => {
+                            homeNavigate('/understandingAI');
+                        }} />
                 
-                    <img src={CriticalThinking} alt="Pillar-CriticalThinking-logo" />
+                    <img src={CriticalThinking} alt="Pillar-CriticalThinking-logo"
+                        onClick={() => {
+                            homeNavigate('/criticalThinking');
+                        }} />
                
-                    <img src={PracticalSkills} alt="Pillar-PracticalSkill-logo" />
+                    <img src={PracticalSkills} alt="Pillar-PracticalSkill-logo"
+                        onClick={() => {
+                            homeNavigate('/practicalSkills');
+                        }} />
 
-                    <img src={UnderstandingPicture} alt="Pillar-Ethical-logo" />
+                    <img src={Ethic} alt="Pillar-Ethical-logo"
+                        onClick={() => {
+                            homeNavigate('/ethics');
+                        }} />
                 
             </div>
 
