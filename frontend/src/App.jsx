@@ -1,13 +1,17 @@
 import { Route , Routes } from 'react-router-dom';
+// main pages
 import InfoPage from './pages/main-pages/InfoPage'
 import RegisterPage from './pages/main-pages/RegisterPage';
 import LoginPage from './pages/main-pages/LoginPage';
 import HomePage from './pages/main-pages/HomePage';
+import BlackboardPage from './pages/main-pages/BlackboardPage';
+// pillar pages
 import UnderstandingAI from './pages/pillar-pages/UnderstandingAI';
 import CriticalThinking from './pages/pillar-pages/CriticakThinking';
 import PracticalSkills from './pages/pillar-pages/PracticalSkills';
 import Ethics from './pages/pillar-pages/Ethics';
-import './styles/App.css'
+// style
+import './styles/App.css';
 
 function App() {
 
@@ -30,6 +34,8 @@ function App() {
                       element={<PracticalSkills/>} />
             <Route path='/ethics'
                       element={<Ethics/>} />
+            <Route path='/blackboard'
+                   element={<BlackboardPage/>} />
             {/*}<Route path='/blackboard'
                    element={<BlackboardPage/>} />
             <Route  path='/tools'

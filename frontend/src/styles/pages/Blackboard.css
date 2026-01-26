@@ -1,0 +1,29 @@
+.blackboard-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.blackboard-intro-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 85px;
+    margin-bottom: 75px;
+}
+.blackboard-spacer {
+    width: 75%;
+    border-top: 1px solid #ffffff;
+    align-self: center;
+}
+.blackboard-intro {
+    margin-top: 35px;
+    width: 50%;
+    font-size: large;
+    line-height: 1.5;
+}
+.blackboard {
+    display: flex;
+    flex-direction: row;
+    border: 1pc solid white;
+}

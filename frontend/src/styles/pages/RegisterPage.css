@@ -28,3 +28,7 @@
     border-radius: 8px;
     width: 120px;
 }
+.login-link {
+    color:rgb(234, 129, 8);
+    text-decoration-color: rgb(234, 129, 8);
+}

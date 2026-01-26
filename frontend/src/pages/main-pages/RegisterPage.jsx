@@ -48,7 +48,10 @@ function changeVisibility(){
 
             <p>
                 Already got an account ? {" "} 
-                    <Link to="/login">Login here!</Link>
+                    <Link to="/login"
+                          className='login-link'>
+                            Login here!
+                    </Link>
             </p>
 
         </div> 
