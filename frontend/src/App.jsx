@@ -1,8 +1,8 @@
 import { Route , Routes } from 'react-router-dom';
-import InfoPage from './pages/InfoPage'
-import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
-import HomePage from './pages/HomePage';
+import InfoPage from './pages/main-pages/InfoPage'
+import RegisterPage from './pages/main-pages/RegisterPage';
+import LoginPage from './pages/main-pages/LoginPage';
+import HomePage from './pages/main-pages/HomePage';
 import UnderstandingAI from './pages/pillar-pages/UnderstandingAI';
 import CriticalThinking from './pages/pillar-pages/CriticakThinking';
 import PracticalSkills from './pages/pillar-pages/PracticalSkills';

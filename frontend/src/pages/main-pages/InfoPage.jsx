@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import MainHeader from "../components/MainHeader";
-import '../styles/pages/InfoPage.css';
+import MainHeader from "../../components/MainHeader";
+import '../../styles/pages/InfoPage.css';
 
 function InfoPage(){
 

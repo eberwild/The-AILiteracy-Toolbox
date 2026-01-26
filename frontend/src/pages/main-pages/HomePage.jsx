@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import MainHeader from "../components/MainHeader";
-import '../styles/pages/HomePage.css';
-import UnderstandingPicture from '../assets/UnderstandingAI.png';
-import CriticalThinking from '../assets/CriticalThinking.png';
-import PracticalSkills from '../assets/PracticalSkills.png';
-import Ethic from '../assets/Ethics.png';
+import MainHeader from "../../components/MainHeader";
+import '../../styles/pages/HomePage.css';
+import UnderstandingPicture from '../../assets/UnderstandingAI.png';
+import CriticalThinking from '../../assets/CriticalThinking.png';
+import PracticalSkills from '../../assets/PracticalSkills.png';
+import Ethic from '../../assets/Ethics.png';
 function HomePage(){
 
     const homeNavigate = useNavigate();
