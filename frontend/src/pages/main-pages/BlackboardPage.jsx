@@ -86,6 +86,10 @@ function BlackboardPage() {
                            onChange={(event) => {
                                 setEntryText(event.target.value)
                            }} />
+
+                <button className='blackboard-button'>
+                    Post to Blackboard
+                </button>
                 </div>
             
         </div>

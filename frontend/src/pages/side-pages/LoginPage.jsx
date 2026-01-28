@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import MainHeader from "../../components/MainHeader";
-import '../../styles/pages/LoginPage.css';
+import '../../styles/sidePages/LoginPage.css';
 
 function LoginPage() {
 

@@ -87,3 +87,24 @@
     border-top: 1px solid #ffffff;
     align-self: center;
 }
+.blackboard-button {
+    margin-top: 35px;
+    padding: 30px;
+    background-color:rgb(234, 129, 8);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 5px 5px 0px black;
+    transition: all 0.3 ease;
+}
+.blackboard-button:hover {
+    background-color: white;
+    color: rgb(234, 129, 8);
+    box-shadow: 5px 5px 0px rgb(234, 129, 8);
+}
+.blackboard-button:active {
+    background-color: yellow;
+    box-shadow: none;
+    transform : translateY(4px);
+}

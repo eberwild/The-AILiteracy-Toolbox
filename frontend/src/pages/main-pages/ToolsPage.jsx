@@ -93,7 +93,10 @@ function ToolsPage() {
 
             </div>
 
-            <button className="add-tool-button">
+            <button className="add-tool-button"
+                     onClick={() => {
+                        toolNavigate('/add-tool');
+                     }}>
                 Provide a tool
             </button>
 
