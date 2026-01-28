@@ -10,7 +10,7 @@
     align-items: center;
     margin-top: 85px;
     margin-bottom: 75px;
-}
+} 
 .blackboard-spacer {
     width: 75%;
     border-top: 1px solid #ffffff;
@@ -21,6 +21,11 @@
     width: 50%;
     font-size: large;
     line-height: 1.5;
+}
+.one {
+    font-size: large;
+    font-weight: bold;
+    color:rgb(234, 129, 8);
 }
 .blackboard {
     display: flex;
