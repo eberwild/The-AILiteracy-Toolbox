@@ -4,7 +4,7 @@ import '../../styles/pages/Blackboard.css';
 
 function BlackboardPage() {
 
-    const [ entryText , setEntryText ] = useState('')
+    const [ entryText , setEntryText ] = useState('');
 
     return(
 
@@ -63,7 +63,7 @@ function BlackboardPage() {
 
                     <div className="user-text">
                         Hey all , im looking for someone to work with , i have ver little experience in working with ai 
-                        so i dont want to start a tool alone. Message me ! 
+                        so i dont want to start a tool alone. Message me ! blajdpjdpiewhfipowhefoiwhhfoehnljwnhfljwnjdr
                     </div>
 
                     <div className="user-time">
@@ -80,7 +80,7 @@ function BlackboardPage() {
                 </h2>
                 <div className='entry-spacer'></div>
                 <p>Email and timestamp will automaticly be added to the entry.</p>
-                    <input type="text"
+                    <textarea type="text"
                            className='blackboard-input'
                            value={entryText}
                            onChange={(event) => {

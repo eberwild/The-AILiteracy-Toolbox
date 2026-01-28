@@ -79,6 +79,8 @@
     color: white;
     box-shadow: 0 2px 10px rgb(234, 129, 8);
     border: 1px solid rgb(59, 54, 54);
+    font-size: large;
+    resize: none;
 }
 .entry-spacer {
     width: 75%;
