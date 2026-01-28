@@ -1,7 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import MainHeader from "../../components/MainHeader";
 import '../../styles/pages/ToolsPage.css';
 
 function ToolsPage() {
+
+    const toolNavigate = useNavigate();
 
     return(
 
@@ -21,6 +24,78 @@ function ToolsPage() {
                     You can play and explore the tools without an account but contributing to the toolbox requires registration.
                 </p>
             </div>
+
+            <p>Search here for a Tool :</p>
+            <input type="text"
+                   className="tool-search" />
+
+            <div className="tools-section">
+
+                <div className="tool">
+                    <div className="tool-name">
+                        Cat murder mystery
+                    </div>
+                    <img src=""
+                         className="tool-img" />
+
+                    <img src=""
+                         className="tool-rating"/>
+
+                    <div className="tool-provider">
+                        Kevin Flotow
+                    </div>
+                </div>
+
+                <div className="tool">
+                    <div className="tool-name">
+                        Cat murder mystery
+                    </div>
+                    <img src=""
+                         className="tool-img" />
+
+                    <img src=""
+                         className="tool-rating"/>
+
+                    <div className="tool-provider">
+                        Kevin Flotow
+                    </div>
+                </div>
+
+                <div className="tool">
+                    <div className="tool-name">
+                        Cat murder mystery
+                    </div>
+                    <img src=""
+                         className="tool-img" />
+
+                    <img src=""
+                         className="tool-rating"/>
+
+                    <div className="tool-provider">
+                        Kevin Flotow
+                    </div>
+                </div>
+
+                <div className="tool">
+                    <div className="tool-name">
+                        Cat murder mystery
+                    </div>
+                    <img src=""
+                         className="tool-img" />
+
+                    <img src=""
+                         className="tool-rating"/>
+
+                    <div className="tool-provider">
+                        Kevin Flotow
+                    </div>
+                </div>
+
+            </div>
+
+            <button className="add-tool-button">
+                Provide a tool
+            </button>
 
         </div>
     )
