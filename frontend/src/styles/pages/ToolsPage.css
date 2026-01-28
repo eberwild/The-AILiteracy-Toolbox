@@ -63,3 +63,33 @@
     font-size: large;
     font-weight: bold;
 }
+.tool-img {
+    
+}
+.tool-rating {
+
+}
+.tool-provider {
+
+}
+.navigate-add-tool-button {
+    margin-bottom: 40px;
+    padding: 30px;
+    background-color:rgb(234, 129, 8);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 5px 5px 0px black;
+    transition: all 0.3 ease;
+}
+.navigate-add-tool-button:hover {
+    background-color: white;
+    color: rgb(234, 129, 8);
+    box-shadow: 5px 5px 0px rgb(234, 129, 8);
+}
+.navigate-add-tool-button:active {
+    background-color: yellow;
+    box-shadow: none;
+    transform : translateY(4px);
+}
