@@ -1,9 +1,5 @@
 function BlackboardEntry({email , text }) {
 
-    function getCurrentTime(){
-        
-    }
-
     return(
 
         <>
