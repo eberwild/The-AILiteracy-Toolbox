@@ -51,7 +51,8 @@
 }
 .login-button:active,
 .show-button:active {
-    background-color: yellow;
     box-shadow: none;
     transform : translateY(4px);
+    border-color: #2b2d2f;
+    background-color: #2b2d2f;
 }
