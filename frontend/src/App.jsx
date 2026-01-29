@@ -6,6 +6,7 @@ import InfoPage from './pages/main-pages/InfoPage';
 import HomePage from './pages/main-pages/HomePage';
 import BlackboardPage from './pages/main-pages/BlackboardPage';
 import ToolsPage from './pages/main-pages/ToolsPage';
+import ContactPage from './pages/main-pages/ContactPage';
 // side pages
 import RegisterPage from './pages/side-pages/RegisterPage';
 import LoginPage from './pages/side-pages/LoginPage';
@@ -47,6 +48,8 @@ function App() {
                       element={<ToolsPage/>} />
             <Route path='/add-tool'
                       element={<AddToolPage/>} />
+            <Route path='/contact'
+                      element={<ContactPage/>} />
         </Routes> 
     </>
   )
