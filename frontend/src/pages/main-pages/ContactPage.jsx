@@ -39,9 +39,22 @@ function ContactPage() {
 
             </section>
 
-            <div className='contact-section'>
+            <h2>Contact us here via Email</h2>
+            <div className='contact-spacer'></div>
 
-            </div>
+            <form className='contact-form'>
+                <label for="name">Name*</label>
+                <input type="text" required />
+
+                <label for="email">Email*</label>
+                <input className='contact-email' required />
+
+                <label for="message">Message*</label>
+                <textarea className='contact-text-area' rows="5" required></textarea>
+
+                <button type="button" className="submit-button" id="submit-button">Send Message</button>
+            </form>
+            
 
         </div>
     )
