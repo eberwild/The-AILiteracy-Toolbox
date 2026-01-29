@@ -39,10 +39,10 @@ function changeVisibility(){
                 <button className='show-button'
                         type='button'
                         onClick={changeVisibility}>
-                    Show Password
+                    {show ? "Hide Password" : "Show Password"}
                 </button>
                 <button className='register-button'>
-                    Login
+                    Register
                 </button>
             </div>
 
