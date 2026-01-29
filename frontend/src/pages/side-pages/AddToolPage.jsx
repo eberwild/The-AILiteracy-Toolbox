@@ -20,7 +20,7 @@ function AddToolPage() {
             </div>
 
         <div className="provide-tool-section">
-            <h1 className="submit-header">Submit Your Tool</h1>
+            <h1 className="submit-header">Submit Your Tool here!</h1>
             <div className="addtool-spacer"></div>
             <p className="share-text">
                 Help us grow the AI Toolbox!  

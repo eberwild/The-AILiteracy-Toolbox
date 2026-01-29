@@ -1,4 +1,6 @@
 import { Route , Routes } from 'react-router-dom';
+// components
+import ScrollToTop from './components/ScrollToTop';
 // main pages
 import InfoPage from './pages/main-pages/InfoPage';
 import HomePage from './pages/main-pages/HomePage';
@@ -21,6 +23,7 @@ function App() {
 
   return (
     <>
+    <ScrollToTop/>
       <Routes>
             <Route  path='/' 
                       element={<InfoPage/>} />
@@ -44,12 +47,6 @@ function App() {
                       element={<ToolsPage/>} />
             <Route path='/add-tool'
                       element={<AddToolPage/>} />
-            {/*}
-            
-            <Route  path='/about-us'
-                      element={<AboutUsPage/>} />
-            <Route path='/contact'
-                      element={<ContactPage/>} /> */}
         </Routes> 
     </>
   )
