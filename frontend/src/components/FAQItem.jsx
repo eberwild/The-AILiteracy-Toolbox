@@ -1,4 +1,5 @@
 import { useState } from "react";
+import '../styles/components/FAQItem.css';
 
 function FAQItem({ question, answer }) {
   // State ersetzt aria-expanded + classList

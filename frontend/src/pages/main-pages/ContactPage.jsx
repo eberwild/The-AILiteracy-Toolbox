@@ -39,6 +39,10 @@ function ContactPage() {
 
             </section>
 
+            <div className='contact-section'>
+
+            </div>
+
         </div>
     )
 }
