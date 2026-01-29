@@ -10,6 +10,7 @@ const createTables = async () => {
       table.increments("id").primary(); 
       table.string("email").notNullable().unique(); 
       table.string("password").notNullable(); 
+      table.string("role").notNullable().defaultTo("user");
       table.timestamps(true, true);      // created_at & updated_at
     });
     console.log("Tabelle 'users' erstellt!");
