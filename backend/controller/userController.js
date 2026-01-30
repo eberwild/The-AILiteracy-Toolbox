@@ -29,8 +29,11 @@ export const createUser = async (req , res) => {
       email,
       id
     };
-    // get the secretKey out of the .env file
+    // get the secretKey out of the .env file -> no secret = error
     const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      throw new Error("JWT_SECRET is not defined in .env file");
+    }
 
     // create token -> expires in 1 hour -> after that new login for protected api-routes
     const token = jwt.sign(payload , secret , { expiresIn: "1h"});

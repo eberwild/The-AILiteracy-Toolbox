@@ -1,7 +1,7 @@
 import database from "./knex.js";
 
 // function to create the table User
-const createTables = async () => {
+export const createTables = async () => {
   // check if the table already exists
   const exists = await database.schema.hasTable("users");
   if (!exists) {
@@ -16,5 +16,3 @@ const createTables = async () => {
     console.log("Tabelle 'users' erstellt!");
   }
 };
-
-export default createTables;

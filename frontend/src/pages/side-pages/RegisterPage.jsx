@@ -1,9 +1,12 @@
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Link , useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import MainHeader from "../../components/MainHeader";
 import '../../styles/sidePages/RegisterPage.css';
 
 function RegisterPage() {
+
+const registerNavigate = useNavigate();
 
 const [registerData , setRegisterData] = useState({
     userEmail: '',
@@ -12,8 +15,28 @@ const [registerData , setRegisterData] = useState({
 
 const [show , setShow] = useState(false);
 
+// function to toggle password visibility
 function changeVisibility(){
     setShow(!show);
+}
+
+// function to register a new user 
+async function registerUser(){
+    try{
+        const response = await axios.post('http://localhost:3000/api/users/register' , {
+            email: registerData.userEmail,
+            password : registerData.userPassword
+        });
+        if(response.status === 201){
+            localStorage.setItem('token' , response.data.token);
+            registerNavigate('/home');
+        } else {
+            console.log(response.message);
+        }
+        
+    }catch(err){
+        console.error('Error in registerUser' , err.message);
+    }
 }
 
     return(
@@ -41,7 +64,10 @@ function changeVisibility(){
                         onClick={changeVisibility}>
                     {show ? "Hide Password" : "Show Password"}
                 </button>
-                <button className='register-button'>
+                <button className='register-button'
+                        onClick={() => {
+                            registerUser()
+                        }}>
                     Register
                 </button>
             </div>

@@ -4,6 +4,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';  
 // routes
 import userRouter from './routes/userRoutes.js';
+// database
+import { createTables } from './database/createTables.js';
 
 dotenv.config();                            // env-File laden
 const app = express();                      // express für api routen definieren
@@ -25,6 +27,13 @@ app.use((req , _ , next) => {
 // api-routes
 app.use('/api/users' , userRouter);
 
-app.listen(port, () => {
+// init the db tables -> dont start server if table creation throws an error
+createTables()
+  .then(() => {
+    app.listen(port, () => {
       console.log(`Server läuft auf http://localhost:${port}`);
     });
+  })
+  .catch(err => {
+    console.error('Fehler beim Erstellen der Tabellen:', err);
+  });
