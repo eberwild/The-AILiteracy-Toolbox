@@ -1,11 +1,12 @@
-// models/userModel.js
+import { findUserByEmail , insertUser } from "../models/userModel.js";
 import database from "../db/knex.js";
 import bcrypt from "bcryptjs";
+import jwt from 'jsonwebtoken';
 
 const SALT_ROUNDS = 10;
 
 // register a new user
-export const createUser = async () => {
+export const createUser = async (req , _) => {
 
   try{
     const {email ,  password} = req.body;
@@ -22,7 +23,7 @@ export const createUser = async () => {
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
     // create new user 
-    const [id] = await database("users").insert({ email, password: hashedPassword });
+    const [id] = await database("users").insertUser({ email, password: hashedPassword });
 
     // create payload and get secret to create a jwt
     const payload = {
@@ -49,7 +50,7 @@ export const createUser = async () => {
 };
 
 // login user
-export const loginUser = async () => {
+export const loginUser = async (req , _ ) => {
   
   try {
     const {email , password} = req.body;
@@ -71,7 +72,8 @@ export const loginUser = async () => {
     // Payload to generate a token after login would be succesfull
     const payload = {
       email,
-      role: user.role
+      role: user.role,
+      id: user.id
     };
     const secret = process.env.JWT_SECRET;
 
