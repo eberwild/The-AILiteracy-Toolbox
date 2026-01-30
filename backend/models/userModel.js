@@ -1,4 +1,4 @@
-import database from "../db/knex.js";
+import database from "../database/knex.js";
 
 export const findUserByEmail = (email) => {
   return database("users").where({ email }).first();
