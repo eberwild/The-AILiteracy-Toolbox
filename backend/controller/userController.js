@@ -25,7 +25,6 @@ export const createUser = async (req , res) => {
     // hash the User-password
     const saltRounds = parseInt(process.env.SALT_ROUNDS) || 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    console.log(hashedPassword)
 
     if(!hashedPassword){
       return res.status(400).json({message: "undefined hashedpassword"})
