@@ -31,11 +31,14 @@ async function registerUser(){
             localStorage.setItem('token' , response.data.token);
             registerNavigate('/home');
         } else {
-            console.log(response.message);
+            console.log(response.data.message);
         }
         
     }catch(err){
-        console.error('Error in registerUser' , err.message);
+        // axios stores errors >=400 in err.response
+        if(err.response) {
+            console.error('Error from server' , err.response.data.message);
+        } 
     }
 }
 

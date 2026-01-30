@@ -2,13 +2,13 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';  
+dotenv.config();              // env-File laden -> before all imports that use .env
 // routes
 import userRouter from './routes/userRoutes.js';
 // database
 import { createTables } from './database/createTables.js';
 
-dotenv.config();                            // env-File laden
-const app = express();                      // express für api routen definieren
+const app = express();                      // express for api routing
 const port = process.env.PORT || 3000;      // default port for localhost
 
 // cors -> frontend and backend are listening on different ports 
@@ -19,7 +19,7 @@ app.use(express.json());
 
 // simple middleware logger example
 app.use((req , _ , next) => {
-    console.log(`Request-Method: ${req.method} , Request-URL: ${req.url}`);
+    console.log(`Error: Request-Method: ${req.method} , Request-URL: ${req.url} `);
     // next() -> express will continue with the next middleware or apiroute
     next();
 })

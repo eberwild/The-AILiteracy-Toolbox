@@ -9,7 +9,7 @@ const database = knex({
   connection: {
     filename: dataBasePath  // path to db-file
   },
-  useNullAsDefault: true // no errors by value Null
+  useNullAsDefault: true // no errors for value Null
 });
 
 export default database;

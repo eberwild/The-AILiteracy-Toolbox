@@ -2,24 +2,34 @@ import { findUserByEmail , insertUser } from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
-const SALT_ROUNDS = 10;
-
 // register a new user
 export const createUser = async (req , res) => {
 
   try{
+
     const {email ,  password} = req.body;
 
+    // empty email or password -> feedback to user
+    if (!email || !password) {
+      return res.status(400).json({ message: "Please enter an email AND a password." });
+    }   
+      
+    const stringEmail = email ? String(email).trim() : null;
+
     // check if Email is already in use
-    const existingUser = await findUserByEmail(email);
-    if (existingUser) {
-      return res.status(400).json({
-        message: "Email already registered."
-      });
+    const existingUser = await findUserByEmail(stringEmail);
+    if(existingUser) {
+      return res.status(400).json({message: 'Username is already in use.'});
     }
 
     // hash the User-password
-    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+    const saltRounds = parseInt(process.env.SALT_ROUNDS) || 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    console.log(hashedPassword)
+
+    if(!hashedPassword){
+      return res.status(400).json({message: "undefined hashedpassword"})
+    }
 
     // create new user 
     const [id] = await insertUser( email, hashedPassword );
@@ -29,6 +39,7 @@ export const createUser = async (req , res) => {
       email,
       id
     };
+
     // get the secretKey out of the .env file -> no secret = error
     const secret = process.env.JWT_SECRET;
     if (!secret) {
@@ -47,9 +58,9 @@ export const createUser = async (req , res) => {
     )
 
   } catch (error) {
-      console.error('Error im registerUser controller' , error.stack);
+      console.error('Error in registerUser controller' , error.stack);
       return res.status(500).json({ message: 'Internal server error' });
-    }
+    } 
 };
 
 // login user

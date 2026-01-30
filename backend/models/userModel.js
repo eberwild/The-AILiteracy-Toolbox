@@ -1,7 +1,10 @@
 import database from "../database/knex.js";
 
 export const findUserByEmail = (email) => {
-  return database("users").where({ email }).first();
+  if(!email) {
+    throw new Error("Email must be defined!");
+  }
+  return database("users").where( {email} ).first();
 };
 
 export const insertUser = (email, hashedPassword) => {
