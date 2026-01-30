@@ -1,6 +1,9 @@
+// dependencies
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';  
+// routes
+import userRouter from './routes/userRoutes.js';
 
 dotenv.config();                            // env-File laden
 const app = express();                      // express für api routen definieren
@@ -18,3 +21,10 @@ app.use((req , _ , next) => {
     // next() -> express will continue with the next middleware or apiroute
     next();
 })
+
+// api-routes
+app.use('/api/users' , userRouter);
+
+app.listen(port, () => {
+      console.log(`Server läuft auf http://localhost:${port}`);
+    });
