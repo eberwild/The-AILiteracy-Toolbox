@@ -1,12 +1,11 @@
 import { findUserByEmail , insertUser } from "../models/userModel.js";
-import database from "../db/knex.js";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
 const SALT_ROUNDS = 10;
 
 // register a new user
-export const createUser = async (req , _) => {
+export const createUser = async (req , res) => {
 
   try{
     const {email ,  password} = req.body;
@@ -23,7 +22,7 @@ export const createUser = async (req , _) => {
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
     // create new user 
-    const [id] = await database("users").insertUser({ email, password: hashedPassword });
+    const [id] = await insertUser( email, hashedPassword );
 
     // create payload and get secret to create a jwt
     const payload = {
@@ -46,32 +45,33 @@ export const createUser = async (req , _) => {
 
   } catch (error) {
       console.error('Error im registerUser controller' , error.stack);
+      return res.status(500).json({ message: 'Internal server error' });
     }
 };
 
 // login user
-export const loginUser = async (req , _ ) => {
+export const loginUser = async (req , res) => {
   
   try {
     const {email , password} = req.body;
 
     // if user/email exists -> get user as an object
-    const user = await database("users").where({ email }).first();
+    const user = await findUserByEmail(email);
 
     // if user does not exists -> feedback to user
     if(!user){
-      return res.status(404).json({message: 'Wrong credentials.'});
+      return res.status(401).json({message: 'Wrong credentials.'});
     }
 
     // check if user has entered the correct password to login
-    const passwordMatch = await bcrypt.compare(password , user.passwordHash);
+    const passwordMatch = await bcrypt.compare(password , user.password);
     if(!passwordMatch){
       return res.status(401).json({message:'Wrong credentials.'});
     }
 
     // Payload to generate a token after login would be succesfull
     const payload = {
-      email,
+      email: user.email,
       role: user.role,
       id: user.id
     };
@@ -90,6 +90,7 @@ export const loginUser = async (req , _ ) => {
 
   } catch(error){
       console.error('Error im loginUser controller' , error.stack);
+      return res.status(500).json({ message: 'Internal server error' });
   }
 
 };
