@@ -32,8 +32,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid rgb(59, 54, 54);
     width: 80%;
+    border: 1px solid rgb(59, 54, 54);
     background-color: rgb(59, 54, 54);
     border-radius: 9px;
     overflow: hidden;

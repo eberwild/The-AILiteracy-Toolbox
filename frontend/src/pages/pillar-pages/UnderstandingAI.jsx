@@ -48,6 +48,42 @@ function UnderstandingAI(){
    
                 </div>
 
+                <div className="understanding-limits">
+
+                    <div className="understanding-do">
+                        <h3>What AI can do:</h3>
+                        <p>
+                            &bull; &emsp; Analyze large amounts of data
+                            <br/>
+                            &bull; &emsp; Recognize patterns
+                            <br/>
+                            &bull; &emsp; Support decision-making
+                        </p>
+                    </div>
+                        
+
+                    <div className="understanding-do">
+                        <h3>What AI can do:</h3>
+                        <p>
+                            &bull; &emsp; Think independently
+                            <br/>
+                            &bull; &emsp; Understand context like humans
+                            <br/>
+                            &bull; &emsp; Make value-based or moral decisions
+                            <br/> 
+                        </p>
+                    </div>
+
+                </div>
+
+                <div className="understanding-facit">
+                    AI does not “understand” the world like humans do.
+                    It works by processing data and probabilities, not by having intentions, emotions, or awareness.
+                    <br/>
+                    Understanding how AI works at a basic level helps you use it more effectively,
+                    question its outputs, and make informed decisions when interacting with AI systems.
+                </div>
+
             </div>
         </div>
     )
