@@ -40,6 +40,11 @@
     height: 45%;
     object-fit: cover;
     border-radius: 9px;
+    transition: transform 0.3s ease;
+}
+.fields-img:hover {
+    transform: scale(1.3);
+    opacity: 1;
 }
 .understanding-info {
     flex: 1 0 70%;
