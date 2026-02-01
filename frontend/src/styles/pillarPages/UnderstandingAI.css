@@ -68,6 +68,12 @@
     flex-direction: column;
     align-items: center;
 }
+.understanding-do h3 {
+    text-decoration: underline;
+}
+.understanding-do p {
+    line-height: 2;
+}
 .understanding-facit {
     width: 80%;
     margin-top: 60px;

@@ -1,6 +1,6 @@
 import MainHeader from "../../components/MainHeader";
 import '../../styles/pillarPages/UnderstandingAI.css';
-import AIFields from '../../assets/AI-fields.png';
+import AIFields from '../../assets/pillarPages/AI-fields.png';
 
 function UnderstandingAI(){
 
@@ -63,7 +63,7 @@ function UnderstandingAI(){
                         
 
                     <div className="understanding-do">
-                        <h3>What AI can do:</h3>
+                        <h3>What AI cannot do:</h3>
                         <p>
                             &bull; &emsp; Think independently
                             <br/>

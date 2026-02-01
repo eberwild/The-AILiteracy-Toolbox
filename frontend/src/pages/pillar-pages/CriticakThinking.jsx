@@ -1,6 +1,6 @@
 import MainHeader from "../../components/MainHeader";
 import '../../styles/pillarPages/CriticalThinking.css';
-import Critical from '../../assets/critical-awerness.png';
+import Critical from '../../assets/pillarPages/critical-awerness.png';
 
 function CriticalThinking() {
 
