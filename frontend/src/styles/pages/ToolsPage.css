@@ -63,6 +63,8 @@
     border-radius: 9px;
     margin-top: 15px;
     margin-bottom: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 .tool:hover {
   transform: translateY(-6px);
