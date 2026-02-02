@@ -15,6 +15,19 @@ export const createTables = async () => {
       table.timestamps(true, true);      // created_at & updated_at
     });
     console.log("Table users created.");
+
+    // explanation in SQL what knex is doing :
+    /*
+      CREATE TABLE users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,     -- table.increments("id").primary()
+      email VARCHAR(255) NOT NULL UNIQUE,       -- table.string("email").notNullable().unique()
+      password VARCHAR(255) NOT NULL,           -- table.string("password").notNullable()
+      role VARCHAR(255) NOT NULL DEFAULT 'user',-- table.string("role").notNullable().defaultTo("user")
+      verified BOOLEAN NOT NULL DEFAULT 0,      -- table.boolean("verified").notNullable().defaultTo(false)
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,  -- table.timestamps(true, true)
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP   -- table.timestamps(true, true)
+      );
+    */
   }
 
   // create blackboard table
@@ -36,11 +49,12 @@ export const createTables = async () => {
     
     await database.schema.createTable("tools", (table) => {
       table.increments("id").primary(); 
-      table.string("email").notNullable().unique(); 
-      table.string("text").notNullable();
+      table.string("name").notNullable().unique(); 
+      table.string("img_URL").notNullable();
+      table.string("provider").notNullable();
       table.timestamps(true, true);      
     });
-    console.log("Table blackboard created.");
+    console.log("Table tools created.");
   }
 };
 
