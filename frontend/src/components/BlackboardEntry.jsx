@@ -1,11 +1,19 @@
+import '../styles/components/BlackboardEntry.css';
+import dayjs from 'dayjs';
+
 function BlackboardEntry({email , text }) {
+
+    function getCurrentTime(){
+        const now = dayjs();
+        return now.format("DD.MM.YYYY HH:mm");
+    }
 
     return(
 
         <>
             <div className="blackboard-entry">
-                    <div className="user-name">
-                        {email}
+                    <div className="user-email">
+                        From: {email}
                     </div>
 
                     <div className="user-text">
@@ -13,7 +21,7 @@ function BlackboardEntry({email , text }) {
                     </div>
 
                     <div className="user-time">
-                        10:33
+                        {getCurrentTime()}
                     </div>
                     
             </div>

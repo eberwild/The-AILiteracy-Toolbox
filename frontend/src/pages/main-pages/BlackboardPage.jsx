@@ -7,6 +7,10 @@ function BlackboardPage() {
 
     const [ entryText , setEntryText ] = useState('');
 
+    // only for testing the design
+    const testtext = "iwhefihwfw öamdölakföl ölamdlamcloewk l,mlamcamcpwme öslaökldpwkofkjkkvl nvnvnvnksksaklak kysknkl kwiuitjbbcnnabmbj hhhhhhhhhhhiqihdihdiewhiewhfiewhfiewhfiewhf"
+    const email = "kevinflotow@arcor.de"
+
     return(
 
         <div className="blackboard-page">
@@ -25,40 +29,23 @@ function BlackboardPage() {
 
             <div className="blackboard">
 
-                <BlackboardEntry />
+                <BlackboardEntry
+                    email={email}
+                    text={testtext}
+                />
             
+                <BlackboardEntry
+                    email={email}
+                    text={testtext}
+                />
 
-                <div className="blackboard-entry">
-                    <div className="user-name">
-                        eberwild
-                    </div>
+                <BlackboardEntry
+                    email={email}
+                    text={testtext}
+                />
+                
 
-                    <div className="user-text">
-                        Hey all , im looking for someone to work with , i have ver little experience in working with ai 
-                        so i dont want to start a tool alone. Message me ! 
-                    </div>
-
-                    <div className="user-time">
-                        10:33
-                    </div>
-                    
-                </div>
-
-                <div className="blackboard-entry">
-                    <div className="user-name">
-                        eberwild
-                    </div>
-
-                    <div className="user-text">
-                        Hey all , im looking for someone to work with , i have ver little experience in working with ai 
-                        so i dont want to start a tool alone. Message me ! blajdpjdpiewhfipowhefoiwhhfoehnljwnhfljwnjdr
-                    </div>
-
-                    <div className="user-time">
-                        10:33
-                    </div>
-                    
-                </div>
+                
 
             </div>
 
