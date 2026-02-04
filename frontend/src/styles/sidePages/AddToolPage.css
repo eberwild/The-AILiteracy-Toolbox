@@ -108,9 +108,13 @@
   max-width: fit-content;
   text-align: center;
 }
-
 .submit-button:hover {
   background-color: #f07f0e;
   color: #000;
   box-shadow: 0 2px 8px rgba(240, 127, 14, 0.5);
+}
+.submit-button:active {
+    background-color: yellow;
+    box-shadow: none;
+    transform : translateY(4px);
 }

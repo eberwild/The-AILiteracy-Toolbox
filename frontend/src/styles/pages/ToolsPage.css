@@ -35,6 +35,7 @@
     border: 1px solid rgb(59, 54, 54);
 }
 .tools-section {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
@@ -49,22 +50,82 @@
     margin-top: 50px;
     margin-bottom: 50px;
     padding: 20px;
+    overflow: visible;
 }
-.navigate-add-tool-button {
+.rating-menu {
+    z-index: 1000;
+    position:absolute;
+    background: rgb(59, 54, 54);
+    border: 1px solid #000000;
+    border-radius: 15px;
+    padding: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: 40%;
+    height: 110%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+}                      
+.rating-menu-header {
+    margin-top: 5px;
     margin-bottom: 40px;
-    padding: 30px;
-    background-color:rgb(234, 129, 8);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    box-shadow: 5px 5px 0px black;
-    transition: all 0.3 ease;
-}
-.navigate-add-tool-button:hover {
-    background-color: white;
     color: rgb(234, 129, 8);
-    box-shadow: 5px 5px 0px rgb(234, 129, 8);
+} 
+.rating-menu-image-container {
+    display: grid;
+    width: 100%;
+    height: 85%;
+    grid-template-columns: repeat(2 , 1fr);
+    align-content: center;
+    justify-content: center;
+    gap: 5px;
+}
+.rating-menu-images{
+    object-fit: cover;
+    padding: 8px;
+    border: 1px solid black;
+    justify-self: center;
+    transition: all 0.2s ease;
+}
+.rating-menu-images:hover {
+    transform: translateY(-6px);
+    background-color: #474a50;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    opacity: 1;
+}
+.rating-menu-images:active {
+    background-color: rgb(255, 255, 255);
+    opacity: 1;
+}
+.navigate-add-tool-button,
+.submit-rating-button {
+    margin-bottom: 40px;
+    color: #ffffff;
+    background-color: transparent;
+    border: 1px solid #f07f0e;
+    font-size: 0.9rem;
+    padding: 15px;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 0 5px rgba(240, 127, 14, 0.2);
+    cursor: pointer;
+    margin: 2rem auto 0 auto;
+    width: auto;
+    max-width: fit-content;
+    text-align: center;
+}
+.navigate-add-tool-button:hover,
+.submit-rating-button:hover {
+    background-color: #f07f0e;
+    color: #000;
+    box-shadow: 0 2px 8px rgba(240, 127, 14, 0.5);
 }
 .navigate-add-tool-button:active {
     background-color: yellow;
