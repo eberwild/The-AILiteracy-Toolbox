@@ -1,6 +1,6 @@
 import '../styles/components/Tool.css';
 
-function Tool({ name , imageSRC , provider , ratingSRC , setRatingMenuOpen , ratingMenuOpen}) {
+function Tool({ name , imageSRC , provider , ratingSRC , setRatingMenuOpen , setActiveTool , imgRef}) {
     
     return (
 
@@ -14,8 +14,10 @@ function Tool({ name , imageSRC , provider , ratingSRC , setRatingMenuOpen , rat
 
                 <img src={ratingSRC}
                         className="tool-rating"
+                        ref={imgRef}
                         onClick={() => {
-                            setRatingMenuOpen(!ratingMenuOpen)
+                            setRatingMenuOpen(true)
+                            setActiveTool(name)
                         }}/>
 
                 <div className="tool-provider">

@@ -43,8 +43,8 @@ function ContactPage() {
             <div className='contact-spacer'></div>
 
             <form className='contact-form'>
-                <label for="name">Name*</label>
-                <input type="text" required />
+                <label for="name">Name</label>
+                <input type="text"/>
 
                 <label for="email">Email*</label>
                 <input className='contact-email' required />
