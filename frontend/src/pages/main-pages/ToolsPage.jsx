@@ -101,13 +101,15 @@ function ToolsPage() {
 
                 {/*hidden div -> opens rating menu if click in stars*/ }
                 <div className='rating-menu'
+                    // menuRef.current = rating-menu
+                    // acts like a pointer
                     ref={menuRef}
                     style={{display: ratingMenuOpen ? "flex" : "none" }}>
                         <h2 className='rating-menu-header'>
                             Give us Your rating!
                         </h2>
                         <div className='rating-menu-image-container'>
-                            {/* Hier alle Rating-Images einfügen */}
+                            {/*add all the possible rating-images here */}
                             {[0.5,1,1.5,2,2.5,3,3.5,4,4.5,5].map((rating) => (
                             <img
                                 className='rating-menu-images'
