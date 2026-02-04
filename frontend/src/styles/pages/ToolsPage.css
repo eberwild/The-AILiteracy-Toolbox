@@ -90,6 +90,7 @@
     border: 1px solid black;
     justify-self: center;
     transition: all 0.2s ease;
+    cursor: pointer;
 }
 .rating-menu-images:hover {
     transform: translateY(-6px);

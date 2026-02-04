@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState , useRef , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainHeader from "../../components/MainHeader";
 import '../../styles/pages/ToolsPage.css';
@@ -10,12 +10,33 @@ function ToolsPage() {
 
     const [ratingMenuOpen , setRatingMenuOpen] = useState(false);
 
+    const menuRef = useRef(null);
+
     // gets a value out of the database and checks if it is a string -> convert ',' to '.' for image-pathing
     function getStars(rating){
         let strRating = typeof rating === "string" ? rating : rating.toString();
         strRating = strRating.replace("," , ".");
         return strRating;
     }
+
+    useEffect(() => {
+        function handleClickOutside(event){
+            // menuRef.current -> div rating-menu
+            // !menuRef.current.contains(event.target) -> if we click outside of the reting-menu
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                // close the rating-menu -> display:noone;
+                setRatingMenuOpen(false);
+            }
+        }
+        // global click-event inside the browser -> created on page mount
+        document.addEventListener("click", handleClickOutside);
+
+        // when page is unmounted -> remove the eventlistener 
+        return () => {
+        document.removeEventListener("click", handleClickOutside);
+            };
+        // [] -> empty dependency array -> run useEffect only when page is mounted
+    } , [])
 
     const rating = "2,5";
     const rating2 = "4,5";
@@ -80,6 +101,7 @@ function ToolsPage() {
 
                 {/*hidden div -> opens rating menu if click in stars*/ }
                 <div className='rating-menu'
+                    ref={menuRef}
                     style={{display: ratingMenuOpen ? "flex" : "none" }}>
                         <h2 className='rating-menu-header'>
                             Give us Your rating!
