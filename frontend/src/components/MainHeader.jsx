@@ -6,20 +6,14 @@ function MainHeader() {
     return(
         <>
             <div className="main-header">
-                <NavLink to='/' className={({isActive}) => isActive? 'nav-link-active' : 'nav-link'}>
-                    Info
-                </NavLink>
                 <NavLink to='/home' className={({isActive}) => isActive? 'nav-link-active' : 'nav-link'}>
                     Home
                 </NavLink>
-                <NavLink to='/blackboard' className={({isActive}) => isActive? 'nav-link-active' : 'nav-link'}>
-                    Blackboard
+                <NavLink to='/pillars' className={({isActive}) => isActive? 'nav-link-active' : 'nav-link'}>
+                    4-Pillars
                 </NavLink>
                 <NavLink to='/tools' className={({isActive}) => isActive? 'nav-link-active' : 'nav-link'}>
                     Tools
-                </NavLink>
-                <NavLink to='/about-us' className={({isActive}) => isActive? 'nav-link-active' : 'nav-link'}>
-                    About Us
                 </NavLink>
                 <NavLink to='/contact' className={({isActive}) => isActive? 'nav-link-active' : 'nav-link'}>
                     Contact

@@ -1,19 +1,29 @@
-import { useNavigate } from 'react-router-dom';
 import MainHeader from "../../components/MainHeader";
 import '../../styles/pages/HomePage.css';
-import UnderstandingPicture from '../../assets/UnderstandingAI.png';
-import CriticalThinking from '../../assets/CriticalThinking.png';
-import PracticalSkills from '../../assets/PracticalSkills.png';
-import Ethic from '../../assets/Ethics.png';
 function HomePage(){
 
-    const homeNavigate = useNavigate();
 
     return (
 
         <>
         <div className="home-page">
             <MainHeader/>
+
+            <div className="website-info">
+                <h2 className="home-title">
+                    The AI Literacy Toolbox
+                </h2>
+
+                <div className="home-spacer"></div>
+
+                <p className="home-text">
+                    The AI Literacy Toolbox helps people understand what artificial intelligence is, 
+                    and also how it affects out society.
+                    It provides practical tools which are contributed by users and by students,
+                    explanations for beginner, and learning resources to support a critical, ethical and informed use of AI.
+                </p>
+
+            </div>
 
             <div className="definition-section">
                 <h2 className="home-title">What is AI Literacy ?</h2>
@@ -34,35 +44,6 @@ function HomePage(){
                 </p>
             </div>
 
-            <h2>The 4 Pillars of AI Literacy</h2>
-            <div className="home-spacer"></div>
-            <p className='pillar-text'>
-                Click on the picture of the pillar you want to learn more about.
-            </p>
-
-            <div className="pillar-section">
-                
-                    <img src={UnderstandingPicture} alt="Pillar-UnderstandingAI-logo"
-                        onClick={() => {
-                            homeNavigate('/understandingAI');
-                        }} />
-                
-                    <img src={CriticalThinking} alt="Pillar-CriticalThinking-logo"
-                        onClick={() => {
-                            homeNavigate('/criticalThinking');
-                        }} />
-               
-                    <img src={PracticalSkills} alt="Pillar-PracticalSkill-logo"
-                        onClick={() => {
-                            homeNavigate('/practicalSkills');
-                        }} />
-
-                    <img src={Ethic} alt="Pillar-Ethical-logo"
-                        onClick={() => {
-                            homeNavigate('/ethics');
-                        }} />
-                
-            </div>
 
         </div>
         </>

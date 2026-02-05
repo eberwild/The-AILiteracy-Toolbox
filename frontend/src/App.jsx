@@ -12,6 +12,7 @@ import RegisterPage from './pages/side-pages/RegisterPage';
 import LoginPage from './pages/side-pages/LoginPage';
 import AddToolPage from './pages/side-pages/AddToolPage';
 // pillar pages
+import PillarPage from '../src/pages/main-pages/PillarPage';
 import UnderstandingAI from './pages/pillar-pages/UnderstandingAI';
 import CriticalThinking from './pages/pillar-pages/CriticakThinking';
 import PracticalSkills from './pages/pillar-pages/PracticalSkills';
@@ -34,6 +35,8 @@ function App() {
                       element={<LoginPage/>} />
             <Route path='/home'
                       element={<HomePage/>} />
+            <Route path='/pillars'
+                      element={<PillarPage/>} />
             <Route path='/understandingAI'
                       element={<UnderstandingAI/>} />
             <Route path='/criticalThinking'

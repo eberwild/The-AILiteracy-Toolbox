@@ -22,6 +22,19 @@
     font-size: large;
     line-height: 1.5;
 }
+.website-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 85px;
+}
+.home-text {
+    margin-top: 35px;
+    width: 50%;
+    font-size: large;
+    line-height: 1.5;
+}
 .pillar-text {
     font-size: large;
     line-height: 1.5;
