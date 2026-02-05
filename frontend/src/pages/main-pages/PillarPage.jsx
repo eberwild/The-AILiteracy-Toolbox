@@ -1,50 +1,79 @@
-import { useNavigate } from 'react-router-dom';
-
+import { useState } from 'react';
+// picture import
 import UnderstandingPicture from '../../assets/UnderstandingAI.png';
 import CriticalThinking from '../../assets/CriticalThinking.png';
 import PracticalSkills from '../../assets/PracticalSkills.png';
 import Ethic from '../../assets/Ethics.png';
+
+// pillar-components import
+import CriticalThinkingComp from '../../components/pillar-components/CriticakThinking';
+import EthicsComp from '../../components/pillar-components/Ethics';
+import PracticalSkillsComp from '../../components/pillar-components/PracticalSkills';
+import UnderstandingAIComp from '../../components/pillar-components/UnderstandingAI';
+
 import MainHeader from '../../components/MainHeader';
+import '../../styles/pages/PillarPage.css';
 
 function PillarPage() {
 
-    const pillarNavigate = useNavigate();
+    const [ activeComponent , setActiveComponent ] = useState(null);
 
     return(
 
-        <>  
+        <div className='pillar-page'>  
+
             <MainHeader/>
 
+            <div className='pillar-info'>
             <h2>The 4 Pillars of AI Literacy</h2>
-                        <div className="home-spacer"></div>
-                        <p className='pillar-text'>
-                            Click on the picture of the pillar you want to learn more about.
-                        </p>
+                <div className="pillar-spacer"></div>
+                <p className='pillar-text'>
+                    Click on the picture of the pillar you want to learn more about.
+                </p>
             
-                        <div className="pillar-section">
+            </div>
+
+
+            <div className="pillar-section">
                             
-                                <img src={UnderstandingPicture} alt="Pillar-UnderstandingAI-logo"
-                                    onClick={() => {
-                                        pillarNavigate('/understandingAI');
-                                    }} />
-                            
-                                <img src={CriticalThinking} alt="Pillar-CriticalThinking-logo"
-                                    onClick={() => {
-                                        pillarNavigate('/criticalThinking');
-                                    }} />
-                           
-                                <img src={PracticalSkills} alt="Pillar-PracticalSkill-logo"
-                                    onClick={() => {
-                                        pillarNavigate('/practicalSkills');
-                                    }} />
+                <img src={UnderstandingPicture} alt="Pillar-UnderstandingAI-logo"
+                    onClick={() => {
+                        setActiveComponent('UnderstandingAI')
+                    }} />
             
-                                <img src={Ethic} alt="Pillar-Ethical-logo"
-                                    onClick={() => {
-                                        pillarNavigate('/ethics');
-                                    }} />
+                <img src={CriticalThinking} alt="Pillar-CriticalThinking-logo"
+                    onClick={() => {
+                        setActiveComponent('CriticalThinking')
+                    }} />
+            
+                <img src={PracticalSkills} alt="Pillar-PracticalSkill-logo"
+                    onClick={() => {
+                        setActiveComponent('PracticalSkills')
+                    }} />
+
+                <img src={Ethic} alt="Pillar-Ethical-logo"
+                    onClick={() => {
+                        setActiveComponent('Ethics')
+                    }} />
                             
-                        </div>
-        </>
+            </div>
+
+
+            <div className='selected-pillar'>
+
+                {activeComponent === 'UnderstandingAI' && <UnderstandingAIComp/> }
+                {activeComponent === 'CriticalThinking' && <CriticalThinkingComp/>}
+                {activeComponent === 'PracticalSkills' && <PracticalSkillsComp/>}
+                {activeComponent === 'Ethics' && <EthicsComp/>}
+
+            </div>
+
+
+            <div className='general-info'>
+
+            </div>
+
+        </div>
     )
 }
 

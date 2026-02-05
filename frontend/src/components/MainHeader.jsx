@@ -6,7 +6,7 @@ function MainHeader() {
     return(
         <>
             <div className="main-header">
-                <NavLink to='/home' className={({isActive}) => isActive? 'nav-link-active' : 'nav-link'}>
+                <NavLink to='/' className={({isActive}) => isActive? 'nav-link-active' : 'nav-link'}>
                     Home
                 </NavLink>
                 <NavLink to='/pillars' className={({isActive}) => isActive? 'nav-link-active' : 'nav-link'}>

@@ -1,8 +1,8 @@
 import { Route , Routes } from 'react-router-dom';
 // components
 import ScrollToTop from './components/ScrollToTop';
+import ButtonComponent from './components/ButtonComponent';
 // main pages
-import InfoPage from './pages/main-pages/InfoPage';
 import HomePage from './pages/main-pages/HomePage';
 import BlackboardPage from './pages/main-pages/BlackboardPage';
 import ToolsPage from './pages/main-pages/ToolsPage';
@@ -27,14 +27,12 @@ function App() {
     <>
     <ScrollToTop/>
       <Routes>
-            <Route  path='/' 
-                      element={<InfoPage/>} />
+            <Route path='/'
+                      element={<HomePage/>} />
             <Route path='/register'
                        element={<RegisterPage/>} />
             <Route path='/login'
                       element={<LoginPage/>} />
-            <Route path='/home'
-                      element={<HomePage/>} />
             <Route path='/pillars'
                       element={<PillarPage/>} />
             <Route path='/understandingAI'
@@ -48,7 +46,8 @@ function App() {
             <Route path='/blackboard'
                    element={<BlackboardPage/>} />
             <Route  path='/tools'
-                      element={<ToolsPage/>} />
+                      element={<ToolsPage
+                        ButtonComponent={ButtonComponent}/>} />
             <Route path='/add-tool'
                       element={<AddToolPage/>} />
             <Route path='/contact'
