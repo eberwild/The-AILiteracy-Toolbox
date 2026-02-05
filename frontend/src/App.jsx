@@ -12,11 +12,11 @@ import RegisterPage from './pages/side-pages/RegisterPage';
 import LoginPage from './pages/side-pages/LoginPage';
 import AddToolPage from './pages/side-pages/AddToolPage';
 // pillar pages
-import PillarPage from '../src/pages/main-pages/PillarPage';
-import UnderstandingAI from './pages/pillar-pages/UnderstandingAI';
-import CriticalThinking from './pages/pillar-pages/CriticakThinking';
-import PracticalSkills from './pages/pillar-pages/PracticalSkills';
-import Ethics from './pages/pillar-pages/Ethics';
+import PillarPage from './pages/main-pages/PillarPage';
+import UnderstandingAI from './components/pillar-components/UnderstandingAI';
+import CriticalThinking from './components/pillar-components/CriticakThinking';
+import PracticalSkills from './components/pillar-components/PracticalSkills';
+import Ethics from './components/pillar-components/Ethics';
 // style
 import './styles/App.css';
 
