@@ -22,6 +22,19 @@
     font-size: large;
     line-height: 1.5;
 }
+.blackboard-info {
+    margin-top: 35px;
+    width: 50%;
+    font-size: large;
+    line-height: 1.5;
+}
+.blackboard-link {
+    color:rgb(234, 129, 8);
+    text-decoration: none;
+}
+.blackboard-link:hover {
+    text-decoration: underline;
+}
 .provide-tool-section {
     display: flex;
     flex-direction: column;
