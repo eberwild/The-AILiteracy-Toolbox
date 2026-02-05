@@ -108,6 +108,12 @@ function AddToolPage() {
                           required>
                 </textarea>
 
+                <label className="consent-checkbox">
+                <input type="checkbox" required />
+                    I consent to my submitted GitHub repository being used on this website.
+                </label>
+
+
                 <button type="button" className="submit-button">Submit</button>
             </form>
 

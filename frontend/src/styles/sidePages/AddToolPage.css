@@ -103,6 +103,9 @@
 .tool-text-area {
     resize: none;
 }
+.consent-checkbox {
+
+}
 .submit-button {
   color: #ffffff;
   background-color: transparent;
