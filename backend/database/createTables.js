@@ -49,9 +49,15 @@ export const createTables = async () => {
     
     await database.schema.createTable("tools", (table) => {
       table.increments("id").primary(); 
-      table.string("name").notNullable().unique(); 
+      table.string("name").notNullable(); 
+      table.string("title").notNullable().unique();
+      table.string("providerEmail").notNullable();
+      table.string("type").notNullable();
+      table.string("git_URL").notNullable().unique();
       table.string("img_URL").notNullable();
-      table.string("provider").notNullable();
+      table.string("tags").notNullable();
+      table.string("age_recom").notNullable();
+      table.string("description").notNullable();
       table.timestamps(true, true);      
     });
     console.log("Table tools created.");

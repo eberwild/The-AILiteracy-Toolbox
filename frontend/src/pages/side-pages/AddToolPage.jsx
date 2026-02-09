@@ -197,7 +197,11 @@ function AddToolPage() {
                         className="submit-button"
                         onClick={async () => {
                             const isValid = await checkToolInput(toolInput);
-                            console.log(isValid);
+                            if(isValid){
+                                console.log(toolInput)
+                            } else {
+                                console.log('Invalid input')
+                            }
                         }}
                 >
                         Submit

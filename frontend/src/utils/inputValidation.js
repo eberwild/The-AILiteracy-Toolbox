@@ -22,6 +22,7 @@ export const checkToolInput = async (object) => {
     // check type 
     const types = ["game" , "education" , "other"];
     if(!types.includes(object.type)){
+        alert('Please enter a valid type.')
         return false;
     }
 
