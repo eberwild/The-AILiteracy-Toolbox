@@ -2,6 +2,7 @@ import MainHeader from "../../components/MainHeader";
 import '../../styles/sidePages/AddToolPage.css';
 import { NavLink } from 'react-router';
 import { useState } from 'react';
+import { checkToolInput } from "../../utils/inputValidation";
 
 function AddToolPage() {
 
@@ -13,7 +14,9 @@ function AddToolPage() {
         gitURL: '',
         imgURL: '',
         tags: '',
-        agerecom: ''
+        agerecom: '',
+        description: '',
+        consent: false
     });
 
     return(
@@ -180,18 +183,24 @@ function AddToolPage() {
                 </textarea>
 
                 <label className="consent-checkbox">
-                <input type="checkbox" required />
+                <input type="checkbox" 
+                       value={toolInput.consent}
+                       onChange={(event) => {
+                            setToolInput({...toolInput , consent: event.target.checked})
+                       }}
+                       required />
                     I consent to my submitted GitHub repository being used on this website.
                 </label>
 
 
                 <button type="button" 
                         className="submit-button"
-                        onClick={() => {
-                            console.log(toolInput)
+                        onClick={async () => {
+                            const isValid = await checkToolInput(toolInput);
+                            console.log(isValid);
                         }}
                 >
-                            Submit
+                        Submit
                 </button>
 
             </form>
