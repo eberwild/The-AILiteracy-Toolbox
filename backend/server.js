@@ -24,8 +24,9 @@ app.use((req , _ , next) => {
     next();
 })
 
-// api-routes
+// api-routes -> user
 app.use('/api/users' , userRouter);
+app.use('/api/login' , userRouter);
 
 // init the db tables -> dont start server if table creation throws an error
 createTables()

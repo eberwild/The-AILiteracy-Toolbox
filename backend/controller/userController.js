@@ -82,7 +82,7 @@ export const loginUser = async (req , res) => {
       return res.status(401).json({message:'Wrong credentials.'});
     }
 
-    // Payload to generate a token after login would be succesfull
+    // Payload to generate a token after succesfull login
     const payload = {
       email: user.email,
       role: user.role,

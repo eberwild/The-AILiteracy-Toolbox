@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Link , useNavigate} from 'react-router-dom';
 import { useState } from 'react';
 import MainHeader from "../../components/MainHeader";
 import '../../styles/sidePages/LoginPage.css';
@@ -7,6 +8,8 @@ function LoginPage() {
 
 // state to track ot passwort is shown or not
 const [show , setShow] = useState(false);
+
+const loginNavigate = useNavigate();
 
 // state to track the input value the user made
 const [loginData , setLoginData] = useState({
@@ -17,6 +20,28 @@ const [loginData , setLoginData] = useState({
 // toggles passwort visibility
 function changeVisibility(){
     setShow(!show);
+}
+
+// function to login an existing user 
+async function loginUser(){
+    try{
+        const response = await axios.post('http://localhost:3000/api/users/login' , {
+            email: loginData.userEmail,
+            password : loginData.userPassword
+        });
+        if(response.status === 200){
+            localStorage.setItem('token' , response.data.token);
+            loginNavigate('/');
+        } else {
+            console.log(response.data.message);
+        }
+        
+    }catch(err){
+        // axios stores errors >=400 in err.response
+        if(err.response) {
+            console.error('Error from server' , err.response.data.message);
+        } 
+    }
 }
 
     return(
@@ -45,7 +70,11 @@ function changeVisibility(){
                         onClick={changeVisibility}>
                     {show? "Hide Password" : "Show Password"}
                 </button>
-                <button className='login-button'>
+                <button className='login-button'
+                        onClick={() => {
+                            loginUser(loginData);
+                        }}
+                >
                     Login
                 </button>
             </div>
