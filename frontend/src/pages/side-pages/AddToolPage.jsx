@@ -1,8 +1,20 @@
 import MainHeader from "../../components/MainHeader";
 import '../../styles/sidePages/AddToolPage.css';
 import { NavLink } from 'react-router';
+import { useState } from 'react';
 
 function AddToolPage() {
+
+    const [toolInput , setToolInput] = useState({
+        name: '',
+        title: '',
+        email: '',
+        type: '',
+        gitURL: '',
+        imgURL: '',
+        tags: '',
+        agerecom: ''
+    });
 
     return(
 
@@ -56,7 +68,7 @@ function AddToolPage() {
                 <p>2. Add your link</p>
                 <small>Include GitHub or working version</small>
                 </div>
-                <div class="intro-step">
+                <div className="intro-step">
                 <div className="intro-text"></div>
                 <p>3. We feature it</p>
                 <small>After review, your tool goes live!</small>
@@ -66,16 +78,43 @@ function AddToolPage() {
             <form className="input-form">
 
                 <label for="name">Your Name/Alias</label>
-                <input type="text" className="user-alias" placeholder="Enter your name or an alias" required/>
+                <input type="text" 
+                       className="user-alias" 
+                       placeholder="Enter your name or an alias"
+                       value={toolInput.name} 
+                       onChange={(event) => {
+                            setToolInput({...toolInput , name : event.target.value})
+                       }}
+                       required/>
                 
                 <label for="title">Tool Title*</label>
-                <input type="text" className="tool-name" placeholder="Enter tool name" required />
+                <input type="text" 
+                       className="tool-name" 
+                       placeholder="Enter tool name" 
+                       value={toolInput.title}
+                       onChange={(event) => {
+                            setToolInput({...toolInput , title: event.target.value})
+                       }}
+                       required />
 
                 <label for="email">Contact Email*</label>
-                <input type="email" className="user-email" placeholder="you@example.com" required />
+                <input type="email" 
+                       className="user-email" 
+                       placeholder="you@example.com" 
+                       value={toolInput.email}
+                       onChange={(event) => {
+                            setToolInput({...toolInput , email: event.target.value})
+                       }}
+                       required />
 
                 <label for="type">Type*</label>
-                <select id="type" name="type" required>
+                <select id="type" 
+                        name="type" 
+                        value={toolInput.type}
+                        onChange={(event) => {
+                            setToolInput({...toolInput , type: event.target.value})
+                        }}
+                        required>
                 <option value="" disabled selected>Choose one</option>
                 <option value="game">Game</option>
                 <option value="education">Education</option>
@@ -83,16 +122,44 @@ function AddToolPage() {
                 </select>
 
                 <label for="github">GitHub Link*</label>
-                <input type="url" className="github-link" placeholder="https://github.com/..." required />
+                <input type="url" 
+                       className="github-link" 
+                       placeholder="https://github.com/..." 
+                       value={toolInput.gitURL}
+                       onChange={(event) => {
+                            setToolInput({...toolInput , gitURL: event.target.value})
+                       }}
+                       required />
 
                 <label for="thumbnailURL">Thumbnail URL</label>
-                <input type="url" className="thumbnail-URL" placeholder="https://example.com/image.jpg" />
+                <input type="url" 
+                       className="thumbnail-URL" 
+                       placeholder="https://example.com/image.jpg" 
+                       value={toolInput.imgURL}
+                       onChange={(event) => {
+                            setToolInput({...toolInput , imgURL: event.target.value})
+                       }}
+                />
 
                 <label for="uploadTags">Tags (comma separated)</label>
-                <input type="text" className="upload-tags" placeholder="e.g. education, games, learning" />
+                <input type="text" 
+                       className="upload-tags" 
+                       placeholder="e.g. education, games, learning"
+                       value={toolInput.tags}
+                       onChange={(event) => {
+                            setToolInput({...toolInput , tags: event.target.value})
+                       }}
+                />
 
                 <label for="ageRecommendation">Age Recommendation*</label>
-                <select className="ageRecommendation" name="ageRecommendation" required>
+                <select className="ageRecommendation" 
+                        name="ageRecommendation" 
+                        value={toolInput.agerecom}
+                        onChange={(event) => {
+                            setToolInput({...toolInput , agerecom: event.target.value})
+                        }}
+                        required
+                >
                 <option value="" disabled selected>Select age range</option>
                 <option value="all">All ages</option>
                 <option value="5-12">Kids (5-12)</option>
@@ -105,6 +172,10 @@ function AddToolPage() {
                           rows="4" 
                           placeholder="Brief description..."
                           className="tool-text-area" 
+                          value={toolInput.description}
+                          onChange={(event) => {
+                                setToolInput({...toolInput , description: event.target.value})
+                          }}
                           required>
                 </textarea>
 
@@ -114,7 +185,15 @@ function AddToolPage() {
                 </label>
 
 
-                <button type="button" className="submit-button">Submit</button>
+                <button type="button" 
+                        className="submit-button"
+                        onClick={() => {
+                            console.log(toolInput)
+                        }}
+                >
+                            Submit
+                </button>
+
             </form>
 
         </div>
