@@ -70,7 +70,12 @@ function PillarPage() {
 
 
             <div className='general-info'>
-
+                <h2>General Information</h2>
+                <div className='pillar-spacer'></div>
+                    <p className='pillar-text'>
+                        AI does not “understand” the world like humans do.
+                        It works by processing data and probabilities, not by having intentions, emotions, or awareness.
+                    </p>
             </div>
 
         </div>

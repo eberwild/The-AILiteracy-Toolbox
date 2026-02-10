@@ -78,10 +78,6 @@ function UnderstandingAI(){
 
                 <div className="understanding-facit">
                     <p>
-                        AI does not “understand” the world like humans do.
-                        It works by processing data and probabilities, not by having intentions, emotions, or awareness.
-                        <br/>
-                        <br/>
                         Understanding how AI works at a basic level helps you use it more effectively,
                         question its outputs, and make informed decisions when interacting with AI systems.
                     </p>

@@ -49,3 +49,10 @@
 .selected-pillar {
     margin-top: 0px;
 }
+.general-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    width: 80%;
+}
