@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import BlackboardEntry from '../../components/BlackboardEntry';
 import MainHeader from "../../components/MainHeader";
 import '../../styles/pages/Blackboard.css';
@@ -6,10 +7,21 @@ import '../../styles/pages/Blackboard.css';
 function BlackboardPage() {
 
     const [ message , setMessage ] = useState('');
+    const [isLoading , setIsLoading] = useState(true);
+    const [entries , setEntries ] = useState([]);
 
-    // only for testing the design
-    const testtext = "iwhefihwfw öamdölakföl ölamdlamcloewk l,mlamcamcpwme öslaökldpwkofkjkkvl nvnvnvnksksaklak kysknkl kwiuitjbbcnnabmbj hhhhhhhhhhhiqihdihdiewhiewhfiewhfiewhfiewhf"
-    const email = "kevinflotow@arcor.de"
+    useEffect(() => {
+        async function getEntries(){
+            try{
+                const response = await axios.get("http://localhost:3000/api/blackboard");
+                setEntries(response.data);
+                setIsLoading(false);
+            }catch(err){
+                console.log("Error in fetchEntries:" , err.message);
+            }
+        }
+        getEntries();
+    } , [])
 
     return(
 
@@ -28,24 +40,25 @@ function BlackboardPage() {
             </div>
 
             <div className="blackboard">
-
-                <BlackboardEntry
-                    email={email}
-                    text={testtext}
-                />
-            
-                <BlackboardEntry
-                    email={email}
-                    text={testtext}
-                />
-
-                <BlackboardEntry
-                    email={email}
-                    text={testtext}
-                />
                 
-
-                
+                {isLoading ? 
+                    (
+                        <div>Loading Blackboard..</div>
+                    ) 
+                : 
+                    entries && entries.length > 0 ? (
+                        entries.map((entry) => (
+                            <BlackboardEntry
+                                email={entry.email}
+                                message={entry.message}
+                                created_At={entry.created_At}
+                            />
+                    ))
+                    ) 
+                : 
+                    (      
+                        <div>No entries loaded..</div>
+                    )}
 
             </div>
 
@@ -62,7 +75,17 @@ function BlackboardPage() {
                                 setMessage(event.target.value)
                            }} />
 
-                <button className='blackboard-button'>
+                <button className='blackboard-button'
+                        onClick={async () => {
+                            try{
+                                const response = await axios.post("http://localhost:3000/api/blackboard" , 
+                                    message
+                                );
+                                console.log(response.data.message);
+                            }catch(err){
+                                console.log("Error in submitting to blackboard:" , err.message);
+                            }
+                        }}>
                     Post to Blackboard
                 </button>
                 </div>

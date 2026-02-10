@@ -1,4 +1,4 @@
-import { getAllEntries , createEntry } from "../models/blackboardModel";
+import { getAllEntries , createEntry } from "../models/blackboardModel.js";
 
 export const fetchAllEntries = async( _ , res) => {
     try {
@@ -15,15 +15,15 @@ export const fetchAllEntries = async( _ , res) => {
 
 export const postEntry = async( req , res) => {
     try{
-        const {
-            message,
-            email
-        } = req.body;
+        const message = req.body;
+        const email = req.user.email;
+        console.log(email);
+        console.log(message);
 
         // backend validation
 
         // insert new entry into db
-        const [id] = await createEntry(email , message);
+        const [id] = await createEntry(message , email);
 
         // success feedback
         return res.status(201).json({
