@@ -6,7 +6,7 @@ function Tool({ name , imageSRC , title , ratingSRC , setRatingMenuOpen , setAct
 
         <>
             <div className="tool">
-                <div className="tool-name">
+                <div className="tool-title">
                     {title}
                 </div>
                 <img src={imageSRC}
