@@ -1,5 +1,6 @@
 // dependencies
 import express from 'express';
+import rateLimit from 'express-rate-limit';
 import cors from 'cors';
 import dotenv from 'dotenv';  
 dotenv.config();              // env-File laden -> before all imports that use .env
@@ -18,6 +19,15 @@ app.use(cors());
 
 // JSON parsing middleware-> to get acces to req.body as JSON
 app.use(express.json());
+
+// rate limit -> 100 request / 15 min
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000 ,
+  max: 100 ,
+  message: 'Too many request, little pause for you!'
+});
+
+app.use(limiter);
 
 // simple middleware logger example
 app.use((req , _ , next) => {
