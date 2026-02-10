@@ -6,7 +6,7 @@ import '../../styles/pages/Blackboard.css';
 
 function BlackboardPage() {
 
-    const [ message , setMessage ] = useState('');
+    const [message , setMessage ] = useState('');
     const [isLoading , setIsLoading] = useState(true);
     const [entries , setEntries ] = useState([]);
 
@@ -48,10 +48,11 @@ function BlackboardPage() {
                 : 
                     entries && entries.length > 0 ? (
                         entries.map((entry) => (
+                            
                             <BlackboardEntry
                                 email={entry.email}
                                 message={entry.message}
-                                created_At={entry.created_At}
+                                created_At={entry.created_at}
                             />
                     ))
                     ) 
@@ -78,9 +79,22 @@ function BlackboardPage() {
                 <button className='blackboard-button'
                         onClick={async () => {
                             try{
+                                const token = localStorage.getItem('token');
+                                if(!token){
+                                    console.log('No token found , acces denied.');
+                                }
                                 const response = await axios.post("http://localhost:3000/api/blackboard" , 
-                                    message
+                                    {
+                                        message 
+                                    }
+                                ,
+                                    {
+                                        headers: {
+                                            Authorization: `Bearer ${token}`
+                                        }
+                                    }
                                 );
+
                                 console.log(response.data.message);
                             }catch(err){
                                 console.log("Error in submitting to blackboard:" , err.message);

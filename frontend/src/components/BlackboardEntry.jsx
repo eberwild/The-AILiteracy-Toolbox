@@ -1,6 +1,6 @@
 import '../styles/components/BlackboardEntry.css';
 
-function BlackboardEntry({ email , text , created_At}) {
+function BlackboardEntry({ email , message , created_at}) {
 
 
     return(
@@ -12,11 +12,11 @@ function BlackboardEntry({ email , text , created_At}) {
                     </div>
 
                     <div className="user-text">
-                        {text} 
+                        {message} 
                     </div>
 
                     <div className="user-time">
-                        {created_At}
+                        {created_at}
                     </div>
                     
             </div>

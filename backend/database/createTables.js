@@ -38,7 +38,7 @@ export const createTables = async () => {
       table.increments("id").primary(); 
       table.boolean("reviewed").defaultTo("false");
       table.string("email").notNullable().unique(); 
-      table.string("text").notNullable();
+      table.string("message").notNullable();
       table.timestamps(true, true);      
     });
     console.log("Table blackboard created.");

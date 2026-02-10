@@ -15,24 +15,23 @@ export const fetchAllEntries = async( _ , res) => {
 
 export const postEntry = async( req , res) => {
     try{
-        const message = req.body;
+        const message = req.body.message;
         const email = req.user.email;
-        console.log(email);
-        console.log(message);
 
         // backend validation
+        // implemented soon!
 
         // insert new entry into db
-        const [id] = await createEntry(message , email);
+        const [id] = await createEntry(email , message);
 
         // success feedback
         return res.status(201).json({
-            message: "Tool created successfully.",
+            message: "Entry created successfully.",
             id
         });
 
     }catch(err){
-        console.log("Error in BlackboardController/postEntry:" , err-message);
+        console.log("Error in BlackboardController/postEntry:" , err.message);
         return res.status(500).json({
             message: "Server Error"
         })
