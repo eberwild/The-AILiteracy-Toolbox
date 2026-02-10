@@ -48,11 +48,12 @@ function BlackboardPage() {
                 : 
                     entries && entries.length > 0 ? (
                         entries.map((entry) => (
-                            
+
                             <BlackboardEntry
+                                key={entry.id}
                                 email={entry.email}
                                 message={entry.message}
-                                created_At={entry.created_at}
+                                created_at={entry.created_at}
                             />
                     ))
                     ) 
