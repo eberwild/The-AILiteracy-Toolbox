@@ -1,13 +1,13 @@
 import '../styles/components/Tool.css';
 
-function Tool({ name , imageSRC , provider , ratingSRC , setRatingMenuOpen , setActiveTool , imgRef}) {
+function Tool({ name , imageSRC , title , ratingSRC , setRatingMenuOpen , setActiveTool , imgRef}) {
     
     return (
 
         <>
             <div className="tool">
                 <div className="tool-name">
-                    {name}
+                    {title}
                 </div>
                 <img src={imageSRC}
                         className="tool-img" />
@@ -21,7 +21,7 @@ function Tool({ name , imageSRC , provider , ratingSRC , setRatingMenuOpen , set
                         }}/>
 
                 <div className="tool-provider">
-                    {provider}
+                    {name}
                 </div>
             </div>
         </>

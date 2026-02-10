@@ -1,9 +1,8 @@
 export const checkToolInput = async (object) => {
 
-    // check name 
+    // check name and set a default value
     if(object.name.trim() === ''){
-        alert('Please enter a valid userName!');
-        return false;
+        object.name = 'Guest';
     }
 
     // check email
@@ -63,7 +62,7 @@ export const checkToolInput = async (object) => {
     }
 
     //check ageRecommandation
-    if(!object.agerecom ) {
+    if(!object.ageRecom ) {
         alert('Please select a valid age recommandation!');
         return false;
     }

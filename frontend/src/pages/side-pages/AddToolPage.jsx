@@ -1,4 +1,5 @@
 import MainHeader from "../../components/MainHeader";
+import axios from 'axios';
 import '../../styles/sidePages/AddToolPage.css';
 import { NavLink } from 'react-router';
 import { useState } from 'react';
@@ -14,7 +15,7 @@ function AddToolPage() {
         gitURL: '',
         imgURL: '',
         tags: '',
-        agerecom: '',
+        ageRecom: '',
         description: '',
         consent: false
     });
@@ -157,9 +158,9 @@ function AddToolPage() {
                 <label for="ageRecommendation">Age Recommendation*</label>
                 <select className="ageRecommendation" 
                         name="ageRecommendation" 
-                        value={toolInput.agerecom}
+                        value={toolInput.ageRecom}
                         onChange={(event) => {
-                            setToolInput({...toolInput , agerecom: event.target.value})
+                            setToolInput({...toolInput , ageRecom: event.target.value})
                         }}
                         required
                 >
@@ -184,9 +185,9 @@ function AddToolPage() {
 
                 <label className="consent-checkbox">
                 <input type="checkbox" 
-                       value={toolInput.consent}
-                       onChange={(event) => {
-                            setToolInput({...toolInput , consent: event.target.checked})
+                       checked={toolInput.consent}
+                       onChange={() => {
+                            setToolInput({...toolInput , consent: !toolInput.consent})
                        }}
                        required />
                     I consent to my submitted GitHub repository being used on this website.
@@ -198,9 +199,14 @@ function AddToolPage() {
                         onClick={async () => {
                             const isValid = await checkToolInput(toolInput);
                             if(isValid){
-                                console.log(toolInput)
+                                try {
+                                    const response = await axios.post('http://localhost:3000/api/tools' , toolInput );
+                                    console.log(response.data.message);
+                                }catch(err){
+                                    console.log('Error in submitting tool:' , err.message);
+                                }
                             } else {
-                                console.log('Invalid input')
+                                console.log('Invalid input.')
                             }
                         }}
                 >

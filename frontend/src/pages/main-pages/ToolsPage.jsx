@@ -105,7 +105,7 @@ function ToolsPage() {
                 tools.map((tool) => (
                 <Tool
                     key={tool.id}  
-                    provider={tool.name}
+                    name={tool.name}
                     title={tool.title}
                     imageSRC={tool.img_URL}
                     ratingSRC={`/src/assets/ratings/${getStars(rating)}.png`}

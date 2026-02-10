@@ -20,7 +20,7 @@ app.use(express.json());
 
 // simple middleware logger example
 app.use((req , _ , next) => {
-    console.log(`Error: Request-Method: ${req.method} , Request-URL: ${req.url} `);
+    console.log(`Request-Method: ${req.method} , Request-URL: ${req.url} `);
     // next() -> express will continue with the next middleware or apiroute
     next();
 })
