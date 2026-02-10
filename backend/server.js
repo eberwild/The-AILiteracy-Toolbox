@@ -6,6 +6,7 @@ dotenv.config();              // env-File laden -> before all imports that use .
 // routes
 import userRouter from './routes/userRoutes.js';
 import toolRouter from './routes/toolRoutes.js';
+import blackboardRouter from './routes/blackboardRoutes.js';
 // database
 import { createTables } from './database/createTables.js';
 
@@ -30,6 +31,9 @@ app.use('/api/users' , userRouter);
 
 // api-routes -> tools
 app.use('/api/tools' , toolRouter);
+
+// api-routes -> blackboard
+app.use('/api/blackboard' , blackboardRouter)
 
 // init the db tables -> dont start server if table creation throws an error
 createTables()

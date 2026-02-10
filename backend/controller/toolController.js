@@ -8,7 +8,7 @@ export const fetchallTools = async( _ , res) => {
         return res.status(200).json(tools);
 
     } catch(err){
-        console.log("Error in fetchAllTools" , err.message);
+        console.log("Error in ToolsController/ fetchAllTools" , err.message);
         return res.status(500).json({
             message: "Server Error"
         })
