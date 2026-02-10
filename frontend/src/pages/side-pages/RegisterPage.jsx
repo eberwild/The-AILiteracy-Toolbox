@@ -29,7 +29,7 @@ async function registerUser(){
         });
         if(response.status === 201){
             localStorage.setItem('token' , response.data.token);
-            registerNavigate('/');
+            registerNavigate('/add-tool');
         } else {
             console.log(response.data.message);
         }

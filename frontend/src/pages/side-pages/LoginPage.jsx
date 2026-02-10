@@ -31,7 +31,7 @@ async function loginUser(){
         });
         if(response.status === 200){
             localStorage.setItem('token' , response.data.token);
-            loginNavigate('/');
+            loginNavigate('/add-tool');
         } else {
             console.log(response.data.message);
         }
@@ -72,7 +72,7 @@ async function loginUser(){
                 </button>
                 <button className='login-button'
                         onClick={() => {
-                            loginUser(loginData);
+                            loginUser();
                         }}
                 >
                     Login
