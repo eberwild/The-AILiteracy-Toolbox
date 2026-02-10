@@ -1,6 +1,5 @@
 // dependencies
 import express from 'express';
-import rateLimit from 'express-rate-limit';
 import cors from 'cors';
 import dotenv from 'dotenv';  
 dotenv.config();              // env-File laden -> before all imports that use .env
@@ -8,6 +7,8 @@ dotenv.config();              // env-File laden -> before all imports that use .
 import userRouter from './routes/userRoutes.js';
 import toolRouter from './routes/toolRoutes.js';
 import blackboardRouter from './routes/blackboardRoutes.js';
+// middlewares
+import { globalLimiter } from './middleware/limiter.js';
 // database
 import { createTables } from './database/createTables.js';
 
@@ -20,19 +21,10 @@ app.use(cors());
 // JSON parsing middleware-> to get acces to req.body as JSON
 app.use(express.json());
 
-// rate limit -> 100 request / 15 min
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000 ,
-  max: 100 ,
-  message: 'Too many request, little pause for you!'
-});
-
-app.use(limiter);
-
-// simple middleware logger example
+// simple middleware logger 
 app.use((req , _ , next) => {
     console.log(`Request-Method: ${req.method} , Request-URL: ${req.url} `);
-    // next() -> express will continue with the next middleware or apiroute
+    // next() -> express will continue with the next middleware or api-route
     next();
 })
 
@@ -40,10 +32,10 @@ app.use((req , _ , next) => {
 app.use('/api/users' , userRouter);
 
 // api-routes -> tools
-app.use('/api/tools' , toolRouter);
+app.use('/api/tools' , globalLimiter , toolRouter);
 
 // api-routes -> blackboard
-app.use('/api/blackboard' , blackboardRouter)
+app.use('/api/blackboard' , globalLimiter , blackboardRouter);
 
 // init the db tables -> dont start server if table creation throws an error
 createTables()
