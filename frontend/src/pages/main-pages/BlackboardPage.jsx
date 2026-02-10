@@ -5,7 +5,7 @@ import '../../styles/pages/Blackboard.css';
 
 function BlackboardPage() {
 
-    const [ entryText , setEntryText ] = useState('');
+    const [ message , setMessage ] = useState('');
 
     // only for testing the design
     const testtext = "iwhefihwfw öamdölakföl ölamdlamcloewk l,mlamcamcpwme öslaökldpwkofkjkkvl nvnvnvnksksaklak kysknkl kwiuitjbbcnnabmbj hhhhhhhhhhhiqihdihdiewhiewhfiewhfiewhfiewhf"
@@ -57,9 +57,9 @@ function BlackboardPage() {
                 <p>Email and timestamp will automaticly be added to the entry.</p>
                     <textarea type="text"
                            className='blackboard-input'
-                           value={entryText}
+                           value={message}
                            onChange={(event) => {
-                                setEntryText(event.target.value)
+                                setMessage(event.target.value)
                            }} />
 
                 <button className='blackboard-button'>

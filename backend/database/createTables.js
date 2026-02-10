@@ -36,6 +36,7 @@ export const createTables = async () => {
     
     await database.schema.createTable("blackboard", (table) => {
       table.increments("id").primary(); 
+      table.boolean("reviewed").defaultTo("false");
       table.string("email").notNullable().unique(); 
       table.string("text").notNullable();
       table.timestamps(true, true);      
