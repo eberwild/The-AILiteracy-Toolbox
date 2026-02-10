@@ -1,5 +1,5 @@
 import express from 'express';
-import { fetchallTools , provideNewTool } from '../controller/toolController';
+import { fetchallTools , provideNewTool } from '../controller/toolController.js';
 
 const toolRouter = express.Router();
 

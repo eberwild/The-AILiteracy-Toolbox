@@ -1,9 +1,9 @@
-import { getAllTools , insertTool } from "../models/toolModel";
+import { getAllTools , insertTool } from "../models/toolModel.js";
 
 // get all tools for render
 export const fetchallTools = async( _ , res) => {
     try {
-        const tools = await fetchallTools();
+        const tools = await getAllTools();
 
         return res.status(200).json(tools);
 
