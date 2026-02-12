@@ -36,8 +36,21 @@ function BlackboardPage() {
                     Other users can then request collaboration on the post, allowing for interaction and teamwork around shared ideas.
                     <br/>
                     You need to be logged in to create a new post on the Blackboard.
+                    <br/>
+                    <br/>
+                    Example entry: create your own by filling out the form on the bottom of this page.
                 </p>
             </div>
+
+            <div className='example-entry'>
+                <BlackboardEntry
+                    email={"example@email.com"}
+                    message={"Your message will be displayed here."}
+                    created_at={"2026-02-11 20:09:45"}
+                />
+            </div>
+           
+           <div className='blackboard-spacer'></div>
 
             <div className="blackboard">
                 
