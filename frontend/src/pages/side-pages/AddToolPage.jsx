@@ -2,11 +2,12 @@ import MainHeader from "../../components/MainHeader";
 import axios from 'axios';
 import '../../styles/sidePages/AddToolPage.css';
 import { NavLink } from 'react-router';
-import { useState } from 'react';
+import { useState , useRef} from 'react';
 import { checkToolInput } from "../../utils/inputValidation";
 
 function AddToolPage() {
 
+    // input fields from user
     const [toolInput , setToolInput] = useState({
         name: '',
         title: '',
@@ -19,6 +20,26 @@ function AddToolPage() {
         description: '',
         consent: false
     });
+
+    // feedback for user in hidden div
+    const [ visible , setVisible] = useState(false);
+    const [ message , setMessage] = useState('');
+
+    const timerRef = useRef(null);
+
+    function showServerResponse(text) {
+        setMessage(text);
+        setVisible(true);
+
+        if(timerRef.current){
+            clearTimeout(timerRef);
+        }
+
+        timerRef.current = setTimeout(() => {
+            console.log(`Timer startet: ${timerRef.current}`)
+            setVisible(false);
+        } , 3000)
+    }
 
     return(
 
@@ -197,17 +218,24 @@ function AddToolPage() {
                 <button type="button" 
                         className="submit-button"
                         onClick={async () => {
-                            const isValid = await checkToolInput(toolInput);
-                            if(isValid){
+                            
                                 try {
-                                    const response = await axios.post('http://localhost:3000/api/tools' , toolInput );
-                                    console.log(response.data.message);
-                                }catch(err){
-                                    console.log('Error in submitting tool:' , err.message);
+                                    const isValid = await checkToolInput(toolInput);
+                                    if(isValid){
+                                        const token = localStorage.getItem('token');
+                                        const response = await axios.post('http://localhost:3000/api/tools' , toolInput ,
+                                        {
+                                            headers: {
+                                                Authorization: `Bearer ${token}`
+                                            }
+                                        }
+                                        );
+                                        showServerResponse(response.data.message);
                                 }
-                            } else {
-                                console.log('Invalid input.')
-                            }
+                                } catch(err){
+                                    console.log('Error in submitting tool:' , err.message);
+                                    showServerResponse(err.response.data.message);
+                                }
                         }}
                 >
                         Submit
@@ -215,6 +243,11 @@ function AddToolPage() {
 
             </form>
 
+        </div>
+
+        <div className="server-info"
+            style={{display: visible ? 'block' : 'none' }}>
+                {message}
         </div>
 
     </div>
