@@ -234,7 +234,7 @@ function AddToolPage() {
                                 }
                                 } catch(err){
                                     console.log('Error in submitting tool:' , err.message);
-                                    showServerResponse(err.response.data.message);
+                                    showServerResponse(err.response.data.message + "to submit a tool!");
                                 }
                         }}
                 >

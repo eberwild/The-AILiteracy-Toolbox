@@ -103,8 +103,9 @@
 .tool-text-area {
     resize: none;
 }
-.consent-checkbox {
-
+input[type="checkbox"] {
+    transform: scale(1.5);
+    margin: 8px;
 }
 .submit-button {
   color: #ffffff;

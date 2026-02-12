@@ -13,7 +13,7 @@ export const verifyToken = (req , res , next) => {
     // no header = no token -> acces denied cause user is not logged in
     // 401 -> Unauthorized , no valid token to use the api route
     if(!authHeader){
-        return res.status(401).json({message: 'No token found , access denied.'});
+        return res.status(401).json({message: 'You are not logged in, access denied.'});
     }
 
     // get the token out of the header
@@ -23,6 +23,10 @@ export const verifyToken = (req , res , next) => {
     // [1] -> only exntracts the token out of the array
     const token = authHeader.split(' ')[1];
 
+    if(!token){
+        return res.status(401).json({message: 'You are not logged in, access denied.'});
+    }
+
     // verify the token
     jwt.verify(token , process.env.JWT_SECRET , (error , decoded) => {
 
@@ -30,7 +34,7 @@ export const verifyToken = (req , res , next) => {
         // 403 -> Forbidden , token found but not valid
         // better 401 for both to have a better reaction in the frontend
         if(error){
-            return res.status(401).json({message: 'Invalid or expired token.'})
+            return res.status(401).json({message: 'You need to be logged in '})
         }
 
         // if no error accures by checking the token -> decoded will be the users payload + the timestamps
