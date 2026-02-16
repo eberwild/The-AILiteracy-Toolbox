@@ -1,10 +1,16 @@
 import MainHeader from '../../components/MainHeader';
 import '../../styles/pages/ContactPage.css';
-import { NavLink } from 'react-router-dom';
 import faqData from '../../data/faqData';
 import FAQItem from '../../components/FAQItem';
+import { useState } from 'react';
 
 function ContactPage() {
+
+    // state object for email contact
+    const [contact , setContact ] = useState({
+        email: "" ,
+        message: ""
+    })
 
     return(
 
@@ -43,16 +49,34 @@ function ContactPage() {
             <div className='contact-spacer'></div>
 
             <form className='contact-form'>
-                <label for="name">Name</label>
-                <input type="text"/>
 
                 <label for="email">Email*</label>
-                <input className='contact-email' required />
+                <input className='contact-email' required 
+                    value={contact.email}
+                    onChange={(event) => {
+                        setContact({...contact , email: event.target.value})
+                    }}/>
 
                 <label for="message">Message*</label>
-                <textarea className='contact-text-area' rows="5" required></textarea>
+                <textarea className='contact-text-area' 
+                          rows="5" 
+                          required
+                          value={contact.message}
+                            onChange={(event) => {
+                                setContact({... contact , message: event.target.value})
+                        }}>      
+                </textarea>
 
-                <button type="button" className="submit-button" id="submit-button">Send Message</button>
+                <button type="button" 
+                        className="submit-button" 
+                        id="submit-button"
+                        onClick={() => {
+                            console.log(contact)
+                        }}
+                >
+                    Send Message
+                </button>
+
             </form>
             
 
