@@ -13,6 +13,7 @@ function ToolsPage() {
     const [activeTool , setActiveTool] = useState(null);
     const [tools , setTools] = useState([]);
     const [isLoading , setIsLoading] = useState(true);
+    const [search , setSearch ] = useState("");
 
     const menuRef = useRef(null);
     const imgRef = useRef(null);
@@ -64,7 +65,13 @@ function ToolsPage() {
         getTools();
     } , [])
 
+    // test rating
     const rating = "2,5";
+
+    // filter for tools including the current search value
+    const filteredTools =  tools.filter((tool) => {
+        return tool.title.toLowerCase().includes(search.toLowerCase())
+    });
 
     return(
 
@@ -92,7 +99,12 @@ function ToolsPage() {
 
             <p className='search-here'>Search here for a Tool :</p>
             <input type="text"
-                   className="tool-search" />
+                   className="tool-search"
+                   value={search}
+                   onChange={(event) => {
+                    setSearch(event.target.value);
+                   }} 
+            />
 
             <div className="tools-section">
 
@@ -101,24 +113,29 @@ function ToolsPage() {
                     <div>Loading Tools..</div>
                 ) 
             : 
-            tools && tools.length > 0 ? (
-                tools.map((tool) => (
+            filteredTools && filteredTools.length > 0 ? 
+
+                (
+
+                filteredTools.map((filterTool) => (
                 <Tool
-                    key={tool.id}  
-                    name={tool.name}
-                    title={tool.title}
-                    imageSRC={tool.img_URL}
+                    key={filterTool.id}  
+                    name={filterTool.name}
+                    title={filterTool.title}
+                    imageSRC={filterTool.img_URL}
                     ratingSRC={`/src/assets/ratings/${getStars(rating)}.png`}
                     setRatingMenuOpen={setRatingMenuOpen}
                     setActiveTool={setActiveTool}
                     imgRef={imgRef}
                 />
                 ))
+
                 ) 
             : 
                 (      
                     <div>No tools loaded..</div>
-                )}
+                )
+            }
 
                 {/*hidden div -> opens rating menu if click in stars*/ }
                 <div className='rating-menu'
