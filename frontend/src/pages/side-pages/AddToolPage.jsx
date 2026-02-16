@@ -39,6 +39,40 @@ function AddToolPage() {
         } , 3000)
     }
 
+    // insert a new tool into the database
+    async function insertNewTool(input){
+        try {
+            const isValid = await checkToolInput(input);
+            if(isValid){
+                const token = localStorage.getItem('token');
+                const response = await axios.post('http://localhost:3000/api/tools' , input ,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+                );
+                showServerResponse(response.data.message);
+        }
+        } catch(err){
+            console.log('Error in submitting tool:' , err.message);
+            showServerResponse(err.response.data.message + " to submit a tool!");
+        }
+    }
+
+    // send emails after a new tool is submitted successfully
+    async function sendEmails(input) {
+        try {
+            const response = await axios.post('http://localhost:3000/api/email/submission' , {
+                email: input.email ,
+                toolTitle: input.title
+            });
+            showServerResponse(response.data.message);
+        } catch(err) {
+            console.log('Error in sendMails function: ' , err.message);
+        }
+    }
+
     return(
 
         <div className="add-tool-page">
@@ -207,24 +241,10 @@ function AddToolPage() {
                 <button type="button" 
                         className="submit-button"
                         onClick={async () => {
-                            
-                                try {
-                                    const isValid = await checkToolInput(toolInput);
-                                    if(isValid){
-                                        const token = localStorage.getItem('token');
-                                        const response = await axios.post('http://localhost:3000/api/tools' , toolInput ,
-                                        {
-                                            headers: {
-                                                Authorization: `Bearer ${token}`
-                                            }
-                                        }
-                                        );
-                                        showServerResponse(response.data.message);
-                                }
-                                } catch(err){
-                                    console.log('Error in submitting tool:' , err.message);
-                                    showServerResponse(err.response.data.message + " to submit a tool!");
-                                }
+
+                            await insertNewTool(toolInput);
+                            await sendEmails(toolInput);
+                                
                         }}
                 >
                         Submit

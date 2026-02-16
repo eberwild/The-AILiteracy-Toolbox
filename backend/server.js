@@ -7,6 +7,7 @@ dotenv.config();              // env-File laden -> before all imports that use .
 import userRouter from './routes/userRoutes.js';
 import toolRouter from './routes/toolRoutes.js';
 import blackboardRouter from './routes/blackboardRoutes.js';
+import emailRouter from './routes/emailRoutes.js';
 // middlewares
 import { globalLimiter } from './middleware/limiter.js';
 // database
@@ -36,6 +37,9 @@ app.use('/api/tools' , globalLimiter , toolRouter);
 
 // api-routes -> blackboard
 app.use('/api/blackboard' , globalLimiter , blackboardRouter);
+
+// api-routes -> email
+app.use('/api/email' , emailRouter);
 
 // init the db tables -> dont start server if table creation throws an error
 createTables()

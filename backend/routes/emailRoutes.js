@@ -12,6 +12,8 @@ emailRouter.post('/submission' ,  async (req , res) => {
     res.json({message: 'All emails sent.'});
 });
 
-emailRouter.post('/contact' , );
+emailRouter.post('/contact' , async (req , res) => {
+    // contact email -> self + colaps
+});
 
 export default emailRouter;
