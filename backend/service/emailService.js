@@ -1,0 +1,56 @@
+import nodemailer from 'nodemailer';
+
+// .env-check -> are all infos there we need to send an email
+if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+  console.warn('Error: Could not read important data from .env!');
+}
+
+// configure email transporter -> from where do we send 
+// read sensible data out of .env to secure the data
+const transporter = nodemailer.createTransport({
+
+  // define mailservice and 'login' from sender-email
+  host: process.env.SMTP_HOST,                  //  SMTP-Server 
+  port: Number(process.env.SMTP_PORT) ,         //  Portnummer: 587 für STARTTLS, 465 für SSL/TLS, 25 ist oft blockiert
+  secure: false,                                //  true = SSL/TLS (Port 465), false = STARTTLS (587)
+
+  requireTLS: true,                             //  force TLS-Encryption -> most of the time a must have
+
+  auth: {
+    user: process.env.EMAIL_USER,               //  from what email do we send 
+    pass: process.env.EMAIL_PASS                //  App-specific password -> not the normal passwort 
+  }
+});
+
+// User-email -> feedback for successfull submission
+export const sendProviderMail = async (to) => {
+    const mailOptions = {
+        from: process.env.EMAIL_USER ,
+        to ,
+        subject: 'Thanks for Your submission!',
+        text: 'Thank you for submitting your project! We appreciate your contribution. Our team will review it soon.\n\nBest regards,\nThe Team'
+    }
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent successfull ' , info.response);
+    } catch(err){
+        console.error('Email failed: ' , err.message)
+    }
+}
+
+// Collaps-email -> info of a new submited tool
+export const sendColapsMail = async (toolTitle , from) => {
+    // send mail to collaps-team in case of a new submission
+    const mailOptions = {
+        from: process.env.EMAIL_USER ,
+        to: process.env.COLAPS_EMAIL ,
+        subject: 'New tool submited!' ,
+        text: `New tool submission from ${from}\n Tooltitle: ${toolTitle}`
+    }
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent successfull ' , info.response);
+    } catch(err){
+        console.error('Email failed: ' , err.message)
+    }
+}
