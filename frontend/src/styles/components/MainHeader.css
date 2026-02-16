@@ -41,6 +41,6 @@
     text-decoration: underline;
 }
 .header-icon {
-    width: 90%;
-    height: 90%;
+    width: auto;
+    height: 120px;
 }
