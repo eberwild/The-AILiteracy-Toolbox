@@ -73,8 +73,16 @@ function PillarPage() {
                 <h2>General Information</h2>
                 <div className='pillar-spacer'></div>
                     <p className='pillar-text'>
-                        AI does not “understand” the world like humans do.
+                        AI does not “understand” the world like humans do.<br/>
                         It works by processing data and probabilities, not by having intentions, emotions, or awareness.
+                        <br/>
+                        <br/>
+                        AI systems identify patterns in data and make predictions based on them.<br/>
+                        They do not think, feel, or make conscious decisions.
+                        <br/>
+                        <br/>
+                        Most AI models are trained on examples to recognize patterns or generate outputs.<br/>
+                        They are tools, not independent thinkers.
                     </p>
             </div>
 
