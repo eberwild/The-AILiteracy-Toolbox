@@ -56,7 +56,6 @@ export const createTables = async () => {
       table.string("type").notNullable();
       table.string("git_URL").notNullable().unique();
       table.string("img_URL").notNullable();
-      table.string("tags").notNullable();
       table.string("age_recom").notNullable();
       table.string("description").notNullable();
       table.timestamps(true, true);      

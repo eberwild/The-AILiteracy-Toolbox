@@ -19,7 +19,7 @@ export const checkToolInput = async (object) => {
     }
 
     // check type 
-    const types = ["game" , "education" , "other"];
+    const types = ["game" , "education" , "quiz" , "other"];
     if(!types.includes(object.type)){
         alert('Please enter a valid type.')
         return false;
@@ -64,12 +64,6 @@ export const checkToolInput = async (object) => {
     //check ageRecommandation
     if(!object.ageRecom ) {
         alert('Please select a valid age recommandation!');
-        return false;
-    }
-
-    // check tags 
-    if(!object.tags || object.tags.trim() === ''){
-        alert('Please enter at least one valid tag for your tool!');
         return false;
     }
 

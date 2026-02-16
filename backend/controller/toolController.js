@@ -24,7 +24,6 @@ export const provideNewTool = async(req , res) => {
             type,
             gitURL,
             imgURL,
-            tags,
             ageRecom,
             description
         } = req.body;

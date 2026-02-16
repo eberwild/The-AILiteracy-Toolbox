@@ -12,7 +12,6 @@ export const insertTool = (input) => {
         type: input.type,
         git_URL: input.gitURL,
         img_URL: input.imgURL,
-        tags: input.tags,
         age_recom: input.ageRecom,
         description: input.description
     })

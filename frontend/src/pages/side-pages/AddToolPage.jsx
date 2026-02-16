@@ -15,7 +15,6 @@ function AddToolPage() {
         type: '',
         gitURL: '',
         imgURL: '',
-        tags: '',
         ageRecom: '',
         description: '',
         consent: false
@@ -36,7 +35,6 @@ function AddToolPage() {
         }
 
         timerRef.current = setTimeout(() => {
-            console.log(`Timer startet: ${timerRef.current}`)
             setVisible(false);
         } , 3000)
     }
@@ -143,6 +141,7 @@ function AddToolPage() {
                 <option value="" disabled selected>Choose one</option>
                 <option value="game">Game</option>
                 <option value="education">Education</option>
+                <option value="quiz">Quiz</option>
                 <option value="other">Other</option>
                 </select>
 
@@ -163,16 +162,6 @@ function AddToolPage() {
                        value={toolInput.imgURL}
                        onChange={(event) => {
                             setToolInput({...toolInput , imgURL: event.target.value})
-                       }}
-                />
-
-                <label for="uploadTags">Tags (comma separated)</label>
-                <input type="text" 
-                       className="upload-tags" 
-                       placeholder="e.g. education, games, learning"
-                       value={toolInput.tags}
-                       onChange={(event) => {
-                            setToolInput({...toolInput , tags: event.target.value})
                        }}
                 />
 
@@ -234,7 +223,7 @@ function AddToolPage() {
                                 }
                                 } catch(err){
                                     console.log('Error in submitting tool:' , err.message);
-                                    showServerResponse(err.response.data.message + "to submit a tool!");
+                                    showServerResponse(err.response.data.message + " to submit a tool!");
                                 }
                         }}
                 >
