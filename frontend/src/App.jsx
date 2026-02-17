@@ -11,6 +11,7 @@ import RegisterPage from './pages/side-pages/RegisterPage';
 import LoginPage from './pages/side-pages/LoginPage';
 import AddToolPage from './pages/side-pages/AddToolPage';
 import RequestReset from './pages/side-pages/RequestReset';
+import ResetPage from './pages/side-pages/ResetPage';
 // pillar pages
 import PillarPage from './pages/main-pages/PillarPage';
 import UnderstandingAI from './components/pillar-components/UnderstandingAI';
@@ -19,7 +20,6 @@ import PracticalSkills from './components/pillar-components/PracticalSkills';
 import Ethics from './components/pillar-components/Ethics';
 // style
 import './styles/App.css';
-
 
 
 function App() {
@@ -36,6 +36,8 @@ function App() {
                       element={<LoginPage/>} />
             <Route path='/reset-request'
                       element={<RequestReset/>} />
+            <Route path='/reset'
+                      element={<ResetPage/>} />
             <Route path='/pillars'
                       element={<PillarPage/>} />
             <Route path='/understandingAI'

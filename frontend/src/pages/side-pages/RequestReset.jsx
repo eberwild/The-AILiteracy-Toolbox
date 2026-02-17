@@ -6,13 +6,17 @@ import '../../styles/sidePages/ResetPassword.css';
 function RequestReset () {
 
     const [ email , setEmail] = useState('');
+    const [ message , setMessage] = useState('');
 
     async function sendResetLink(email){
         try {
-            const response = axios.post('http://localhost:3000/api/users/reset-request' , {
+            const response = await axios.post('http://localhost:3000/api/users/reset-request' , {
                 email: email
             });
-            console.log(response);
+            if( response.status === 200){
+                setMessage(response.data.message);
+            }
+            
         } catch(error){
             console.error('Reset Link could not be sent.' , error.message);
         }
@@ -39,6 +43,7 @@ function RequestReset () {
                         }}>
                     Get Email
                 </button>
+                <p className="user-info">{message}</p>
             </div>
         </div>
     )

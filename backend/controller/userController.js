@@ -109,7 +109,8 @@ export const loginUser = async (req , res) => {
 
 };
 
-export const resetPasswordLink = async (req , res) => {
+// sends an email and guides to the passwort change page
+export const requestResetEmail = async (req , res) => {
   try {
     const email = req.body.email;
 
@@ -132,11 +133,15 @@ export const resetPasswordLink = async (req , res) => {
 
     await sendResetLink(email , resetLink);
 
-    res.status(200).json({message: 'Reset link sent!'})
+    res.status(200).json({message: `Reset link sent to : ${email}`});
   } catch(error) {
-    console.log('Error in resetPassword: ' , error.message);
-    res.status(500).json({message: 'Error by sending the reset link.'})
+    console.log('Error in requestResetEmail: ' , error.message);
+    res.status(500).json({message: 'Error: Not able to send the reset Link.'});
   }
   
+}
+
+export const changePasswort = async (req , res) => {
+
 }
 

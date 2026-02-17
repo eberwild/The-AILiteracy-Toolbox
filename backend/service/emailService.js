@@ -95,3 +95,4 @@ export const sendResetLink = async (email , link) => {
         console.error('Error in sending reset Email.' , error.message);
     }
 }
+
