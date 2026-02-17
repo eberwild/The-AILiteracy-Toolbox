@@ -1,7 +1,6 @@
 import { Route , Routes } from 'react-router-dom';
 // components
 import ScrollToTop from './components/ScrollToTop';
-import ButtonComponent from './components/ButtonComponent';
 // main pages
 import HomePage from './pages/main-pages/HomePage';
 import BlackboardPage from './pages/main-pages/BlackboardPage';
@@ -11,6 +10,7 @@ import ContactPage from './pages/main-pages/ContactPage';
 import RegisterPage from './pages/side-pages/RegisterPage';
 import LoginPage from './pages/side-pages/LoginPage';
 import AddToolPage from './pages/side-pages/AddToolPage';
+import ResetPassword from './pages/side-pages/ResetPassword';
 // pillar pages
 import PillarPage from './pages/main-pages/PillarPage';
 import UnderstandingAI from './components/pillar-components/UnderstandingAI';
@@ -19,6 +19,7 @@ import PracticalSkills from './components/pillar-components/PracticalSkills';
 import Ethics from './components/pillar-components/Ethics';
 // style
 import './styles/App.css';
+
 
 
 function App() {
@@ -33,6 +34,8 @@ function App() {
                        element={<RegisterPage/>} />
             <Route path='/login'
                       element={<LoginPage/>} />
+            <Route path='/reset'
+                      element={<ResetPassword/>} />
             <Route path='/pillars'
                       element={<PillarPage/>} />
             <Route path='/understandingAI'
@@ -46,8 +49,7 @@ function App() {
             <Route path='/blackboard'
                    element={<BlackboardPage/>} />
             <Route  path='/tools'
-                      element={<ToolsPage
-                        ButtonComponent={ButtonComponent}/>} />
+                      element={<ToolsPage/>} />
             <Route path='/add-tool'
                       element={<AddToolPage/>} />
             <Route path='/contact'

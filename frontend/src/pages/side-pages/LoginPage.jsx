@@ -79,13 +79,24 @@ async function loginUser(){
                 </button>
             </div>
 
-            <p>
-                No account yet ?{" "} 
+            <div className='login-links'>
+                <p>
+                    No account yet ?{" "} 
                     <Link to="/register"
                           className='register-link'>
                             Sign Up here!
                     </Link>
-            </p>
+                </p>
+
+                <p>
+                    Forgot Your Password? {" "} 
+                    <Link to='/reset'
+                          className='reset-link'>
+                        Click here!
+                    </Link>
+                </p>
+            </div>
+            
 
         </div> 
         </>
