@@ -133,7 +133,7 @@ export const requestResetEmail = async (req , res) => {
 
     await sendResetLink(email , resetLink);
 
-    res.status(200).json({message: `Reset link sent to : ${email}`});
+    res.status(200).json({message: 'If this email does exists , password reset link was sent.'});
   } catch(error) {
     console.log('Error in requestResetEmail: ' , error.message);
     res.status(500).json({message: 'Error: Not able to send the reset Link.'});
@@ -156,9 +156,6 @@ export const changePassword = async (req , res) => {
     const {password} = req.body;
     const hashedPassword = await bcrypt.hash(password , Number(process.env.SALT_ROUNDS));
 
-    console.log(userID)
-    console.log(password)
-    console.log(hashedPassword)
     await updatePasswort(userID , hashedPassword);
 
     return res.status(200).json({message: 'Password changed!'});

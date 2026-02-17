@@ -34,7 +34,7 @@ app.use((req , _ , next) => {
 app.use('/api/users' , userRouter);
 
 // api-routes -> tools
-app.use('/api/tools' , globalLimiter , toolRouter);
+app.use('/api/tools' , toolRouter);
 
 // api-routes -> blackboard
 app.use('/api/blackboard' , globalLimiter , blackboardRouter);

@@ -4,7 +4,7 @@ import rateLimit from "express-rate-limit";
 export const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000 ,
   max: 100 ,
-  message: 'Too many request, little pause for you!'
+  message: 'Too many request, little break for you!'
 });
 
 export const loginLimiter = rateLimit({
@@ -17,4 +17,22 @@ export const registerLimiter = rateLimit({
     windowMs: 30 * 60 * 1000 ,
     max: 3 ,
     message: 'Too many registrations!'
-})
+});
+
+export const resetLimiter = rateLimit({
+    windowMs: 10 * 60 * 1000 ,
+    max: 2 ,
+    message: 'Too many password changes!'
+});
+
+export const emailLimiter = rateLimit({
+    windowMs: 10 * 60 *1000 ,
+    max: 3 ,
+    message: 'Too many actions!'
+});
+
+export const submissionLimiter = rateLimit({
+    windowMs: 10 * 60 * 1000 ,
+    max: 1 ,
+    message: 'Too many tool submissions!'
+});
