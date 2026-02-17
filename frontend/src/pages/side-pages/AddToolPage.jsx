@@ -64,8 +64,8 @@ function AddToolPage() {
     async function sendEmails(input) {
         try {
             const response = await axios.post('http://localhost:3000/api/email/submission' , {
-                email: input.email ,
-                toolTitle: input.title
+                toolTitle: input.title ,
+                email: input.email 
             });
             showServerResponse(response.data.message);
         } catch(err) {
@@ -134,8 +134,9 @@ function AddToolPage() {
 
             <form className="input-form">
 
-                <label for="name">Your Name/Alias</label>
+                <label htmlFor="name">Your Name/Alias</label>
                 <input type="text" 
+                       id="name"
                        className="user-alias" 
                        placeholder="Enter your name or an alias"
                        value={toolInput.name} 
@@ -144,8 +145,9 @@ function AddToolPage() {
                        }}
                        required/>
                 
-                <label for="title">Tool Title*</label>
+                <label htmlFor="title">Tool Title*</label>
                 <input type="text" 
+                       id="title"
                        className="tool-name" 
                        placeholder="Enter tool name" 
                        value={toolInput.title}
@@ -154,8 +156,9 @@ function AddToolPage() {
                        }}
                        required />
 
-                <label for="email">Contact Email*</label>
+                <label htmlFor="email">Contact Email*</label>
                 <input type="email" 
+                       id="email"
                        className="user-email" 
                        placeholder="you@example.com" 
                        value={toolInput.email}
@@ -164,7 +167,7 @@ function AddToolPage() {
                        }}
                        required />
 
-                <label for="type">Type*</label>
+                <label htmlFor="type">Type*</label>
                 <select id="type" 
                         name="type" 
                         value={toolInput.type}
@@ -179,8 +182,9 @@ function AddToolPage() {
                 <option value="other">Other</option>
                 </select>
 
-                <label for="github">GitHub Link*</label>
+                <label htmlFor="github">GitHub Link*</label>
                 <input type="url" 
+                       id="github"
                        className="github-link" 
                        placeholder="https://github.com/..." 
                        value={toolInput.gitURL}
@@ -189,8 +193,9 @@ function AddToolPage() {
                        }}
                        required />
 
-                <label for="thumbnailURL">Thumbnail URL</label>
+                <label htmlFor="thumbnailURL">Thumbnail URL</label>
                 <input type="url" 
+                       id="thumbnailURL"
                        className="thumbnail-URL" 
                        placeholder="https://example.com/image.jpg" 
                        value={toolInput.imgURL}
@@ -199,8 +204,9 @@ function AddToolPage() {
                        }}
                 />
 
-                <label for="ageRecommendation">Age Recommendation*</label>
+                <label htmlFor="ageRecommendation">Age Recommendation*</label>
                 <select className="ageRecommendation" 
+                        id="ageRecommendation"
                         name="ageRecommendation" 
                         value={toolInput.ageRecom}
                         onChange={(event) => {
@@ -215,8 +221,9 @@ function AddToolPage() {
                 <option value="18+">Adults (18+)</option>
                 </select>
 
-                <label for="description">Description*</label>
+                <label htmlFor="description">Description*</label>
                 <textarea name="description"
+                          id="description"
                           rows="4" 
                           placeholder="Brief description..."
                           className="tool-text-area" 

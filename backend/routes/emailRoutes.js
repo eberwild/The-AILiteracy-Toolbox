@@ -7,7 +7,7 @@ emailRouter.post('/submission' ,  async (req , res) => {
     const {email , toolTitle} = req.body;
 
     await sendProviderMail(email);
-    await sendColapsMail(email , toolTitle);
+    await sendColapsMail(toolTitle , email);
 
     res.json({message: 'All emails sent.'});
 });

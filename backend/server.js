@@ -1,8 +1,9 @@
+import dotenv from 'dotenv';  
+dotenv.config();              // env-File laden -> before all imports that use .env
+
 // dependencies
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';  
-dotenv.config();              // env-File laden -> before all imports that use .env
 // routes
 import userRouter from './routes/userRoutes.js';
 import toolRouter from './routes/toolRoutes.js';
