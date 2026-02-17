@@ -1,4 +1,4 @@
-import { findUserByEmail , insertUser } from "../models/userModel.js";
+import { findUserByEmail , insertUser , updatePasswort} from "../models/userModel.js";
 import { sendResetLink } from "../service/emailService.js";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
@@ -141,7 +141,31 @@ export const requestResetEmail = async (req , res) => {
   
 }
 
-export const changePasswort = async (req , res) => {
+export const changePassword = async (req , res) => {
+  try {
+    const authHeader = req.headers.authorization;
+
+    if(!authHeader){
+      return res.status(401).json({message: 'No token found.'})
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    const decoded = jwt.verify(token , process.env.JWT_SECRET);
+    const userID = decoded.id;
+    const {password} = req.body;
+    const hashedPassword = await bcrypt.hash(password , Number(process.env.SALT_ROUNDS));
+
+    console.log(userID)
+    console.log(password)
+    console.log(hashedPassword)
+    await updatePasswort(userID , hashedPassword);
+
+    return res.status(200).json({message: 'Password changed!'});
+
+  } catch (error) {
+    return res.status(400).json({message: 'Error in changePasswort.'});
+  }
 
 }
 

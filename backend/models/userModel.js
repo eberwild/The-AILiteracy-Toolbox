@@ -13,3 +13,9 @@ export const insertUser = (email, hashedPassword) => {
     password: hashedPassword
   });
 };
+
+export const updatePasswort = (id , newPassword) => {
+  return database("users")
+    .where({id:id})
+    .update({password: newPassword});
+};

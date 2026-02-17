@@ -2,20 +2,27 @@ import MainHeader from "../../components/MainHeader";
 import axios from "axios";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import "../../styles/sidePages/ResetPage.css";
 
 function ResetPage() {
 
     // states
     const [password , setPassword] = useState("");
     const [message , setMessage] = useState("");
+    const [visible , setVisible] = useState(false);
 
     // params out of the URL query string
     const [searchParams] = useSearchParams();
     const token = searchParams.get("token");
 
-    async function changePasswort(password , token){
+    function togglePassword(){
+        setVisible(!visible);
+    }
+
+    async function changePassword(password , token){
         try {
-            const response = await axios.post("http://localhost3000/api/users/password-change" , password , 
+            const response = await axios.post("http://localhost:3000/api/users/password-change" ,
+                { password } , 
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -24,7 +31,7 @@ function ResetPage() {
             );
             setMessage(response.data.message);
         } catch(error) {
-            setMessage(error.response.data.message);
+            setMessage(error.response?.data?.message || "ServerFehler");
         }
     }
 
@@ -34,16 +41,21 @@ function ResetPage() {
             <MainHeader/>
             <div className="change-section">
                 <h2>Select a new Passwort:</h2>
-                <input type="password"
+                <input type={visible ? 'text' : 'password'}
                         value={password}
                         placeholder="New Password"
                         onChange={(event) => {
                             setPassword(event.target.value);
                         }}
                 />
+                <button className='show-button'
+                        type='button'
+                        onClick={togglePassword}>
+                    {visible? "Hide Password" : "Show Password"}
+                </button>
                 <button className="change-button"
                         onClick={async() => {
-                            changePasswort(password , token);
+                            changePassword(password , token);
                         }}>
                         Change Password
                 </button>

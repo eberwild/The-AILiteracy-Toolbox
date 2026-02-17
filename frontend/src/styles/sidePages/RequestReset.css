@@ -22,7 +22,7 @@
     border-radius: 8px;
     width: 50%;
 }
-.change-button {
+.request-button {
     padding: 10px;
     background-color:rgb(234, 129, 8);
     color: white;
@@ -32,12 +32,12 @@
     box-shadow: 5px 5px 0px black;
     transition: all 0.3 ease;
 }
-.change-button:hover {
+.request-button:hover {
     background-color: white;
     color: rgb(234, 129, 8);
     box-shadow: 5px 5px 0px rgb(234, 129, 8);
 }
-.change-button:active {
+.request-button:active {
     box-shadow: none;
     transform : translateY(4px);
     border-color: #2b2d2f;

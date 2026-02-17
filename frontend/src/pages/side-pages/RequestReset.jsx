@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from 'axios';
 import MainHeader from "../../components/MainHeader";
-import '../../styles/sidePages/ResetPassword.css';
+import '../../styles/sidePages/RequestReset.css';
 
 function RequestReset () {
 
@@ -18,7 +18,7 @@ function RequestReset () {
             }
             
         } catch(error){
-            console.error('Reset Link could not be sent.' , error.message);
+            setMessage(error.response?.data?.message || "Serverfehler");
         }
     }
     return(
@@ -37,7 +37,7 @@ function RequestReset () {
                         }}
                 />
 
-                <button className="change-button"
+                <button className="request-button"
                         onClick={ async() => {
                             await sendResetLink(email);
                         }}>
