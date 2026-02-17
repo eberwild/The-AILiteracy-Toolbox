@@ -70,8 +70,28 @@ export const sendColapsContactMail = async (message , email) => {
     try {
         const transporter = createTransporter();
         const info = await transporter.sendMail(mailOptions);
-        console.log('Email send successfull ' , info.response)
+        console.log('Email sent successfull ' , info.response)
     } catch(err) {
         console.error('Email failed: ' , err.message)
+    }
+}
+
+export const sendResetLink = async (email , link) => {
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER ,
+        to: email ,
+        subject: 'Requested Password Reset' ,
+        html: `<h2>Passwort Reset</h2>
+                <p>Please click on the following link to change your password: </p>
+                <a href="${link}">Reset Password Here</a>
+                <p>This link will be available for 1 hour!</p>`
+    };
+    try {
+        const transporter = createTransporter();
+        const info = await transporter.sendMail(mailOptions);
+        return info;
+    } catch(error) {
+        console.error('Error in sending reset Email.' , error.message);
     }
 }

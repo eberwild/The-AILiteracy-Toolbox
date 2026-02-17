@@ -4,7 +4,7 @@ export const findUserByEmail = (email) => {
   if(!email) {
     throw new Error("Email must be defined!");
   }
-  return database("users").where({ email} ).first();
+  return database("users").where({ email } ).first();
 };
 
 export const insertUser = (email, hashedPassword) => {

@@ -90,7 +90,7 @@ async function loginUser(){
 
                 <p>
                     Forgot Your Password? {" "} 
-                    <Link to='/reset'
+                    <Link to='/reset-request'
                           className='reset-link'>
                         Click here!
                     </Link>

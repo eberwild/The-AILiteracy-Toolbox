@@ -10,7 +10,7 @@ import ContactPage from './pages/main-pages/ContactPage';
 import RegisterPage from './pages/side-pages/RegisterPage';
 import LoginPage from './pages/side-pages/LoginPage';
 import AddToolPage from './pages/side-pages/AddToolPage';
-import ResetPassword from './pages/side-pages/ResetPassword';
+import RequestReset from './pages/side-pages/RequestReset';
 // pillar pages
 import PillarPage from './pages/main-pages/PillarPage';
 import UnderstandingAI from './components/pillar-components/UnderstandingAI';
@@ -34,8 +34,8 @@ function App() {
                        element={<RegisterPage/>} />
             <Route path='/login'
                       element={<LoginPage/>} />
-            <Route path='/reset'
-                      element={<ResetPassword/>} />
+            <Route path='/reset-request'
+                      element={<RequestReset/>} />
             <Route path='/pillars'
                       element={<PillarPage/>} />
             <Route path='/understandingAI'

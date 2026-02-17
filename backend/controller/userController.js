@@ -1,4 +1,5 @@
 import { findUserByEmail , insertUser } from "../models/userModel.js";
+import { sendResetLink } from "../service/emailService.js";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
@@ -107,4 +108,35 @@ export const loginUser = async (req , res) => {
   }
 
 };
+
+export const resetPasswordLink = async (req , res) => {
+  try {
+    const email = req.body.email;
+
+    const user = await findUserByEmail(email);
+
+    if(!user){
+      return res.status(200).json({message: 'User not found.'});
+    }
+
+    const payload = {
+      email,
+      role: user.role,
+      id: user.id
+    };
+    const secret = process.env.JWT_SECRET;
+
+    const token = jwt.sign(payload , secret , { expiresIn: "1h"});
+
+    const resetLink = `http://localhost:5173/reset?token=${token}`;
+
+    await sendResetLink(email , resetLink);
+
+    res.status(200).json({message: 'Reset link sent!'})
+  } catch(error) {
+    console.log('Error in resetPassword: ' , error.message);
+    res.status(500).json({message: 'Error by sending the reset link.'})
+  }
+  
+}
 
