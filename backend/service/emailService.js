@@ -59,3 +59,19 @@ export const sendColapsMail = async (toolTitle , email) => {
         console.error('Email failed: ' , err.message)
     }
 }
+
+export const sendColapsContactMail = async (message , email) => {
+    const mailOptions = {
+        from: process.env.EMAIL_USER ,
+        to: process.env.EMAIL_COLAPS ,
+        subject: `Contact from ${email}` ,
+        text: message
+    }
+    try {
+        const transporter = createTransporter();
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email send successfull ' , info.response)
+    } catch(err) {
+        console.error('Email failed: ' , err.message)
+    }
+}

@@ -1,4 +1,5 @@
 import MainHeader from '../../components/MainHeader';
+import axios from 'axios';
 import '../../styles/pages/ContactPage.css';
 import faqData from '../../data/faqData';
 import FAQItem from '../../components/FAQItem';
@@ -11,6 +12,18 @@ function ContactPage() {
         email: "" ,
         message: ""
     })
+
+    async function sendContactMail(input) {
+        try{
+            const response = axios.post('http://localhost:3000/api/email/contact' , {
+                email: input.email ,
+                message: input.message
+            });
+            console.log(response);
+        } catch(err) {
+            console.log('Error in sending contact mail!' , err.message)
+        }
+    }
 
     return(
 
@@ -50,15 +63,17 @@ function ContactPage() {
 
             <form className='contact-form'>
 
-                <label for="email">Email*</label>
+                <label htmlFor="email">Email*</label>
                 <input className='contact-email' required 
+                    id='email'
                     value={contact.email}
                     onChange={(event) => {
                         setContact({...contact , email: event.target.value})
                     }}/>
 
-                <label for="message">Message*</label>
+                <label htmlFor="message">Message*</label>
                 <textarea className='contact-text-area' 
+                          id='message'
                           rows="5" 
                           required
                           value={contact.message}
@@ -70,8 +85,9 @@ function ContactPage() {
                 <button type="button" 
                         className="submit-button" 
                         id="submit-button"
-                        onClick={() => {
-                            console.log(contact)
+                        onClick={ async () => {
+                            await sendContactMail(contact);
+                            console.log('Contact mail sent.');
                         }}
                 >
                     Send Message
