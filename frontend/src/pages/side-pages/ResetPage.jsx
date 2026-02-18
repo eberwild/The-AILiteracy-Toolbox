@@ -21,7 +21,7 @@ function ResetPage() {
 
     async function changePassword(password , token){
         try {
-            const response = await axios.post("http://localhost:3000/api/users/password-change" ,
+            const response = await axios.post("http://localhost:5000/api/users/password-change" ,
                 { password } , 
                 {
                     headers: {

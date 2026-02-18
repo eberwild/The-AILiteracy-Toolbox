@@ -15,7 +15,7 @@ function ContactPage() {
 
     async function sendContactMail(input) {
         try{
-            const response = axios.post('http://localhost:3000/api/email/contact' , {
+            const response = axios.post('http://localhost:5000/api/email/contact' , {
                 email: input.email ,
                 message: input.message
             });

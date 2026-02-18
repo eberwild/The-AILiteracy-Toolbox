@@ -23,7 +23,7 @@ function changeVisibility(){
 // function to register a new user 
 async function registerUser(){
     try{
-        const response = await axios.post('http://localhost:3000/api/users/register' , {
+        const response = await axios.post('http://localhost:5000/api/users/register' , {
             email: registerData.userEmail,
             password : registerData.userPassword
         });

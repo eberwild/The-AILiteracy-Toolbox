@@ -13,7 +13,7 @@ function BlackboardPage() {
     useEffect(() => {
         async function getEntries(){
             try{
-                const response = await axios.get("http://localhost:3000/api/blackboard");
+                const response = await axios.get("http://localhost:5000/api/blackboard");
                 setEntries(response.data);
                 setIsLoading(false);
             }catch(err){
@@ -97,7 +97,7 @@ function BlackboardPage() {
                                 if(!token){
                                     console.log('No token found , acces denied.');
                                 }
-                                const response = await axios.post("http://localhost:3000/api/blackboard" , 
+                                const response = await axios.post("http://localhost:5000/api/blackboard" , 
                                     {
                                         message 
                                     }

@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 4137
 
-CMD ["npm", "run", "preview"]
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "4173"]

@@ -25,7 +25,7 @@ function changeVisibility(){
 // function to login an existing user 
 async function loginUser(){
     try{
-        const response = await axios.post('http://localhost:3000/api/users/login' , {
+        const response = await axios.post('http://localhost:5000/api/users/login' , {
             email: loginData.userEmail,
             password : loginData.userPassword
         });

@@ -10,7 +10,7 @@ function RequestReset () {
 
     async function sendResetLink(email){
         try {
-            const response = await axios.post('http://localhost:3000/api/users/reset-request' , {
+            const response = await axios.post('http://localhost:5000/api/users/reset-request' , {
                 email: email
             });
             if( response.status === 200){

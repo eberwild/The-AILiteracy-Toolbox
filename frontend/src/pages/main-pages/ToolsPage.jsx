@@ -53,7 +53,7 @@ function ToolsPage() {
     useEffect(() => {
         async function getTools(){
             try {
-                const response = await axios.get('http://localhost:3000/api/tools');
+                const response = await axios.get('http://localhost:5000/api/tools');
                 setTools(response.data);
             }catch(err){
                 console.log('Error in fetching tools:' , err.message);

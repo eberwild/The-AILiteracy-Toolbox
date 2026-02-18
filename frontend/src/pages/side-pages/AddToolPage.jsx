@@ -45,7 +45,7 @@ function AddToolPage() {
             const isValid = await checkToolInput(input);
             if(isValid){
                 const token = localStorage.getItem('token');
-                const response = await axios.post('http://localhost:3000/api/tools' , input ,
+                const response = await axios.post('http://localhost:5000/api/tools' , input ,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`

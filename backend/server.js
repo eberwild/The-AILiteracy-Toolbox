@@ -1,6 +1,10 @@
 import dotenv from 'dotenv';  
 dotenv.config();              // env-File laden -> before all imports that use .env
 
+console.log("✅ CWD:", process.cwd());
+console.log("✅ ENV DB_PATH:", process.env.DB_PATH);
+console.log("✅ ENV keys:", Object.keys(process.env).filter(k => k.includes("DB")));
+
 // dependencies
 import express from 'express';
 import cors from 'cors';
