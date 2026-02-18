@@ -19,5 +19,3 @@ services:
       - backend
     ports:
       - '3000:3000'
-volumes:
-  sqlite_data
