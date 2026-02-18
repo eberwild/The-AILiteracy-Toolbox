@@ -15,7 +15,7 @@ import { globalLimiter } from './middleware/limiter.js';
 import { createTables } from './database/createTables.js';
 
 const app = express();                      // express for api routing
-const port = process.env.PORT || 3000;      // default port for localhost
+const port = process.env.PORT || 5000;      // default port for localhost
 
 // cors -> frontend and backend are listening on different ports 
 app.use(cors());
