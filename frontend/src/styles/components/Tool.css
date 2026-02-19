@@ -37,4 +37,7 @@
     max-width: 80%;
     height: auto;
     object-fit: cover;
+    border: 1px solid black;
+    border-radius: 9px;
+    padding:5px;
 }

@@ -75,8 +75,8 @@
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    width: 40%;
-    height: 110%;
+    width: 500px;
+    height: 450px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

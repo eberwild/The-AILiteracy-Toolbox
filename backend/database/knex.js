@@ -4,13 +4,13 @@ import knex from "knex";
 import path from "path";
 
 
-const DBPath = path.resolve(process.env.DB_PATH);
+const DBPath = path.resolve('./data/mydb.sqlite');
 
 // configure knex -> sql-data
 const database = knex({
   client: "sqlite3",
   connection: {
-    filename: DBPath  // path to db-file
+    filename: DBPath// path to db-file
   },
   useNullAsDefault: true // no errors for value Null
 });

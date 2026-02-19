@@ -11,15 +11,15 @@ function ToolsPage() {
 
     const [ratingMenuOpen , setRatingMenuOpen] = useState(false);
     const [activeTool , setActiveTool] = useState(null);
+    const [selectedRating , setSelectedRating ] = useState(null);
+
     const [tools , setTools] = useState([]);
     const [isLoading , setIsLoading] = useState(true);
     const [search , setSearch ] = useState("");
 
     const menuRef = useRef(null);
-    const imgRef = useRef(null);
 
     const API_URL = import.meta.env.VITE_API_URL;
-    console.log(API_URL);
 
     // gets a value out of the database and checks if it is a string -> convert ',' to '.' for image-pathing
     function getStars(rating){
@@ -31,17 +31,17 @@ function ToolsPage() {
     useEffect(() => {
         function handleClickOutside(event){
             
-        // menuRef.current -> div rating-menu
-        // !menuRef.current.contains(event.target) -> if we click outside of the rating-menu
-        // **** -> same goes for the img that opens the rating-menu
-        if (menuRef.current &&
-            !menuRef.current.contains(event.target) &&
-            !imgRef.current.contains(event.target)) {
-            // close the rating-menu -> display:noone;
-            setRatingMenuOpen(false);
+            // menuRef.current -> div rating-menu
+            // !menuRef.current.contains(event.target) -> if we click outside of the rating-menu
+            // **** -> same goes for the img that opens the rating-menu
+            if (menuRef.current &&
+                !menuRef.current.contains(event.target)) {
+                // close the rating-menu -> display:noone;
+                setSelectedRating(null);
+                setRatingMenuOpen(false);
+            } 
         }
-            
-        }
+
         // global click-event inside the browser -> created on page mount
         document.addEventListener("click", handleClickOutside);
 
@@ -57,7 +57,6 @@ function ToolsPage() {
         async function getTools(){
             try {
                 const response = await axios.get(`${API_URL}/api/tools`);
-                console.log(response.data);
                 setTools(response.data);
             }catch(err){
                 console.log('Error in fetching tools:' , err.message);
@@ -76,6 +75,17 @@ function ToolsPage() {
     const filteredTools =  tools.filter((tool) => {
         return tool.title.toLowerCase().includes(search.toLowerCase())
     });
+
+    const submitRating = async (rating , id) => {
+        try {
+                await axios.post(`${API_URL}/api/rating` , {
+                rating: rating ,
+                id: id
+            });
+        } catch(error) {
+            console.error('Error in submit Rating: ' , error.message);
+        }
+    }
 
     return(
 
@@ -121,16 +131,13 @@ function ToolsPage() {
 
                 (
 
-                filteredTools.map((filterTool) => (
+                filteredTools.map((tool) => (
                 <Tool
-                    key={filterTool.id}  
-                    name={filterTool.name}
-                    title={filterTool.title}
-                    imageSRC={filterTool.img_URL}
+                    key={tool.id}
+                    tool={tool}
                     ratingSRC={`/src/assets/ratings/${getStars(rating)}.png`}
                     setRatingMenuOpen={setRatingMenuOpen}
                     setActiveTool={setActiveTool}
-                    imgRef={imgRef}
                 />
                 ))
 
@@ -146,25 +153,29 @@ function ToolsPage() {
                     // menuRef.current = rating-menu
                     // acts like a pointer
                     ref={menuRef}
-                    style={{display: ratingMenuOpen ? "flex" : "none" }}>
+                    style={{display: ratingMenuOpen && activeTool ? "flex" : "none" }}>
                         <h2 className='rating-menu-header'>
-                            Rate "{activeTool}"!
+                            Rate "{activeTool?.title}"!
                         </h2>
                         <div className='rating-menu-image-container'>
                             {/*add all the possible rating-images here */}
                             {[0.5,1,1.5,2,2.5,3,3.5,4,4.5,5].map((rating) => (
                             <img
                                 className='rating-menu-images'
+                                style={{backgroundColor: rating == selectedRating ? 'white' : ''}}
                                 key={rating}
                                 src={`/src/assets/ratings/${rating}.png`}
                                 alt={`${rating} Sterne`}
-                                onClick={() => {
-                                    console.log("Rating gewählt : " , rating)
+                                onClick={ () => {
+                                    setSelectedRating(rating);
                                 }}
                             />
                             ))}
                         </div>
-                        <button className='submit-rating-button'>
+                        <button className='submit-rating-button'
+                            onClick={async() => {
+                                await submitRating(selectedRating , activeTool.id);
+                            }}>
                             Submit Rating
                         </button>
                     </div>

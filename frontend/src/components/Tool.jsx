@@ -1,27 +1,28 @@
 import '../styles/components/Tool.css';
 
-function Tool({ name , imageSRC , title , ratingSRC , setRatingMenuOpen , setActiveTool , imgRef}) {
+function Tool({tool , setRatingMenuOpen , setActiveTool , ratingSRC}) {
     
     return (
 
         <>
             <div className="tool">
                 <div className="tool-title">
-                    {title}
+                    {tool.title}
                 </div>
-                <img src={imageSRC}
-                        className="tool-img" />
+                <img src={tool.img_URL}
+                        className="tool-img" 
+                        alt={tool.title}/>
 
                 <img src={ratingSRC}
                         className="tool-rating"
-                        ref={imgRef}
-                        onClick={() => {
-                            setRatingMenuOpen(true)
-                            setActiveTool(name)
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            setActiveTool(tool);
+                            setRatingMenuOpen(true);
                         }}/>
 
                 <div className="tool-provider">
-                    {name}
+                    {tool.name}
                 </div>
             </div>
         </>

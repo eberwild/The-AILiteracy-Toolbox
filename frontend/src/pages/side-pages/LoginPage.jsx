@@ -35,7 +35,6 @@ async function loginUser(){
         } else {
             console.log(response.data.message);
         }
-        
     }catch(err){
         // axios stores errors >=400 in err.response
         if(err.response) {

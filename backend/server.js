@@ -13,6 +13,7 @@ import userRouter from './routes/userRoutes.js';
 import toolRouter from './routes/toolRoutes.js';
 import blackboardRouter from './routes/blackboardRoutes.js';
 import emailRouter from './routes/emailRoutes.js';
+import ratingRouter from './routes/ratingsRoutes.js';
 // middlewares
 import { globalLimiter } from './middleware/limiter.js';
 // database
@@ -45,6 +46,9 @@ app.use('/api/blackboard' , globalLimiter , blackboardRouter);
 
 // api-routes -> email
 app.use('/api/email' , emailRouter);
+
+// api-routes -> rating
+app.use('/api/rating', ratingRouter);
 
 // init the db tables -> dont start server if table creation throws an error
 createTables()
