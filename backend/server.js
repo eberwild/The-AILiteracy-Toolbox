@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';  
-dotenv.config();              // env-File laden -> before all imports that use .env
+dotenv.config({ path: path.resolve('./.env.local')});              // env-File laden -> before all imports that use .env
 
-console.log("✅ CWD:", process.cwd());
-console.log("✅ ENV DB_PATH:", process.env.DB_PATH);
-console.log("✅ ENV keys:", Object.keys(process.env).filter(k => k.includes("DB")));
+console.log("CWD:", process.cwd());
+console.log("ENV DB_PATH:", process.env.DB_PATH);
+import path from 'path';
 
 // dependencies
 import express from 'express';
@@ -18,8 +18,8 @@ import { globalLimiter } from './middleware/limiter.js';
 // database
 import { createTables } from './database/createTables.js';
 
-const app = express();                      // express for api routing
-const port = process.env.PORT || 5000;      // default port for localhost
+const app = express();              // express for api routing
+const port = process.env.PORT;     
 
 // cors -> frontend and backend are listening on different ports 
 app.use(cors());

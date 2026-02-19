@@ -19,6 +19,7 @@ function ToolsPage() {
     const imgRef = useRef(null);
 
     const API_URL = import.meta.env.VITE_API_URL;
+    console.log(API_URL);
 
     // gets a value out of the database and checks if it is a string -> convert ',' to '.' for image-pathing
     function getStars(rating){
@@ -56,6 +57,7 @@ function ToolsPage() {
         async function getTools(){
             try {
                 const response = await axios.get(`${API_URL}/api/tools`);
+                console.log(response.data);
                 setTools(response.data);
             }catch(err){
                 console.log('Error in fetching tools:' , err.message);
