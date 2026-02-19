@@ -12,6 +12,7 @@ function ToolsPage() {
     const [ratingMenuOpen , setRatingMenuOpen] = useState(false);
     const [activeTool , setActiveTool] = useState(null);
     const [selectedRating , setSelectedRating ] = useState(null);
+    const [ratings , setRatings ] = useState(null);
 
     const [tools , setTools] = useState([]);
     const [isLoading , setIsLoading] = useState(true);
@@ -20,13 +21,6 @@ function ToolsPage() {
     const menuRef = useRef(null);
 
     const API_URL = import.meta.env.VITE_API_URL;
-
-    // gets a value out of the database and checks if it is a string -> convert ',' to '.' for image-pathing
-    function getStars(rating){
-        let strRating = typeof rating === "string" ? rating : rating.toString();
-        strRating = strRating.replace("," , ".");
-        return strRating;
-    }
 
     useEffect(() => {
         function handleClickOutside(event){
@@ -68,8 +62,19 @@ function ToolsPage() {
         getTools();
     } , [])
 
-    // test rating
-    const rating = "2,5";
+    useEffect(() => {
+        async function getRatings(){
+            try {
+                const response = await axios.get(`${API_URL}/api/rating`);
+                console.log(response.data);
+                setRatings(response.data);
+            }catch(error){
+                console.log('Error in fetching ratings: ' , error.message);
+            }
+        }
+        getRatings();
+    } , [])
+
 
     // filter for tools including the current search value
     const filteredTools =  tools.filter((tool) => {
@@ -78,10 +83,15 @@ function ToolsPage() {
 
     const submitRating = async (rating , id) => {
         try {
-                await axios.post(`${API_URL}/api/rating` , {
+                const response = await axios.post(`${API_URL}/api/rating` , {
                 rating: rating ,
-                id: id
+                toolID: id
             });
+            if(response.status === 201){
+                setRatingMenuOpen(false);
+                setSelectedRating(null);
+            }
+            console.log(response.data.message);
         } catch(error) {
             console.error('Error in submit Rating: ' , error.message);
         }
@@ -131,15 +141,18 @@ function ToolsPage() {
 
                 (
 
-                filteredTools.map((tool) => (
+                filteredTools.map((tool) => {
+                    console.log(`ToolID : ${tool.id} : ${ratings[tool.id]}`);
+                    const avrg = ratings[tool.id] || '0';
+                    
                 <Tool
                     key={tool.id}
                     tool={tool}
-                    ratingSRC={`/src/assets/ratings/${getStars(rating)}.png`}
+                    ratingSRC={`/src/assets/ratings/${avrg}.png`}
                     setRatingMenuOpen={setRatingMenuOpen}
                     setActiveTool={setActiveTool}
                 />
-                ))
+                })
 
                 ) 
             : 
@@ -174,7 +187,7 @@ function ToolsPage() {
                         </div>
                         <button className='submit-rating-button'
                             onClick={async() => {
-                                await submitRating(selectedRating , activeTool.id);
+                                await submitRating(Number(selectedRating) , activeTool?.id);
                             }}>
                             Submit Rating
                         </button>

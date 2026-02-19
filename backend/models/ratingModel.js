@@ -6,3 +6,7 @@ export const insertRating = (rating , id) => {
         tool_id: id
     })
 }
+
+export const getRatings = () => {
+    return database('ratings').select('*')
+}
