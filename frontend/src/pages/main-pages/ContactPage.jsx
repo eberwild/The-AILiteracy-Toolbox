@@ -30,6 +30,11 @@ function ContactPage() {
         <div className='contact-page'>
             <MainHeader/>
 
+            <div className='aboutUs-section'>
+                <h2>About Us</h2>
+
+            </div>
+
             <div className="contact-intro-section">
                 <h2>Contact Us</h2>
                 <div className="contact-spacer"></div>

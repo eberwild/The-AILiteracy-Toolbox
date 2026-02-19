@@ -18,6 +18,8 @@ function ToolsPage() {
     const menuRef = useRef(null);
     const imgRef = useRef(null);
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     // gets a value out of the database and checks if it is a string -> convert ',' to '.' for image-pathing
     function getStars(rating){
         let strRating = typeof rating === "string" ? rating : rating.toString();
@@ -53,7 +55,7 @@ function ToolsPage() {
     useEffect(() => {
         async function getTools(){
             try {
-                const response = await axios.get('http://localhost:5000/api/tools');
+                const response = await axios.get(`${API_URL}/api/tools`);
                 setTools(response.data);
             }catch(err){
                 console.log('Error in fetching tools:' , err.message);

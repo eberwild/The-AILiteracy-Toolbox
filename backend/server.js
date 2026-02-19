@@ -49,7 +49,7 @@ app.use('/api/email' , emailRouter);
 // init the db tables -> dont start server if table creation throws an error
 createTables()
   .then(() => {
-    app.listen(port, () => {
+    app.listen(port, '0.0.0.0' , () => {
       console.log(`Server läuft auf http://localhost:${port}`);
     });
   })

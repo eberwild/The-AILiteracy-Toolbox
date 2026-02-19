@@ -24,6 +24,8 @@ function AddToolPage() {
     const [ visible , setVisible] = useState(false);
     const [ message , setMessage] = useState('');
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     const timerRef = useRef(null);
 
     function showServerResponse(text) {
@@ -45,7 +47,7 @@ function AddToolPage() {
             const isValid = await checkToolInput(input);
             if(isValid){
                 const token = localStorage.getItem('token');
-                const response = await axios.post('http://localhost:5000/api/tools' , input ,
+                const response = await axios.post(`${API_URL}/api/tools` , input ,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -63,7 +65,7 @@ function AddToolPage() {
     // send emails after a new tool is submitted successfully
     async function sendEmails(input) {
         try {
-            const response = await axios.post('http://localhost:3000/api/email/submission' , {
+            const response = await axios.post(`${API_URL}/api/email/submission` , {
                 toolTitle: input.title ,
                 email: input.email 
             });

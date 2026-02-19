@@ -10,10 +10,12 @@ function BlackboardPage() {
     const [isLoading , setIsLoading] = useState(true);
     const [entries , setEntries ] = useState([]);
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
         async function getEntries(){
             try{
-                const response = await axios.get("http://localhost:5000/api/blackboard");
+                const response = await axios.get(`${API_URL}/api/blackboard`);
                 setEntries(response.data);
                 setIsLoading(false);
             }catch(err){
@@ -97,7 +99,7 @@ function BlackboardPage() {
                                 if(!token){
                                     console.log('No token found , acces denied.');
                                 }
-                                const response = await axios.post("http://localhost:5000/api/blackboard" , 
+                                const response = await axios.post(`${API_URL}/api/blackboard` , 
                                     {
                                         message 
                                     }
