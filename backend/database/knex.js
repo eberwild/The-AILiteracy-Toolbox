@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({ path: path.resolve('../.env.local') });
 import knex from "knex";
 import path from "path";
 
 
-const DBPath = path.resolve(process.env.DB_PATH_DOCKER);
+const DBPath = path.resolve(process.env.DB_PATH);
 
 // configure knex -> sql-data
 const database = knex({
