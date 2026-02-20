@@ -62,17 +62,21 @@ function ToolsPage() {
         getTools();
     } , [])
 
-    useEffect(() => {
-        async function getGroupedRatings(){
-            try {
-                const response = await axios.get(`${API_URL}/api/rating`);
-                console.log(response.data);
-                setRatings(response.data);
-            }catch(error){
-                console.log('Error in fetching ratings: ' , error.message);
-            }
+    async function getGroupedRatings(){
+        try {
+            const response = await axios.get(`${API_URL}/api/rating`);
+            console.log(response.data);
+            setRatings(response.data);
+        }catch(error){
+            console.log('Error in fetching ratings: ' , error.message);
         }
-        getGroupedRatings();
+    }
+
+    useEffect(() => {
+        async function getRatings(){
+            await getGroupedRatings()
+        }
+        getRatings();
     } , [])
 
 
@@ -188,6 +192,7 @@ function ToolsPage() {
                         <button className='submit-rating-button'
                             onClick={async() => {
                                 await submitRating(Number(selectedRating) , activeTool?.id);
+                                await getGroupedRatings();
                             }}>
                             Submit Rating
                         </button>
