@@ -24,6 +24,10 @@ function Tool({tool , setRatingMenuOpen , setActiveTool , ratingSRC}) {
                 <div className="tool-provider">
                     {tool.name}
                 </div>
+
+                <div className='tool-description'>
+                        {tool.description}
+                </div>
             </div>
         </>
     )

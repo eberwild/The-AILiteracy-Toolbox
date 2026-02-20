@@ -63,7 +63,7 @@ function ToolsPage() {
     } , [])
 
     useEffect(() => {
-        async function getRatings(){
+        async function getGroupedRatings(){
             try {
                 const response = await axios.get(`${API_URL}/api/rating`);
                 console.log(response.data);
@@ -72,7 +72,7 @@ function ToolsPage() {
                 console.log('Error in fetching ratings: ' , error.message);
             }
         }
-        getRatings();
+        getGroupedRatings();
     } , [])
 
 
@@ -142,16 +142,16 @@ function ToolsPage() {
                 (
 
                 filteredTools.map((tool) => {
-                    console.log(`ToolID : ${tool.id} : ${ratings[tool.id]}`);
-                    const avrg = ratings[tool.id] || '0';
-                    
-                <Tool
-                    key={tool.id}
-                    tool={tool}
-                    ratingSRC={`/src/assets/ratings/${avrg}.png`}
-                    setRatingMenuOpen={setRatingMenuOpen}
-                    setActiveTool={setActiveTool}
-                />
+                    const avrg = ratings?.[tool.id] ?? 0;
+                    return (
+                            <Tool
+                            key={tool.id}
+                            tool={tool}
+                            ratingSRC={`/src/assets/ratings/${avrg}.png`}
+                            setRatingMenuOpen={setRatingMenuOpen}
+                            setActiveTool={setActiveTool}
+                        />
+                    )
                 })
 
                 ) 

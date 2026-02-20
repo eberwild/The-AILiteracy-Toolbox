@@ -19,7 +19,6 @@ export const submitRating = async (req , res) => {
 export const fetchRatings = async ( _ , res) => {
     try{
         const ratings = await getRatings();
-        console.log(ratings);
         // group all ratings by their ToolID
         const groupedRatings = {};
         ratings.forEach((rating) => {
