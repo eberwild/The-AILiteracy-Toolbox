@@ -1,12 +1,17 @@
 import axios from 'axios';
 import { Link , useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState , useRef} from 'react';
 import MainHeader from "../../components/MainHeader";
 import '../../styles/sidePages/RegisterPage.css';
 
 function RegisterPage() {
 
 const registerNavigate = useNavigate();
+
+const [ message , setMessage ] = useState('');
+const [ visible , setVisible ] = useState(false);
+
+const timerRef = useRef(null);
 
 const [registerData , setRegisterData] = useState({
     userEmail: '',
@@ -18,6 +23,20 @@ const [show , setShow] = useState(false);
 // function to toggle password visibility
 function changeVisibility(){
     setShow(!show);
+}
+
+// show quick toast with server repsonse
+function showServerResponse(text) {
+    setMessage(text);
+    setVisible(true);
+
+    if(timerRef.current){
+        clearTimeout(timerRef);
+    }
+
+    timerRef.current = setTimeout(() => {
+        setVisible(false);
+    } , 3000)
 }
 
 // function to register a new user 
@@ -32,12 +51,14 @@ async function registerUser(){
             registerNavigate('/add-tool');
         } else {
             console.log(response.data.message);
+            showServerResponse(response.data.message)
         }
         
     }catch(err){
         // axios stores errors >=400 in err.response
         if(err.response) {
             console.error('Error from server' , err.response.data.message);
+            showServerResponse(err.response.data.message);
         } 
     }
 }
@@ -73,6 +94,11 @@ async function registerUser(){
                         }}>
                     Register
                 </button>
+
+                <div className="server-info"
+                    style={{display: visible ? 'block' : 'none' }}>
+                    {message}
+                </div>
             </div>
 
             <p>

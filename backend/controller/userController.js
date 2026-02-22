@@ -20,7 +20,7 @@ export const createUser = async (req , res) => {
     // check if Email is already in use
     const existingUser = await findUserByEmail(stringEmail);
     if(existingUser) {
-      return res.status(400).json({message: 'Username is already in use.'});
+      return res.status(400).json({message: 'Email is already in use.'});
     }
 
     // hash the User-password
@@ -28,7 +28,7 @@ export const createUser = async (req , res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     if(!hashedPassword){
-      return res.status(400).json({message: "undefined hashedpassword"})
+      return res.status(400).json({message: "undefined hashedpassword"});
     }
 
     // create new user 
