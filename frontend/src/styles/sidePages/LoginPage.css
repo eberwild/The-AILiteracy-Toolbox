@@ -62,3 +62,21 @@
     border-color: #2b2d2f;
     background-color: #2b2d2f;
 }
+.server-info {
+    z-index: 1000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    border: 1px solid #f07f0e;
+    border-radius: 10px;
+    color: white;
+    padding: 25px;
+    background-color:rgb(100, 93, 93);
+    box-shadow: 0 0 5px rgba(240, 127, 14, 0.2);
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    max-width: 400px;
+    text-align: center;
+    word-wrap: break-word;
+}

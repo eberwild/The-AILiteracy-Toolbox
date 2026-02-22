@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Link , useNavigate} from 'react-router-dom';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import MainHeader from "../../components/MainHeader";
 import '../../styles/sidePages/LoginPage.css';
 
@@ -8,6 +8,11 @@ function LoginPage() {
 
 // state to track ot passwort is shown or not
 const [show , setShow] = useState(false);
+
+const [ message , setMessage ] = useState('');
+const [ visible , setVisible ] = useState(false);
+
+const timerRef = useRef(null);
 
 const loginNavigate = useNavigate();
 
@@ -22,6 +27,20 @@ function changeVisibility(){
     setShow(!show);
 }
 
+// show quick toast with server repsonse
+function showServerResponse(text) {
+    setMessage(text);
+    setVisible(true);
+
+    if(timerRef.current){
+        clearTimeout(timerRef);
+    }
+
+    timerRef.current = setTimeout(() => {
+        setVisible(false);
+    } , 3000)
+}
+
 // function to login an existing user 
 async function loginUser(){
     try{
@@ -33,12 +52,13 @@ async function loginUser(){
             localStorage.setItem('token' , response.data.token);
             loginNavigate('/add-tool');
         } else {
-            console.log(response.data.message);
+            showServerResponse(response.data.message)
         }
     }catch(err){
         // axios stores errors >=400 in err.response
         if(err.response) {
             console.error('Error from server' , err.response.data.message);
+            showServerResponse(err.response.data.message);
         } 
     }
 }
@@ -76,6 +96,11 @@ async function loginUser(){
                 >
                     Login
                 </button>
+
+                <div className="server-info"
+                    style={{display: visible ? 'block' : 'none' }}>
+                    {message}
+                </div>
             </div>
 
             <div className='login-links'>
