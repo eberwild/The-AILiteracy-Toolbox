@@ -1,4 +1,4 @@
-import { getAllEntries , createEntry } from "../models/blackboardModel.js";
+import { getAllEntries , createEntry , deleteEntry} from "../models/blackboardModel.js";
 
 export const fetchAllEntries = async( _ , res) => {
     try {
@@ -17,12 +17,15 @@ export const postEntry = async( req , res) => {
     try{
         const message = req.body.message;
         const email = req.user.email;
+        const userID = req.user.id;
 
-        // backend validation
-        // implemented soon!
+        // no empty messages!
+        if (!message || message.trim() === "") {
+            return res.status(400).json({message: "Message is required"});
+        }
 
         // insert new entry into db
-        const [id] = await createEntry(email , message);
+        const [id] = await createEntry(email , message , userID);
 
         // success feedback
         return res.status(201).json({
@@ -37,3 +40,28 @@ export const postEntry = async( req , res) => {
         })
     }
 }
+
+export const removeEntry = async (req, res) => {
+    try {
+        const entryId = req.params.id;
+        const userId = req.user.id;
+
+        const deletedRows = await deleteEntry(entryId, userId);
+
+        if (deletedRows === 0) {
+            return res.status(403).json({
+                message: "Not allowed to delete this entry."
+            });
+        }
+
+        return res.status(200).json({
+            message: "Entry deleted successfully."
+        });
+
+    } catch (err) {
+        console.log("Error in BlackboardController/removeEntry:", err.message);
+        return res.status(500).json({
+            message: "Server Error"
+        });
+    }
+};

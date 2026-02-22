@@ -10,7 +10,6 @@ function BlackboardEntry({ id , email , message , created_at , userID}) {
 
     if(token){
         const decoded = jwtDecode(token);
-        console.log(decoded);
         currentUserId = decoded?.id ? Number(decoded.id) : null;
     }
 
@@ -39,16 +38,21 @@ function BlackboardEntry({ id , email , message , created_at , userID}) {
                         {message} 
                     </div>
 
-                    <div className="user-time">
-                        {created_at}
-                    </div>
+                    <div className='bottom-section'>
 
-                    {currentUserId && userID && Number(currentUserId) === Number(userID) && (
-                        <button onClick={handleDelete}>
+                        {currentUserId && userID && Number(currentUserId) === Number(userID) && (
+                        <button className='delete-button'
+                            onClick={handleDelete}>
                             Delete
                         </button>
-                    )}
-                    
+                        )}
+
+                        <div className="user-time">
+                            {created_at}
+                        </div>
+
+                    </div>
+                
             </div>
         </>
     )

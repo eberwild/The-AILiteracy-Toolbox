@@ -18,11 +18,24 @@
     color: rgb(255, 255, 255);
     line-height: 1.5;
 }
+.bottom-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 .user-time {
     color: rgb(234, 129, 8);
     font-weight: bold;
-    align-self: flex-end;
+    margin-left: auto;
 }
 .delete-button {
-    align-self: flex-start;
+    padding: 6px;
+    background-color: rgb(188, 19, 19);
+    border: 1px solid black;
+    border-radius: 7px;
+    color: white;
+}
+.delete-button:hover {
+    background-color: white;
+    color: rgb(188, 19, 19);
 }
