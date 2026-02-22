@@ -66,6 +66,8 @@ function BlackboardPage() {
 
                             <BlackboardEntry
                                 key={entry.id}
+                                id={entry.id}
+                                userID={entry.user_id}
                                 email={entry.email}
                                 message={entry.message}
                                 created_at={entry.created_at}

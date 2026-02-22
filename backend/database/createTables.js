@@ -35,7 +35,12 @@ export const createTables = async () => {
   if (!blackboardExists) {
     
     await database.schema.createTable("blackboard", (table) => {
-      table.increments("id").primary(); 
+      table.increments("id").primary().unique();
+      table.integer("user_id")
+        .unsigned()
+        .references("id")
+        .inTable("users")
+        .onDelete("CASCADE");
       table.boolean("reviewed").defaultTo("false");
       table.string("email").notNullable().unique(); 
       table.string("message").notNullable();

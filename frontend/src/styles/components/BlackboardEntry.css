@@ -23,3 +23,6 @@
     font-weight: bold;
     align-self: flex-end;
 }
+.delete-button {
+    align-self: flex-start;
+}
