@@ -46,3 +46,11 @@ export const submissionLimiter = rateLimit({
         message: 'Too many Tool submissions.'
     }
 });
+
+export const blackBoardLimiter = rateLimit({
+    windowMs: 10 * 60 * 1000 ,
+    max: 3 ,
+    message: {
+        message: 'Too many Blackboard actions.'
+    }
+});

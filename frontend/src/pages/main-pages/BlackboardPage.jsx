@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState , useRef} from 'react';
 import axios from 'axios';
 import BlackboardEntry from '../../components/BlackboardEntry';
 import MainHeader from "../../components/MainHeader";
@@ -6,23 +6,45 @@ import '../../styles/pages/Blackboard.css';
 
 function BlackboardPage() {
 
+    const [serverMessage , setServerMessage ] = useState('');
+    const [visible , setVisible ] = useState(false);
+
     const [message , setMessage ] = useState('');
     const [isLoading , setIsLoading] = useState(true);
     const [entries , setEntries ] = useState([]);
 
     const API_URL = import.meta.env.VITE_API_URL;
 
-    useEffect(() => {
-        async function getEntries(){
-            try{
-                const response = await axios.get(`${API_URL}/api/blackboard`);
-                setEntries(response.data);
-                setIsLoading(false);
-            }catch(err){
-                console.log("Error in fetchEntries:" , err.message);
+    const timerRef = useRef(null);
+    
+        function showServerResponse(text) {
+            setServerMessage(text);
+            setVisible(true);
+    
+            if(timerRef.current){
+                clearTimeout(timerRef);
             }
+    
+            timerRef.current = setTimeout(() => {
+                setVisible(false);
+            } , 3000)
         }
-        getEntries();
+
+    async function getEntries(){
+        try{
+            const response = await axios.get(`${API_URL}/api/blackboard`);
+            setEntries(response.data);
+            setIsLoading(false);
+        }catch(err){
+            console.log("Error in fetchEntries:" , err.message);
+        }
+    }
+
+    useEffect(() => {
+        async function fetchBlackboardEntries(){
+            await getEntries();
+        }
+        fetchBlackboardEntries();
     } , [])
 
     return(
@@ -92,7 +114,13 @@ function BlackboardPage() {
                            value={message}
                            onChange={(event) => {
                                 setMessage(event.target.value)
-                           }} />
+                           }} 
+                    />
+
+                <div className="server-info"
+                    style={{display: visible ? 'block' : 'none' }}>
+                    {serverMessage}
+                </div>
 
                 <button className='blackboard-button'
                         onClick={async () => {
@@ -113,9 +141,11 @@ function BlackboardPage() {
                                     }
                                 );
 
-                                console.log(response.data.message);
+                                await getEntries();
+                                setMessage('');
+                                showServerResponse(response.data.message);
                             }catch(err){
-                                console.log("Error in submitting to blackboard:" , err.message);
+                                showServerResponse(err.response.data.message);
                             }
                         }}>
                     Post to Blackboard
