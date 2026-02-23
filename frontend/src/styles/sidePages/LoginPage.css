@@ -64,10 +64,6 @@
 }
 .server-info {
     z-index: 1000;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50% , -50%);
     border: 1px solid #f07f0e;
     border-radius: 10px;
     color: white;

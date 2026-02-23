@@ -54,11 +54,14 @@ function AddToolPage() {
                     }
                 }
                 );
-                showServerResponse(response.data.message);
+                if(response.status === 201){
+                    await sendEmails(input);
+                    showServerResponse(response.data.message);
+                }
         }
         } catch(err){
             console.log('Error in submitting tool:' , err.message);
-            showServerResponse(err.response.data.message + " to submit a tool!");
+            showServerResponse(err.response.data.message);
         }
     }
 
@@ -252,7 +255,6 @@ function AddToolPage() {
                         onClick={async () => {
 
                             await insertNewTool(toolInput);
-                            await sendEmails(toolInput);
                                 
                         }}
                 >

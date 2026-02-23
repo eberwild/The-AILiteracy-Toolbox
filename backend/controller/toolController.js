@@ -49,12 +49,14 @@ export const provideNewTool = async(req , res) => {
         }
 
         // test if the submitted gitURL is able to load
+        /*
         const validGitRepo = await testToolRepo(gitURL);
         if(!validGitRepo){
             return res.status(400).json({
-                message: "We could not start you submitted Git-repo , pleae check it."
+                message: "We could not start you submitted Git-repo , please check it."
             });
         }
+        */
 
         // insert tool into table
         const [id] = await insertTool(req.body);

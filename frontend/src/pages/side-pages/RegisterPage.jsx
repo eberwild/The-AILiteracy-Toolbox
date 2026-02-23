@@ -49,10 +49,7 @@ async function registerUser(){
         if(response.status === 201){
             localStorage.setItem('token' , response.data.token);
             registerNavigate('/add-tool');
-        } else {
-            console.log(response.data.message);
-            showServerResponse(response.data.message)
-        }
+        } 
         
     }catch(err){
         // axios stores errors >=400 in err.response

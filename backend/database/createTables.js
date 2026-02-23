@@ -55,6 +55,7 @@ export const createTables = async () => {
     
     await database.schema.createTable("tools", (table) => {
       table.increments("id").primary(); 
+      table.boolean("reviewed").defaultTo("false");
       table.string("name").notNullable(); 
       table.string("title").notNullable().unique();
       table.string("provider_email").notNullable();

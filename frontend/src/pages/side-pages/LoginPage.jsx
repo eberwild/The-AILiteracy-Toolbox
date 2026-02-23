@@ -43,6 +43,7 @@ function showServerResponse(text) {
 
 // function to login an existing user 
 async function loginUser(){
+    
     try{
         const response = await axios.post('http://localhost:5000/api/users/login' , {
             email: loginData.userEmail,
@@ -51,9 +52,7 @@ async function loginUser(){
         if(response.status === 200){
             localStorage.setItem('token' , response.data.token);
             loginNavigate('/add-tool');
-        } else {
-            showServerResponse(response.data.message)
-        }
+        } 
     }catch(err){
         // axios stores errors >=400 in err.response
         if(err.response) {

@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { sendProviderMail , sendColapsMail  , sendColapsContactMail} from '../service/emailService.js';
+import { emailLimiter } from '../middleware/limiter.js';
 
 const emailRouter = Router();
 
@@ -10,11 +11,11 @@ emailRouter.post('/submission' ,  async (req , res) => {
     await sendProviderMail(email);
     await sendColapsMail(toolTitle , email);
 
-    res.json({message: 'Submission Mails sent!'});
+    res.json({message: 'Submission Mail sent!'});
 });
 
 // contact mails -> colaps
-emailRouter.post('/contact' , async (req , res) => {
+emailRouter.post('/contact' , emailLimiter , async (req , res) => {
     const {message , email} = req.body;
 
     await sendColapsContactMail(message , email);
