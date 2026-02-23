@@ -26,7 +26,7 @@ export const checkToolInput = async (object) => {
     }
 
     // check GitHub URL
-    const gitRegex = /^https?:\/\/github\.com\/[^/\s]+\/[^/\s]+\/?$/;
+    const gitRegex = /^https?:\/\/(www\.)?github\.com\/[^/\s]+\/[^/\s]+(\/.*)?$/;
     if(!object.gitURL || !gitRegex.test(object.gitURL)){
         alert('Please enter a valid GitHub Repository Link!')
         return false;

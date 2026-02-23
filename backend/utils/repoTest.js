@@ -114,45 +114,54 @@ export async function testToolRepo(repoUrl) {
     // Step 4 ->  Python workflow
     // ===============================
 
-    else if (hasRequirements || hasAppPy) {
+    else if (hasAppPy || hasRequirements) {
+      // Create a simple Python Docker container to run the tool safely
+      // Use official Python image, mount only the temp repo folder
+      // Limit resources and auto-remove container after exit
 
-      // Install Python dependencies if requirements.txt exists
+      // use 'python:3.12-alpine' for minimal footprint
+      const pyContainerName = `python-test-${Date.now()}`;
+
+      // Compose docker run args
+      const dockerArgs = [
+        "run",
+        "-d",                                 // detached
+        "--name", pyContainerName,            // container name
+        "--memory=128m",                      // RAM limit
+        "--cpus=0.5",                         // CPU limit
+        "-v", `${projectPath}:/usr/src/app:ro`, // mount repo read-only
+        "-w", "/usr/src/app",                 // working directory inside container
+        "python:3.12-alpine",                 // base image
+        "python", hasAppPy ? "app.py" : "python" // run app.py or fallback
+      ];
+
+      // install dependencies if requirements exist
       if (hasRequirements) {
-        await execa("python", ["-m", "pip", "install", "-r", requirementsPath]);
+        await execa("docker", [
+          "run",
+          "--rm",
+          "-v", `${projectPath}:/usr/src/app:ro`,
+          "-w", "/usr/src/app",
+          "python:3.12-alpine",
+          "sh", "-c", "python -m pip install -r requirements.txt"
+        ]);
       }
 
-      // Launch Python process (app.py if exists)
-      const pythonFile = hasAppPy ? appPyPath : null;
+      // start the python container
+      await execa("docker", dockerArgs);
 
-      if (!pythonFile) {
-        // No entry point detected → fail
-        tmpDir.removeCallback();
-        return false;
-      }
+      // wait a few seconds to ensure container started
+      await new Promise(resolve => setTimeout(resolve, 5000));
 
-      // Spawn the Python process
-      const pyProcess = spawn("python", [pythonFile], { cwd: projectPath });
+      // check if container is still running
+      const { stdout } = await execa("docker", ["ps", "-q", "-f", `name=${pyContainerName}`]);
+      const success = stdout.trim() !== "";
 
-      let processAlive = false;
-
-      // Listen for errors
-      pyProcess.on("error", (err) => {
-        console.error("Python process failed to start:", err);
-      });
-
-      // Set a timeout to check if process stays alive for 5 seconds
-      await new Promise(resolve => {
-        const timeout = setTimeout(() => {
-          // If process still running after 5 sec → consider startable
-          processAlive = !pyProcess.killed;
-          // Kill the process after test
-          pyProcess.kill();
-          resolve();
-        }, 5000);
-      });
-
+      // cleanup container
+      await execa("docker", ["rm", "-f", pyContainerName]);
       tmpDir.removeCallback();
-      return processAlive;
+
+      return success;
     }
 
     // ===============================
