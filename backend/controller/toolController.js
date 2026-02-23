@@ -1,4 +1,5 @@
 import { getAllTools , insertTool } from "../models/toolModel.js";
+import { testToolRepo } from "../utils/repoTest.js";
 
 // get all tools for render
 export const fetchallTools = async( _ , res) => {
@@ -30,20 +31,28 @@ export const provideNewTool = async(req , res) => {
 
         // backend validation
         if (!name || name.trim() === "") {
-        return res.status(400).json({ message: "Name is required." });
+            return res.status(400).json({ message: "Name is required." });
         }
 
         if (!title || title.trim() === "") {
-        return res.status(400).json({ message: "Title is required." });
+            return res.status(400).json({ message: "Title is required." });
         }
 
         if (!email || !email.includes("@")) {
-        return res.status(400).json({ message: "Valid email is required." });
+            return res.status(400).json({ message: "Valid email is required." });
         }
 
         if (!description || description.length < 15) {
-        return res.status(400).json({
-            message: "Description must be at least 15 characters."
+            return res.status(400).json({
+                message: "Description must be at least 15 characters."
+            });
+        }
+
+        // test if the submitted gitURL is able to load
+        const validGitRepo = await testToolRepo(gitURL);
+        if(!validGitRepo){
+            return res.status(400).json({
+                message: "We could not start you submitted Git-repo , pleae check it."
             });
         }
 
