@@ -16,6 +16,7 @@ export const fetchallTools = async( _ , res) => {
     }
 };
 
+// add a new tool 
 export const provideNewTool = async(req , res) => {
     try {
         const {
@@ -31,21 +32,33 @@ export const provideNewTool = async(req , res) => {
 
         // backend validation
         if (!name || name.trim() === "") {
-            return res.status(400).json({ message: "Name is required." });
+            return res.status(400).json({ 
+                message: "Name is required with at least 3 characters." 
+            });
         }
 
         if (!title || title.trim() === "") {
-            return res.status(400).json({ message: "Title is required." });
+            return res.status(400).json({ 
+                message: "Title is required with at least 6 characters." 
+            });
         }
 
         if (!email || !email.includes("@")) {
-            return res.status(400).json({ message: "Valid email is required." });
+            return res.status(400).json({
+                message: "Valid email is required." 
+            });
         }
 
         if (!description || description.length < 15) {
             return res.status(400).json({
                 message: "Description must be at least 15 characters."
             });
+        }
+
+        if(!type){
+            return res.status(400).json({
+                message: "Please select one type for your tool."
+            })
         }
 
         // test if the submitted gitURL is able to load -> via local docker
@@ -59,7 +72,9 @@ export const provideNewTool = async(req , res) => {
         // test if the submitted repoURL is able to load -> via external render
         const validGitRepoRender = await testFrontendRepoRender(gitURL);
         if (!validGitRepoRender) {
-            return res.status(400).json({ message: "Could not start your submitted GitHub repo , please check it." });
+            return res.status(400).json({ 
+                message: "Could not start your submitted GitHub repo , please check it." 
+            });
         }
 
         // insert tool into table
