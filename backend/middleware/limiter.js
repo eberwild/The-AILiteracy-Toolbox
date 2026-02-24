@@ -33,6 +33,13 @@ export const resetLimiter = rateLimit({
     }
 });
 
+export const passwordChangeLimiter = rateLimit({
+    windowMs: 10 * 60 * 1000,
+    max: 2,
+    message: { message: 'Too many password changes!' }
+});
+
+
 export const emailLimiter = rateLimit({
     windowMs: 10 * 60 *1000 ,
     max: 3 ,
