@@ -48,12 +48,18 @@ export const provideNewTool = async(req , res) => {
             });
         }
 
-        // test if the submitted gitURL is able to load
+        // test if the submitted gitURL is able to load -> via local docker
         const validGitRepo = await testToolRepo(gitURL);
         if(!validGitRepo){
             return res.status(400).json({
                 message: "We could not start you submitted Git-repo , please check it."
             });
+        }
+
+        // test if the submitted repoURL is able to load -> via external render
+        const validGitRepoRender = await testFrontendRepoRender(gitURL);
+        if (!validGitRepoRender) {
+            return res.status(400).json({ message: "Could not start your submitted GitHub repo , please check it." });
         }
 
         // insert tool into table
