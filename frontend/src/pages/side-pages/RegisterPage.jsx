@@ -3,62 +3,63 @@ import { Link , useNavigate } from 'react-router-dom';
 import { useState , useRef} from 'react';
 import MainHeader from "../../components/MainHeader";
 import '../../styles/sidePages/RegisterPage.css';
+import { checkLoginInput } from '../../utils/loginValidation';
 
 function RegisterPage() {
 
-const registerNavigate = useNavigate();
+    const registerNavigate = useNavigate();
 
-const [ message , setMessage ] = useState('');
-const [ visible , setVisible ] = useState(false);
+    const [ message , setMessage ] = useState('');
+    const [ visible , setVisible ] = useState(false);
 
-const timerRef = useRef(null);
+    const timerRef = useRef(null);
 
-const [registerData , setRegisterData] = useState({
-    userEmail: '',
-    userPassword: ''
-})
+    const [registerData , setRegisterData] = useState({
+        userEmail: '',
+        userPassword: ''
+    })
 
-const [show , setShow] = useState(false);
+    const [show , setShow] = useState(false);
 
-// function to toggle password visibility
-function changeVisibility(){
-    setShow(!show);
-}
-
-// show quick toast with server repsonse
-function showServerResponse(text) {
-    setMessage(text);
-    setVisible(true);
-
-    if(timerRef.current){
-        clearTimeout(timerRef);
+    // function to toggle password visibility
+    function changeVisibility(){
+        setShow(!show);
     }
 
-    timerRef.current = setTimeout(() => {
-        setVisible(false);
-    } , 3000)
-}
+    // show quick toast with server repsonse
+    function showServerResponse(text) {
+        setMessage(text);
+        setVisible(true);
 
-// function to register a new user 
-async function registerUser(){
-    try{
-        const response = await axios.post('http://localhost:5000/api/users/register' , {
-            email: registerData.userEmail,
-            password : registerData.userPassword
-        });
-        if(response.status === 201){
-            localStorage.setItem('token' , response.data.token);
-            registerNavigate('/add-tool');
-        } 
-        
-    }catch(err){
-        // axios stores errors >=400 in err.response
-        if(err.response) {
-            console.error('Error from server' , err.response.data.message);
-            showServerResponse(err.response.data.message);
-        } 
+        if(timerRef.current){
+            clearTimeout(timerRef);
+        }
+
+        timerRef.current = setTimeout(() => {
+            setVisible(false);
+        } , 3000)
     }
-}
+
+    // function to register a new user 
+    async function registerUser(){
+        try{
+            const response = await axios.post('http://localhost:5000/api/users/register' , {
+                email: registerData.userEmail,
+                password : registerData.userPassword
+            });
+            if(response.status === 201){
+                localStorage.setItem('token' , response.data.token);
+                registerNavigate('/add-tool');
+            } 
+            
+        }catch(err){
+            // axios stores errors >=400 in err.response
+            if(err.response) {
+                console.error('Error from server' , err.response.data.message);
+                showServerResponse(err.response.data.message);
+            } 
+        }
+    }
 
     return(
         <>
@@ -86,8 +87,13 @@ async function registerUser(){
                     {show ? "Hide Password" : "Show Password"}
                 </button>
                 <button className='register-button'
-                        onClick={() => {
-                            registerUser()
+                        onClick={async () => {
+                            const result = checkLoginInput(registerData);
+                            if(result.status){
+                                await registerUser();
+                            } else {
+                                showServerResponse(result.text);
+                            }
                         }}>
                     Register
                 </button>

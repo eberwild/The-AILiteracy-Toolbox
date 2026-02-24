@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../../styles/sidePages/AddToolPage.css';
 import { NavLink } from 'react-router';
 import { useState , useRef} from 'react';
-import { checkToolInput } from "../../utils/inputValidation";
+import { checkToolInput } from "../../utils/toolValidation.js";
 
 function AddToolPage() {
 

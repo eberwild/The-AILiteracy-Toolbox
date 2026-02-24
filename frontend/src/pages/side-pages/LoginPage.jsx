@@ -3,6 +3,7 @@ import { Link , useNavigate} from 'react-router-dom';
 import { useRef, useState } from 'react';
 import MainHeader from "../../components/MainHeader";
 import '../../styles/sidePages/LoginPage.css';
+import { checkLoginInput } from '../../utils/loginValidation.js';
 
 function LoginPage() {
 
@@ -89,8 +90,14 @@ async function loginUser(){
                     {show? "Hide Password" : "Show Password"}
                 </button>
                 <button className='login-button'
-                        onClick={() => {
-                            loginUser();
+                        onClick={async () => {
+                            const result = checkLoginInput(loginData);
+                            if(result.status){
+                                await loginUser();
+                            } else {
+                                showServerResponse(result.text);
+                            }
+                            
                         }}
                 >
                     Login
