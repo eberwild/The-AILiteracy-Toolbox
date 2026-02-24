@@ -44,8 +44,8 @@ function AddToolPage() {
     // insert a new tool into the database
     async function insertNewTool(input){
         try {
-            const isValid = await checkToolInput(input);
-            if(isValid){
+            const result = await checkToolInput(input);
+            if(result.status){
                 const token = localStorage.getItem('token');
                 const response = await axios.post(`${API_URL}/api/tools` , input ,
                 {
@@ -58,7 +58,9 @@ function AddToolPage() {
                     await sendEmails(input);
                     showServerResponse(response.data.message);
                 }
-        }
+            } else {
+                showServerResponse(result.text);
+            }
         } catch(err){
             console.log('Error in submitting tool:' , err.message);
             showServerResponse(err.response.data.message);
@@ -139,7 +141,7 @@ function AddToolPage() {
 
             <form className="input-form">
 
-                <label htmlFor="name">Your Name/Alias</label>
+                <label htmlFor="name">Your Name/Alias --  (at least 3 characters)</label>
                 <input type="text" 
                        id="name"
                        className="user-alias" 
@@ -150,7 +152,7 @@ function AddToolPage() {
                        }}
                        required/>
                 
-                <label htmlFor="title">Tool Title*</label>
+                <label htmlFor="title">Tool Title* -- (at least 6 characters)</label>
                 <input type="text" 
                        id="title"
                        className="tool-name" 
@@ -226,7 +228,7 @@ function AddToolPage() {
                 <option value="18+">Adults (18+)</option>
                 </select>
 
-                <label htmlFor="description">Description*</label>
+                <label htmlFor="description">Description* -- (at least 15 characters) </label>
                 <textarea name="description"
                           id="description"
                           rows="4" 
@@ -249,6 +251,10 @@ function AddToolPage() {
                     I consent to my submitted GitHub repository being used on this website.
                 </label>
 
+                <div className="server-info"
+                    style={{display: visible ? 'block' : 'none' }}>
+                    {message}
+                </div>
 
                 <button type="button" 
                         className="submit-button"
@@ -263,11 +269,6 @@ function AddToolPage() {
 
             </form>
 
-        </div>
-
-        <div className="server-info"
-            style={{display: visible ? 'block' : 'none' }}>
-                {message}
         </div>
 
     </div>

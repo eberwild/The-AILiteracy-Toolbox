@@ -108,12 +108,14 @@ export async function testRepoRenderMulti(repoUrl) {
       success = resp.ok;
     }
 
-    // Step 7️⃣ - Cleanup: delete Render service
+    // Cleanup 
+
+    // Step 8 - Cleanup: delete Render service
     await axios.delete(`https://api.render.com/v1/services/${serviceId}`, {
       headers: { Authorization: `Bearer ${process.env.RENDER_API_KEY}` }
     });
 
-    // Step 8️⃣ - Cleanup local tmp folder
+    // Step 9 - Cleanup local tmp folder
     tmpDir.removeCallback();
 
     // Return final result

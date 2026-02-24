@@ -132,8 +132,8 @@ export const requestResetEmail = async (req , res) => {
 
     const token = jwt.sign(payload , secret , { expiresIn: "1h"});
 
-    const port = process.env.PORT;
-
+    // redirect to password-change page with token in searchParams
+    const port = process.env.FRONTEND_PORT;
     const resetLink = `http://localhost:${port}/reset?token=${token}`;
 
     await sendResetLink(email , resetLink);

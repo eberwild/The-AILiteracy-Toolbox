@@ -1,35 +1,48 @@
 export const checkToolInput = async (object) => {
 
     // check name and set a default value
-    if(object.name.trim() === ''){
-        object.name = 'Guest';
+    const minNameLength = 3;
+    if(object.name.trim() === '' || object.name < minNameLength){
+        return {
+            status: false ,
+            text: `Please enter a name with a least ${minNameLength} characters.`
+        }
     }
 
     // check email
     const emailRegex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
     if(!object.email || !emailRegex.test(object.email)){
-        alert('Please enter a valid email adress!');
-        return false;
+        return {
+            status: false ,
+            text: 'Please enter a valid email adress!'
+        }
     }
 
     // check title 
-    if(!object.title || object.title.trim() === ''){
-        alert('Please enter a valid title for your tool!');
-        return false;
+    const minTitleLength = 6;
+    if(!object.title || object.title.trim() === '' || object.title.trim().length < minTitleLength){
+        return {
+            status: false ,
+            text: `Please enter a valid title with at least ${minTitleLength} characters.`
+        };
     }
 
     // check type 
     const types = ["game" , "education" , "quiz" , "other"];
     if(!types.includes(object.type)){
-        alert('Please enter a valid type.')
-        return false;
+        return {
+            status: false ,
+            text: 'Please select one type for your tool.'
+        }
     }
 
     // check GitHub URL
     const gitRegex = /^https?:\/\/(www\.)?github\.com\/[^/\s]+\/[^/\s]+(\/.*)?$/;
     if(!object.gitURL || !gitRegex.test(object.gitURL)){
-        alert('Please enter a valid GitHub Repository Link!')
-        return false;
+        return {
+            status: false ,
+            text: 'Please enter a valid GitHub Repository Link!'
+        }
     }
 
     // check thumbnail URL
@@ -57,30 +70,40 @@ export const checkToolInput = async (object) => {
     // await Thumbnail-Check
     const thumbnailValid = await isValidThumbnailURL(object.imgURL);
     if (!thumbnailValid) {
-        alert("Invalid thumbnail URL!");
-        return false;
+        return {
+            status: false ,
+            text: 'Please enter a valid thumbnail URL.'
+        }
     }
 
     //check ageRecommandation
     if(!object.ageRecom ) {
-        alert('Please select a valid age recommandation!');
-        return false;
+        return {
+            status: false ,
+            text: 'Please select a age recommendation.'
+        }
     }
 
     // check description
     const minDescriptionLength = 15;
     if(!object.description || object.description.trim().length < minDescriptionLength){
-        alert(`Please enter a description of at least ${minDescriptionLength} characters!`);
-        return false;
+        return {
+            status: false ,
+            text: `Please enter a description of at least ${minDescriptionLength} characters!`
+        }
     }
 
     //check checkbox
     if(!object.consent){
-        alert('Please except the consent.');
-        return false;
+        return {
+            status: false ,
+            text: 'Please accept the consent.'
+        }
     }
 
     // return true if every input is valid
-    return true;
+    return {
+        status: true 
+    }
 
 }
