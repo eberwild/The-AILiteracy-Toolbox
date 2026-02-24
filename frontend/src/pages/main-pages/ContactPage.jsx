@@ -3,9 +3,29 @@ import axios from 'axios';
 import '../../styles/pages/ContactPage.css';
 import faqData from '../../data/faqData';
 import FAQItem from '../../components/FAQItem';
-import { useState } from 'react';
+import { useState , useRef} from 'react';
+import { validateContact } from '../../utils/contactValidation.js';
 
 function ContactPage() {
+
+    const [ message , setMessage ] = useState('');
+    const [ visible , setVisible ] = useState(false);
+    
+    const timerRef = useRef(null);
+
+    // show quick toast with server repsonse
+    function showServerResponse(text) {
+        setMessage(text);
+        setVisible(true);
+
+        if(timerRef.current){
+            clearTimeout(timerRef);
+        }   
+
+        timerRef.current = setTimeout(() => {
+            setVisible(false);
+        } , 3000)
+    }
 
     // state object for email contact
     const [contact , setContact ] = useState({
@@ -103,12 +123,22 @@ function ContactPage() {
                         }}>      
                 </textarea>
 
+                <div className="server-info"
+                    style={{display: visible ? 'block' : 'none' }}>
+                    {message}
+                </div>
+
                 <button type="button" 
                         className="submit-button" 
                         id="submit-button"
                         onClick={ async () => {
-                            await sendContactMail(contact);
-                            console.log('Contact mail sent.');
+                            const result = validateContact(contact);
+                            if(result.status){
+                                await sendContactMail(contact);
+                            } else {
+                                showServerResponse(result.text);
+                            }
+                            
                         }}
                 >
                     Send Message
