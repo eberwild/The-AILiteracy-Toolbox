@@ -1,7 +1,10 @@
 import { findUserByEmail , insertUser , updatePasswort} from "../models/userModel.js";
 import { sendResetLink } from "../service/emailService.js";
 import bcrypt from "bcryptjs";
+import path from 'path';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config({ path: path.resolve('../.env.local') });
 
 // register a new user
 export const createUser = async (req , res) => {
@@ -129,7 +132,9 @@ export const requestResetEmail = async (req , res) => {
 
     const token = jwt.sign(payload , secret , { expiresIn: "1h"});
 
-    const resetLink = `http://localhost:5173/reset?token=${token}`;
+    const port = process.env.PORT;
+
+    const resetLink = `http://localhost:${port}/reset?token=${token}`;
 
     await sendResetLink(email , resetLink);
 
