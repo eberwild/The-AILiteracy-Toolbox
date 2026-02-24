@@ -3,6 +3,7 @@ import axios from 'axios';
 import BlackboardEntry from '../../components/BlackboardEntry';
 import MainHeader from "../../components/MainHeader";
 import '../../styles/pages/Blackboard.css';
+import { validateBlackBoardText } from '../../utils/blackboardValidation';
 
 function BlackboardPage() {
 
@@ -30,6 +31,7 @@ function BlackboardPage() {
             } , 3000)
         }
 
+    // function to fetch all blackboard entries
     async function getEntries(){
         try{
             const response = await axios.get(`${API_URL}/api/blackboard`);
@@ -39,6 +41,35 @@ function BlackboardPage() {
             console.log("Error in fetchEntries:" , err.message);
         }
     }
+
+    async function createBlackboardEntry(input){
+        try{
+            const token = localStorage.getItem('token');
+            if(!token){
+                console.log('No token found , acces denied.');
+            }
+            const response = await axios.post(`${API_URL}/api/blackboard` , 
+                {
+                    message: input
+                }
+            ,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+            if(response.status === 201){
+                await getEntries();
+                setMessage('');
+                showServerResponse(response.data.message);
+            }
+
+        }catch(err){
+            showServerResponse(err.response.data.message);
+        }
+    }
+        
 
     useEffect(() => {
         async function fetchBlackboardEntries(){
@@ -124,28 +155,11 @@ function BlackboardPage() {
 
                 <button className='blackboard-button'
                         onClick={async () => {
-                            try{
-                                const token = localStorage.getItem('token');
-                                if(!token){
-                                    console.log('No token found , acces denied.');
-                                }
-                                const response = await axios.post(`${API_URL}/api/blackboard` , 
-                                    {
-                                        message 
-                                    }
-                                ,
-                                    {
-                                        headers: {
-                                            Authorization: `Bearer ${token}`
-                                        }
-                                    }
-                                );
-
-                                await getEntries();
-                                setMessage('');
-                                showServerResponse(response.data.message);
-                            }catch(err){
-                                showServerResponse(err.response.data.message);
+                            const result = validateBlackBoardText(message);
+                            if(result.status){
+                                await createBlackboardEntry(message);
+                            } else {
+                                showServerResponse(result.text);
                             }
                         }}>
                     Post to Blackboard

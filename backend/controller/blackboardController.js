@@ -1,4 +1,4 @@
-import { getAllEntries , createEntry , deleteEntry} from "../models/blackboardModel.js";
+import { getAllEntries , createEntry , deleteEntry , getEntryById } from "../models/blackboardModel.js";
 
 export const fetchAllEntries = async( _ , res) => {
     try {
@@ -18,6 +18,14 @@ export const postEntry = async( req , res) => {
         const message = req.body.message;
         const email = req.user.email;
         const userID = req.user.id;
+
+        // checkn if the user already has an active entry on the blackboard
+        const existingEntry = getEntryById(userID);
+        if(existingEntry){
+            return res.status(409).json({
+                message: "Only one Entry per user."
+            })
+        }
 
         // no empty messages!
         if (!message || message.trim() === "") {
