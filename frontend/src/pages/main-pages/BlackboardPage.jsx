@@ -3,7 +3,7 @@ import axios from 'axios';
 import BlackboardEntry from '../../components/BlackboardEntry';
 import MainHeader from "../../components/MainHeader";
 import '../../styles/pages/Blackboard.css';
-import { validateBlackBoardText } from '../../utils/blackboardValidation';
+import { validateBlackBoardText } from '../../utils/blackboardValidation.js';
 
 function BlackboardPage() {
 

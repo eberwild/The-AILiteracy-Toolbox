@@ -39,9 +39,11 @@ function ContactPage() {
                 email: input.email ,
                 message: input.message
             });
-            console.log(response);
+            if(response.ok){
+                showServerResponse((await response).data.message)
+            }
         } catch(err) {
-            console.log('Error in sending contact mail!' , err.message)
+            showServerResponse(err.response.data.message);
         }
     }
 

@@ -15,6 +15,14 @@ export const validateContact = (input) => {
         }
     }
 
+    const minMessageLength = 20;
+    if(input.message.trim().length < minMessageLength){
+        return {
+            status: false ,
+            text: 'Your message must be at least 20 characters long.'
+        }
+    }
+
     return {
         status: true
     }
