@@ -61,6 +61,7 @@ export const createTables = async () => {
       table.string("provider_email").notNullable();
       table.string("type").notNullable();
       table.string("git_URL").notNullable().unique();
+      table.string("renderURL").defaultTo("").unique();
       table.string("img_URL").notNullable();
       table.string("age_recom").notNullable();
       table.string("description").notNullable();

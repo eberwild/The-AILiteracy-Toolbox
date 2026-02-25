@@ -1,6 +1,6 @@
 import '../styles/components/Tool.css';
 
-function Tool({tool , setRatingMenuOpen , setActiveTool , ratingSRC}) {
+function Tool({tool , setRatingMenuOpen , setActiveTool , ratingSRC }) {
     
     return (
 
@@ -25,7 +25,11 @@ function Tool({tool , setRatingMenuOpen , setActiveTool , ratingSRC}) {
                     {tool.name}
                 </div>
 
-                <button className='tool-play-button'>
+                <button className='tool-play-button'
+                    onClick={() => {
+                        window.open(tool.git_URL , '_blank')
+                    }}
+                >
                     Play 
                 </button>
 
