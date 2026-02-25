@@ -70,7 +70,27 @@ function ContactPage() {
                     Her research focuses on computational learning analytics, 
                     AI in education, and educational technologies, providing valuable guidance on educational and technical aspects of the project.
                 </p>
+            </div>
 
+            <div className='author-section'>
+                <h2>Project Author</h2>
+                <div className='contact-spacer'></div>
+                <p>
+                    Developed and implemented as part of a Bachelor thesis project.
+                </p>
+                <div className='author-links'>
+                    <a className='author-linkedin-link'
+                        href='https://www.linkedin.com/in/kevin-flotow-073488374/'
+                        target='_blank'>
+                        LinkedIn
+                    </a>
+                    <a className='author-github-link'
+                        href='https://github.com/eberwild'
+                        target='_blank'>
+                        GitHub
+                    </a>
+
+                </div>
             </div>
 
             <div className="contact-intro-section">

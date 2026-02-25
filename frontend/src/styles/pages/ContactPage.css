@@ -117,3 +117,32 @@
     text-align: center;
     word-wrap: break-word;
 }
+.author-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    margin-bottom: 70px;
+}
+.author-links {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 20px;
+    align-items: center;
+    justify-content: space-around;
+}
+.author-links a {
+    text-decoration: none;
+    font-size: large;
+    font-weight: bold;
+}
+.author-linkedin-link {
+    color: rgb(15, 168, 192);
+}
+.author-github-link {
+    color: white;
+}
