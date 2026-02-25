@@ -84,6 +84,9 @@ export async function testRepoRenderMulti(repoUrl) {
       { headers: { Authorization: `Bearer ${process.env.RENDER_API_KEY}` } }
     );
 
+    if (!createResp.data?.id) {
+      throw new Error("Service creation failed");
+    }
     const serviceId = createResp.data.id;
     const serviceUrl = createResp.data.serviceDetails?.url || createResp.data.service?.url;
 

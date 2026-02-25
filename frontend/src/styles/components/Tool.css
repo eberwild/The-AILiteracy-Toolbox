@@ -59,3 +59,31 @@
     border-radius: 9px;
     padding:5px;
 }
+.tool-play-button {
+    color: #ffffff;
+    background-color: transparent;
+    border: 1px solid #f07f0e;
+    font-size: 0.9rem;
+    padding: 15px;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 0 5px rgba(240, 127, 14, 0.2);
+    cursor: pointer;
+    margin-bottom: 10px;
+    width: auto;
+    max-width: fit-content;
+    text-align: center;
+}
+.tool-play-button:hover {
+    background-color: #f07f0e;
+    color: #000;
+    box-shadow: 0 2px 8px rgba(240, 127, 14, 0.5);
+}
+.tool-play-button:active {
+    background-color: yellow;
+    box-shadow: none;
+    transform : translateY(4px);
+}

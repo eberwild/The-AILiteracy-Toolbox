@@ -25,6 +25,10 @@ function Tool({tool , setRatingMenuOpen , setActiveTool , ratingSRC}) {
                     {tool.name}
                 </div>
 
+                <button className='tool-play-button'>
+                    Play 
+                </button>
+
                 <div className='tool-description'>
                         {tool.description}
                 </div>
