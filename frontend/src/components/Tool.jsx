@@ -27,7 +27,7 @@ function Tool({tool , setRatingMenuOpen , setActiveTool , ratingSRC }) {
 
                 <button className='tool-play-button'
                     onClick={() => {
-                        window.open(tool.git_URL , '_blank')
+                        window.open(tool.renderURL , '_blank')
                     }}
                 >
                     Play 

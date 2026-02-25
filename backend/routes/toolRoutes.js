@@ -6,6 +6,6 @@ import { verifyToken } from '../middleware/auth.js';
 const toolRouter = express.Router();
 
 toolRouter.get('/' , fetchallTools);
-toolRouter.post('/' , submissionLimiter , verifyToken , provideNewTool);
+toolRouter.post('/', submissionLimiter , verifyToken , provideNewTool);
 
 export default toolRouter;

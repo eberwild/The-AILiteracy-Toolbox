@@ -61,6 +61,7 @@ export const provideNewTool = async(req , res) => {
             })
         }
 
+        /*
         // test if the submitted gitURL is able to load -> via local docker
         const validGitRepo = await testToolRepo(gitURL);
         if(!validGitRepo){
@@ -76,7 +77,7 @@ export const provideNewTool = async(req , res) => {
                 message: "Could not start your submitted GitHub repo , please check it." 
             });
         }
-
+        */
         // insert tool into table
         const [id] = await insertTool(req.body);
 
