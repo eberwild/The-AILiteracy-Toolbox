@@ -1,5 +1,5 @@
 import { getAllTools , insertTool } from "../models/toolModel.js";
-import { testToolRepo } from "../utils/repoTest.js";
+import { testToolRepoRenderMulti } from "../utils/repoTest.js";
 
 // get all tools for render
 export const fetchallTools = async( _ , res) => {
@@ -61,29 +61,20 @@ export const provideNewTool = async(req , res) => {
             })
         }
 
-        /*
-        // test if the submitted gitURL is able to load -> via local docker
-        const validGitRepo = await testToolRepo(gitURL);
-        if(!validGitRepo){
-            return res.status(400).json({
-                message: "We could not start you submitted Git-repo , please check it."
-            });
-        }
-
         // test if the submitted repoURL is able to load -> via external render
-        const validGitRepoRender = await testFrontendRepoRender(gitURL);
-        if (!validGitRepoRender) {
+        const validGitRepoRender = await testToolRepoRenderMulti(gitURL);
+        if (!validGitRepoRender.status) {
             return res.status(400).json({ 
-                message: "Could not start your submitted GitHub repo , please check it." 
+                message: validGitRepoRender.text 
             });
         }
-        */
+    
         // insert tool into table
         const [id] = await insertTool(req.body);
 
         // success feedback
         return res.status(201).json({
-            message: "Tool created successfully.",
+            message: "Tool passed all tests.",
             id
         });
 

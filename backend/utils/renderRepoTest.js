@@ -1,83 +1,115 @@
-import fetch from "node-fetch"; // to test deployed site URL
-import axios from "axios";       // to interact with Render API
-import crypto from "crypto";     // generate unique service names
-import fs from "fs-extra";       // check files in repo
-import tmp from "tmp";           // temporary folder for cloning repo
-import simpleGit from "simple-git"; // clone GitHub repos
+import fetch from "node-fetch";
+import axios from "axios";
+import crypto from "crypto";
+import fs from "fs-extra";
+import tmp from "tmp";
+import simpleGit from "simple-git";
 import dotenv from "dotenv";
 
-dotenv.config({ path: ".env.docker" }); // load Render API key
-
-/**
- * Test a user-submitted repo by deploying temporarily on Render.
- * Supports 3 types:
- * 1) React/Vite (Node frontend)
- * 2) Plain HTML/JS/CSS
- * 3) Python Webservice (Flask/FastAPI)
- *
- * @param {string} repoUrl - GitHub repo URL
- * @returns {boolean} - true if site runs/responds, false otherwise
- */
+dotenv.config({path: "../.env.local"});
 
 export async function testRepoRenderMulti(repoUrl) {
 
-  // Step 1 - Generate unique service name
-  const serviceName = `tool-test-${crypto.randomBytes(4).toString("hex")}`;
-
-  // Step 2 - Clone repo into temporary folder
+  const serviceName = `tool-test-${crypto.randomBytes(4).toString("hex")}`; 
+  let serviceId = null;
   const tmpDir = tmp.dirSync({ unsafeCleanup: true });
   const projectPath = tmpDir.name;
 
   try {
+    // Step 1 ->  Clone repo
     await simpleGit().clone(repoUrl, projectPath);
 
-    // Step 3 - Detect project type
     const packageJsonPath = `${projectPath}/package.json`;
     const requirementsPath = `${projectPath}/requirements.txt`;
-    let projectType = "plain"; // default = plain HTML/JS/CSS
+    const indexPath = `${projectPath}/index.html`;
+    const appPyPath = `${projectPath}/app.py`;
+    const mainPyPath = `${projectPath}/main.py`;
 
-    if (await fs.pathExists(packageJsonPath)) {
-      projectType = "node"; // React/Vite or other Node frontend
-    } else if (await fs.pathExists(requirementsPath)) {
-      projectType = "python"; // Python webservice
+    let projectType = null;
+
+    // ==========================
+    // Step 2 ->  Strict Type Detection
+    // ==========================
+
+    // --- Plain HTML Project ---
+    if (await fs.pathExists(indexPath)) {
+      projectType = "plain";
     }
 
-    // Step 4 - Prepare Render API payload based on type
-    let renderPayload = { name: serviceName };
+    // --- Node.js Backend ---
+    if (await fs.pathExists(packageJsonPath)) {
+      const pkg = await fs.readJson(packageJsonPath);
 
-    if (projectType === "node") {
-      // React/Vite frontend
+      if (!pkg.scripts || !pkg.scripts.start) {
+        throw new Error("Node project missing start script");
+      }
+
+      projectType = "node";
+    }
+
+    // --- Python Flask ---
+    if (await fs.pathExists(requirementsPath)) {
+
+      if (!(await fs.pathExists(appPyPath)) && !(await fs.pathExists(mainPyPath))) {
+        throw new Error("Python project missing app.py or main.py");
+      }
+
+      projectType = "python";
+    }
+
+    if (!projectType) {
+      throw new Error("Repository does not match supported project types");
+    }
+
+    // ==========================
+    // Step 3 ->  Prepare Render Payload
+    // ==========================
+
+    let renderPayload;
+
+    if (projectType === "plain") {
+
       renderPayload = {
-        ...renderPayload,
+        name: serviceName,
         type: "static_site",
         repo: repoUrl,
         branch: "main",
-        buildCommand: "npm install && npm run build",
-        publishDirectory: "dist"
+        buildCommand: "",
+        publishDirectory: ".",
+        autoDeploy: false
       };
-    } else if (projectType === "python") {
-      // Python Web Service (Flask/FastAPI)
+
+    } else if (projectType === "node") {
+
       renderPayload = {
-        ...renderPayload,
+        name: serviceName,
+        type: "web_service",
+        repo: repoUrl,
+        branch: "main",
+        buildCommand: "npm install",
+        startCommand: "npm start",
+        autoDeploy: false
+      };
+
+    } else if (projectType === "python") {
+
+      const startFile = (await fs.pathExists(appPyPath)) ? "app.py" : "main.py";
+
+      renderPayload = {
+        name: serviceName,
         type: "web_service",
         repo: repoUrl,
         branch: "main",
         buildCommand: "pip install -r requirements.txt",
-        startCommand: "python main.py"
-      };
-    } else {
-      // Plain HTML/JS/CSS
-      renderPayload = {
-        ...renderPayload,
-        type: "static_site",
-        repo: repoUrl,
-        branch: "main",
-        buildCommand: null,        // no build needed
-        publishDirectory: "."      // serve root folder
+        startCommand: `python ${startFile}`,
+        autoDeploy: false
       };
     }
 
-    // Step 5 - Create service on Render
+    // ==========================
+    // Step 4 ->  Create Render Service
+    // ==========================
+
     const createResp = await axios.post(
       "https://api.render.com/v1/services",
       renderPayload,
@@ -85,48 +117,90 @@ export async function testRepoRenderMulti(repoUrl) {
     );
 
     if (!createResp.data?.id) {
-      throw new Error("Service creation failed");
+      throw new Error("Render service creation failed");
     }
-    const serviceId = createResp.data.id;
-    const serviceUrl = createResp.data.serviceDetails?.url || createResp.data.service?.url;
 
-    // Step 6 - Poll until service is live or failed with maximal time 
+    serviceId = createResp.data.id;
+
+    // ==========================
+    // Step 5 ->  Poll for Live Status
+    // ==========================
+
+    let serviceUrl = null;
     let isLive = false;
-    for (let i = 0; i < 20; i++) { // max 100s
-      await new Promise(r => setTimeout(r, 5000)); // 5s delay
 
-      const statusResp = await axios.get(`https://api.render.com/v1/services/${serviceId}`, {
-        headers: { Authorization: `Bearer ${process.env.RENDER_API_KEY}` }
-      });
+    for (let i = 0; i < 30; i++) { // 150 seconds max
+      await new Promise(r => setTimeout(r, 5000));
+
+      const statusResp = await axios.get(
+        `https://api.render.com/v1/services/${serviceId}`,
+        { headers: { Authorization: `Bearer ${process.env.RENDER_API_KEY}` } }
+      );
 
       const state = statusResp.data.state;
-      if (state === "live") { isLive = true; break; }
-      else if (state === "failed") { break; }
+
+      if (state === "live") {
+        isLive = true;
+        serviceUrl = statusResp.data.serviceDetails?.url 
+                  || statusResp.data.service?.url;
+        break;
+      }
+
+      if (state === "failed") {
+        break;
+      }
     }
 
-    // Step 7 - Test HTTP response (only for live URL)
+    // ==============================
+    // Step 6 ->  Test HTTP Response
+    // ==============================
+
     let success = false;
+
     if (isLive && serviceUrl) {
       const resp = await fetch(serviceUrl);
       success = resp.ok;
     }
 
-    // Cleanup 
+    // ==========================
+    // Step 7 ->  Success/Fail
+    // ==========================
 
-    // Step 8 - Cleanup: delete Render service
-    await axios.delete(`https://api.render.com/v1/services/${serviceId}`, {
-      headers: { Authorization: `Bearer ${process.env.RENDER_API_KEY}` }
-    });
-
-    // Step 9 - Cleanup local tmp folder
-    tmpDir.removeCallback();
-
-    // Return final result
-    return success;
-
+    if(success){
+      return {
+        status: true
+      }
+    } else {
+      return {
+        status: false ,
+        text: "Service could not go live or failed."
+      }
+    }
+    
+  // ==========================
+  // Step 8 ->  Error Response
+  // ==========================
   } catch (err) {
     console.error("Render Multi-Repo Test Error:", err.message);
-    tmpDir.removeCallback();
-    return false;
+    return {
+      status: false ,
+      text: err.message
+    }
+  // ==========================
+  // Step 9 ->  Cleanup
+  // ==========================
+  } finally {
+      if (serviceId) {
+        try {
+          await axios.delete(
+            `https://api.render.com/v1/services/${serviceId}`,
+            { headers: { Authorization: `Bearer ${process.env.RENDER_API_KEY}` } }
+          );
+        } catch (cleanupErr) {
+          console.error("Cleanup failed:", cleanupErr.message);
+        }
+    }
+
+  tmpDir.removeCallback();
   }
 }
