@@ -113,6 +113,21 @@ function AddToolPage() {
                 </p>
             </div>
 
+            <div className="tool-requirements">
+                <h2>Supported Project Types</h2>
+                <div className="addtool-spacer"></div>
+                <ul style={{lineHeight: 2}}>
+                    <li>Plain HTML/CSS/JS </li>
+                    <li>Node.js</li>
+                    <li>Python Flask</li>
+                </ul>
+                <NavLink to="/requirements"
+                        className="requirements-link"
+                >
+                    Click here for full requirements! 
+                </NavLink>
+            </div>
+
         <div className="provide-tool-section">
             <h1 className="submit-header">Submit Your Tool here!</h1>
             <div className="addtool-spacer"></div>

@@ -12,6 +12,7 @@ import LoginPage from './pages/side-pages/LoginPage';
 import AddToolPage from './pages/side-pages/AddToolPage';
 import RequestReset from './pages/side-pages/RequestReset';
 import ResetPage from './pages/side-pages/ResetPage';
+import Requirements from './pages/side-pages/Requirements';
 // pillar pages
 import PillarPage from './pages/main-pages/PillarPage';
 import UnderstandingAI from './components/pillar-components/UnderstandingAI';
@@ -54,6 +55,8 @@ function App() {
                       element={<ToolsPage/>} />
             <Route path='/add-tool'
                       element={<AddToolPage/>} />
+            <Route path='/requirements'
+                      element={<Requirements/>} />
             <Route path='/contact'
                       element={<ContactPage/>} />
         </Routes> 

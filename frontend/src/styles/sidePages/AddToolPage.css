@@ -35,6 +35,21 @@
 .blackboard-link:hover {
     text-decoration: underline;
 }
+.tool-requirements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 40px;
+}
+.requirements-link {
+    text-decoration: none;
+    color:#f07f0e;
+    font-weight: bold;
+}
+.requirements-link:hover {
+    text-decoration: underline;
+}
 .provide-tool-section {
     display: flex;
     flex-direction: column;
