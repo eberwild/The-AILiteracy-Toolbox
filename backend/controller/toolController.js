@@ -1,5 +1,5 @@
 import { getAllTools , insertTool } from "../models/toolModel.js";
-import { testToolRepoRenderMulti } from "../utils/repoTest.js";
+import { testRepoRenderMulti } from "../utils/renderRepoTest.js";
 
 // get all tools for render
 export const fetchallTools = async( _ , res) => {
@@ -62,7 +62,7 @@ export const provideNewTool = async(req , res) => {
         }
 
         // test if the submitted repoURL is able to load -> via external render
-        const validGitRepoRender = await testToolRepoRenderMulti(gitURL);
+        const validGitRepoRender = await testRepoRenderMulti(gitURL);
         if (!validGitRepoRender.status) {
             return res.status(400).json({ 
                 message: validGitRepoRender.text 
