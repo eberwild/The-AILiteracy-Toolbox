@@ -41,6 +41,7 @@ export const verifyToken = (req , res , next) => {
         // user infos will be added to the HTTP-Header
         // middleware or api-routes after the verification have access to the user data
         req.user = decoded;
+        console.log(decoded)
 
         // token check is valid -> tell express to continue with next middleware or api-route
         next();

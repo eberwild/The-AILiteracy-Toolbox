@@ -61,3 +61,11 @@ export const blackBoardLimiter = rateLimit({
         message: 'Too many Blackboard actions.'
     }
 });
+
+export const deleteBlackboardLimiter = rateLimit({
+    windowMs: 10 * 60 * 1000 ,
+    max: 3 ,
+    message: {
+        message: 'Too many Blackboard actions.'
+    }
+})

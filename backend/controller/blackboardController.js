@@ -19,8 +19,8 @@ export const postEntry = async( req , res) => {
         const email = req.user.email;
         const userID = req.user.id;
 
-        // checkn if the user already has an active entry on the blackboard
-        const existingEntry = getEntryById(userID);
+        // check if the user already has an active entry on the blackboard
+        const existingEntry = await getEntryById(userID);
         if(existingEntry){
             return res.status(409).json({
                 message: "Only one Entry per user."
